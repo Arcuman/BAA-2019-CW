@@ -45,13 +45,15 @@ main
 	t1 = 2;
 	  write "t1 = ";
 	writeline t;
-	type integer ab;
-	while: 3 ! 52 
+	type integer ab = 0;
+	writeline "cycle start:";
+	while: ab ! 5 
 	do [
 		write ab;
 		write " ";
-		ab = (ab + 2)*2 - 2 / 8;
+		ab = ab + 1;
 	]
+	writeline "cycle end:";
 	writeline " ";
 	writeline ab;
 }

@@ -40,9 +40,10 @@ ExitProcess PROTO:DWORD
 	L18 SDWORD 1
 	L19 BYTE 't = ', 0
 	L20 BYTE 't1 = ', 0
-	L21 SDWORD 52
-	L22 BYTE ' ', 0
-	L23 SDWORD 8
+	L21 SDWORD 0
+	L22 BYTE 'cycle start:', 0
+	L23 BYTE ' ', 0
+	L24 BYTE 'cycle end:', 0
 .data
 	minc SDWORD 0
 	mainx SDWORD 0
@@ -243,38 +244,38 @@ call outstr
 
 push maint
 call outnumline
-
-push mainab
-call outnum
-
-push offset L22
-call outstr
-	push mainab
-	push L3
-	pop eax
-	pop ebx
-	add eax, ebx
-	push eax
-	push L3
-	pop eax
-	pop ebx
-	mul ebx
-	push eax
-	push L3
-	push L23
-	pop ebx
-	pop eax
-	cdq
-	idiv ebx
-	push eax
-	pop ebx
-	pop eax
-	sub eax, ebx
-	push eax
+	push L21
 	pop mainab
 
 
 push offset L22
+call outstrline
+	mov edx, mainab
+	cmp edx, L5
+	jnz cycle1
+	jmp continue1
+ cycle1:
+push mainab
+call outnum
+
+push offset L23
+call outstr
+	push mainab
+	push L18
+	pop eax
+	pop ebx
+	add eax, ebx
+	push eax
+	pop mainab
+
+	mov edx, mainab
+	cmp edx, L5
+	jnz cycle1
+continue1:
+push offset L24
+call outstrline
+
+push offset L23
 call outstrline
 
 push mainab

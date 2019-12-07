@@ -1,5 +1,5 @@
 #include "pch.h"
-
+#include <string>
 
 using namespace std;
 
@@ -12,7 +12,7 @@ namespace Gener
 		ofile << BEGIN;
 		ofile << EXTERN;
 		ofile << ".const\n";
-		int conditionnum = 0;
+		int conditionnum = 0,cyclenum=0;
 		for (int i = 0; i < lex.idtable.size; i++)
 		{
 			if (lex.idtable.table[i].idtype == IT::L)
@@ -54,12 +54,8 @@ namespace Gener
 		}
 
 		stack<string> stk;
-		int num_of_points = 0,
-			num_of_ret = 0,
-			num_of_ends = 0;
-		string strret = "", func_name = "";					// имя локальной функции
-		bool flag_func = false,					// внутри локальной функции?
-			flag_body = false,					// внутри главной функции?
+		string cyclecode = "", func_name = "";					// имя локальной функции
+		bool flag_cycle = false,					// внутри локальной функции?
 			flag_is = false,					// is
 			flag_true = false,					
 			flag_false = false;					
@@ -98,13 +94,11 @@ namespace Gener
 					}
 					j++;
 				}
-				flag_func = true;
 				ofile << endl;
 				break;
 			}
 			case LEX_MAIN:
 			{
-				flag_body = true;
 				ofile << "main PROC\n";
 				break;
 			}
@@ -308,8 +302,47 @@ namespace Gener
 						ofile << "\tjmp next" << conditionnum << "\n\n";
 					}
 				}
+				if (flag_cycle)
+				{
+					flag_cycle = false;
+					ofile << cyclecode;
+					ofile << "continue" << cyclenum << ":";
+				}
 				break;
 			}
+			case LEX_WHILE:
+			{
+				flag_cycle = true;
+				cyclecode.clear();
+				cyclenum++;
+				cyclecode = "\tmov edx, " + (string)ITENTRY(i + 1).id + "\n\tcmp edx, " + (string)ITENTRY(i + 3).id + "\n";
+				char* right;
+				switch (LEXEMA(i + 2))
+				{
+				case LEX_MORE:
+					right = "jg"; 
+					break;
+				case LEX_LESS:
+					right = "jl"; 
+					break;
+				case LEX_EQUALS:
+					right = "jz";
+					break;
+				case LEX_NOTEQUALS:
+					right = "jnz";
+					break;
+				}
+				cyclecode +="\t" + (string)right + " cycle" + std::to_string(cyclenum) + "\n";
+				ofile << cyclecode;
+				ofile << "\t" << "jmp continue" << cyclenum << "\n";
+				i += 2;
+				break;
+			}
+			case LEX_DO:
+			{
+				ofile  << " cycle" << cyclenum << ":";
+			}
+
 			}
 		}
 		ofile << END;
