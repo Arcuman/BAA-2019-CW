@@ -86,7 +86,7 @@ namespace Semantic
 						if (lefttype == IT::IDDATATYPE::STR || lefttype == IT::IDDATATYPE::SYM) // справа только литерал, ид или вызов строковой ф-ции
 						{
 							char l = tables.lextable.table[k].lexema;
-							if (l == LEX_PLUS || l == LEX_MINUS || l == LEX_STAR || l == LEX_DIRSLASH) // выражения недопустимы
+							if (l == LEX_PLUS || l == LEX_MINUS || l == LEX_STAR || l == LEX_DIRSLASH || l == LEX_PROCENT) // выражения недопустимы
 							{
 								Log::WriteError(log.stream, Error::geterrorin(316, tables.lextable.table[k].sn, 0));
 								sem_ok = false;

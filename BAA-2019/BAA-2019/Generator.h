@@ -12,11 +12,13 @@
 "ExitProcess PROTO:DWORD \n"\
 ".stack 4096\n"
 
-#define END "push 0\ncall ExitProcess\nmain ENDP\nend main"
+#define END "call system_pause\npush 0\ncall ExitProcess\nmain ENDP\nend main"
 
 #define EXTERN "\n outnum PROTO : DWORD\n"\
 "\n outstr PROTO : DWORD\n"\
-"\n outsym PROTO : BYTE\n"\
+"\n outstrline PROTO : DWORD\n"\
+"\n outnumline PROTO : DWORD\n"\
+"\n system_pause PROTO \n"\
 "\n rand PROTO \n"\
 "\n pow PROTO : DWORD, : DWORD\n"
 
@@ -24,10 +26,6 @@
 #define ITENTRY(x)  lex.idtable.table[lex.lextable.table[x].idxTI]
 #define LEXEMA(x)   lex.lextable.table[x].lexema
 
-
-#define CONST ".const\n\t\tnewline byte 13, 10, 0"
-#define DATA ".data\n\t\ttemp sdword ?\n\t\tbuffer byte 256 dup(0)"
-#define CODE ".code"
 
 namespace Gener
 {

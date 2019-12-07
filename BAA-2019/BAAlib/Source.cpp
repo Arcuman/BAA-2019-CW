@@ -19,11 +19,6 @@ extern "C"
 		std::cout << value;
 		return 0;
 	}
-	int __stdcall outsym(char value)
-	{
-		std::cout << value;
-		return 0;
-	}
 	int __stdcall outstr(char* ptr)
 	{
 		if (ptr == nullptr)
@@ -32,6 +27,27 @@ extern "C"
 		}
 		for (int i = 0; ptr[i] != '\0'; i++)
 			std::cout << ptr[i];
+		return 0;
+	}
+	int __stdcall outnumline(int value)
+	{
+		std::cout << value << std::endl;
+		return 0;
+	}
+	int __stdcall outstrline(char* ptr)
+	{
+		if (ptr == nullptr)
+		{
+			std::cout << std::endl;
+		}
+		for (int i = 0; ptr[i] != '\0'; i++)
+			std::cout << ptr[i];
+		std::cout << std::endl;
+		return 0;
+	}
+	int __stdcall system_pause()
+	{
+		system("pause");
 		return 0;
 	}
 }

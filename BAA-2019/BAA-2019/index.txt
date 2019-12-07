@@ -1,35 +1,57 @@
-integer function min(integer x, integer y,integer y1,integer y2)
+integer function min(integer x, integer y)
 {
-	
-	type integer c = -x;
-	type integer z = -0x7FFF;
-	type integer p = -99;
-	type       integer res;
-	is: x < y 
-	istrue [res = x;]
-	isfalse [res = y;]
-	return res;
+	write "x="; writeline x;
+	write "y="; writeline y;
+	is: x&y
+	false [y = 2;]
+	write "x="; writeline x;
+	write "y="; writeline y;
+	is: x!y
+	true [x = 3 ;]
+	write "x="; writeline x;
+	write "y="; writeline y;
+	type integer c = 5*2 + 10/2;
+	write "c = ";
+	writeline c;
+	return c;
 }
+
 main
 {
 	type integer x = 9;
+	write "x = ";
+	writeline x;
 	type integer y = (-9);
+	write "y = ";
+	writeline y;
 	type integer c = (-9-9);
+	write "c = ";
+	writeline c;
 	type string strx = "Just";
+	write "strx = ";
+	writeline strx;
 	type symbol strm = ~1~;
+	write "strm = ";
+	writeline strm;
 	type string stry = "string" ;
- 	type integer t = min(1,2,3,4);
-    write t;
-	newline;
-	type integer t1 = 3 / t;
+	write "stry = ";
+	writeline stry;
+ 	type integer t = min(1,1) / 3;
+    write "t = ";
+	writeline t;
+	type integer t1 = 3 * t;
+	 write "t1 = ";
+	writeline t;
 	t1 = 2;
-	type integer ab = rand();
-	ab = pow(x,3);
+	  write "t1 = ";
+	writeline t;
+	type integer ab;
 	while: 3 ! 52 
 	do [
 		write ab;
 		write " ";
 		ab = (ab + 2)*2 - 2 / 8;
 	]
-	write ab;
+	writeline " ";
+	writeline ab;
 }

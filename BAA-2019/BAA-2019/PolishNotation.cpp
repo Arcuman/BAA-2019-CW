@@ -10,7 +10,7 @@ namespace Polish
 		case LEX_LEFTHESIS: case LEX_RIGHTTHESIS: return 0;
 		case LEX_COMMA: return 1;
 		case LEX_PLUS: case LEX_MINUS: return 2;
-		case LEX_STAR: case LEX_DIRSLASH: return 3;
+		case LEX_STAR: case LEX_DIRSLASH: case LEX_PROCENT: return 3;
 		default: return -1;
 		}
 	}
@@ -47,8 +47,10 @@ namespace Polish
 			{
 			case LEX_ID:															// если идентификатор
 			{
-				if (lex.idtable.table[lex.lextable.table[i].idxTI].idtype == IT::F|| lex.idtable.table[lex.lextable.table[i].idxTI].idtype == IT::S)
+				if (lex.idtable.table[lex.lextable.table[i].idxTI].idtype == IT::F || lex.idtable.table[lex.lextable.table[i].idxTI].idtype == IT::S)
+				{
 					findFunc = true;
+				}
 				queue.push(lex.lextable.table[i]);
 				continue;
 			}
@@ -97,7 +99,8 @@ namespace Polish
 			case LEX_PLUS:															// если знак оператора
 			case LEX_MINUS:															// если знак оператора
 			case LEX_STAR:															// если знак оператора
-			case LEX_DIRSLASH:															// если знак оператора
+			case LEX_DIRSLASH:														// если знак оператора
+			case LEX_PROCENT:														// если знак оператора
 			{
 				while (!stack.empty() && getPriority(lex.lextable.table[i].lexema) <= getPriority(stack.top().lexema))	// пока приоритет текущего оператора 
 																							//меньше или равен приоритету оператора в вершине стека

@@ -4,7 +4,7 @@
 
 // графы переходов 
 #define GRAPH_SEPARATORS 2,\
-	FST::NODE(17,\
+	FST::NODE(18,\
 			FST::RELATION(';',1), FST::RELATION('=',1),\
 			FST::RELATION(',',1), FST::RELATION('{',1),\
 			FST::RELATION('}',1), FST::RELATION('(',1),\
@@ -13,7 +13,7 @@
 			FST::RELATION('+',1), FST::RELATION('-',1),\
 		    FST::RELATION('/',1),FST::RELATION('<',1),\
 			FST::RELATION('>',1), FST::RELATION('&',1),\
-			FST::RELATION('!',1)),\
+			FST::RELATION('!',1), FST::RELATION('%',1)),\
 	FST::NODE()
 
 
@@ -158,24 +158,20 @@
 			FST::RELATION('E',5),FST::RELATION('F',5),		FST::RELATION('8',5),FST::RELATION('9',5)),\
 		FST::NODE()
 
-#define GRAPH_ISTRUE 7, \
-	FST::NODE(1, FST::RELATION('i',1)),\
-	FST::NODE(1, FST::RELATION('s',2)),\
-	FST::NODE(1, FST::RELATION('t',3)),\
-	FST::NODE(1, FST::RELATION('r',4)),\
-	FST::NODE(1, FST::RELATION('u',5)),\
-	FST::NODE(1, FST::RELATION('e',6)),\
+#define GRAPH_ISTRUE 5, \
+	FST::NODE(1, FST::RELATION('t',1)),\
+	FST::NODE(1, FST::RELATION('r',2)),\
+	FST::NODE(1, FST::RELATION('u',3)),\
+	FST::NODE(1, FST::RELATION('e',4)),\
 	FST::NODE()
 
 
-#define GRAPH_ISFALSE 8, \
-	FST::NODE(1, FST::RELATION('i',1)),\
-	FST::NODE(1, FST::RELATION('s',2)),\
-	FST::NODE(1, FST::RELATION('f',3)),\
-	FST::NODE(1, FST::RELATION('a',4)),\
-	FST::NODE(1, FST::RELATION('l',5)),\
-	FST::NODE(1, FST::RELATION('s',6)),\
-	FST::NODE(1, FST::RELATION('e',7)),\
+#define GRAPH_ISFALSE 6, \
+	FST::NODE(1, FST::RELATION('f',1)),\
+	FST::NODE(1, FST::RELATION('a',2)),\
+	FST::NODE(1, FST::RELATION('l',3)),\
+	FST::NODE(1, FST::RELATION('s',4)),\
+	FST::NODE(1, FST::RELATION('e',5)),\
 	FST::NODE()
 
 #define GRAPH_FUNCTION 9, \
@@ -251,14 +247,16 @@
 	FST::NODE(1, FST::RELATION('e',5)),\
 	FST::NODE()
 
-#define GRAPH_NEWLINE 8, \
-	FST::NODE(1, FST::RELATION('n',1)),\
-	FST::NODE(1, FST::RELATION('e',2)),\
-	FST::NODE(1, FST::RELATION('w',3)),\
-	FST::NODE(1, FST::RELATION('l',4)),\
-	FST::NODE(1, FST::RELATION('i',5)),\
-	FST::NODE(1, FST::RELATION('n',6)),\
-	FST::NODE(1, FST::RELATION('e',7)),\
+#define GRAPH_NEWLINE 10, \
+	FST::NODE(1, FST::RELATION('w',1)),\
+	FST::NODE(1, FST::RELATION('r',2)),\
+	FST::NODE(1, FST::RELATION('i',3)),\
+	FST::NODE(1, FST::RELATION('t',4)),\
+	FST::NODE(1, FST::RELATION('e',5)),\
+	FST::NODE(1, FST::RELATION('l',6)),\
+	FST::NODE(1, FST::RELATION('i',7)),\
+	FST::NODE(1, FST::RELATION('n',8)),\
+	FST::NODE(1, FST::RELATION('e',9)),\
 	FST::NODE()
 
 #define GRAPH_RETURN 7, \

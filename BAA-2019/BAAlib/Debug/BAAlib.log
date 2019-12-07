@@ -1,12 +1,9 @@
-﻿Сборка начата 07.12.2019 16:28:27.
+﻿Сборка начата 07.12.2019 22:43:33.
      1>Проект "D:\БГТУ 2 курс\ЯП\BAA-2019v1\BAA-2019\BAAlib\BAAlib.vcxproj" в узле 2 (целевые объекты Build).
-     1>PrepareForBuild:
-         Создание каталога "Debug\BAAlib.tlog\".
-       InitializeBuildStatus:
+     1>InitializeBuildStatus:
          Создание "Debug\BAAlib.tlog\unsuccessfulbuild", так как было задано "AlwaysCreate".
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX86\x86\CL.exe /c /ZI /JMC /nologo /W3 /WX- /diagnostics:classic /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /permissive- /Zc:wchar_t /Zc:forScope /Zc:inline /Yc"stdafx.h" /Fp"Debug\BAAlib.pch" /Fo"Debug\\" /Fd"Debug\BAAlib.pdb" /Gd /TP /analyze- /FC /errorReport:prompt stdafx.cpp
-         stdafx.cpp
+         Для всех выходных данных обновления не требуется.
          C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX86\x86\CL.exe /c /ZI /JMC /nologo /W3 /WX- /diagnostics:classic /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /permissive- /Zc:wchar_t /Zc:forScope /Zc:inline /Yu"stdafx.h" /Fp"Debug\BAAlib.pch" /Fo"Debug\\" /Fd"Debug\BAAlib.pdb" /Gd /TP /analyze- /FC /errorReport:prompt Source.cpp
          Source.cpp
      1>d:\бгту 2 курс\яп\baa-2019v1\baa-2019\baalib\source.cpp(9): warning C4244: return: преобразование "double" в "int", возможна потеря данных
@@ -32,4 +29,4 @@
     Предупреждений: 2
     Ошибок: 0
 
-Прошло времени 00:00:01.67
+Прошло времени 00:00:01.48

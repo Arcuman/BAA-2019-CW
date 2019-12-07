@@ -11,14 +11,15 @@
 #define	LEX_COMMA		 ','	// разделитель параметров 		
 #define	LEX_LEFTBRACE	 '{'	// начало блока		
 #define	LEX_BRACELET	 '}'	// конец блока		
-#define	LEX_SQ_BRACELET	 '['	// конец блока		
-#define	LEX_SQ_BRACELET	 ']'	// конец блока		
+#define	LEX_SQ_LBRACELET '['	// начало блока		
+#define	LEX_SQ_RBRACELET ']'	// конец блока		
 #define	LEX_LEFTHESIS	 '('	// начало списка параметров		
 #define	LEX_RIGHTTHESIS	 ')'	// конец списка параметров		
 #define	LEX_PLUS		 '+'	// сложение	
 #define	LEX_MINUS		 '-'	// вычитание
 #define	LEX_STAR		 '*'	// умножение
-#define LEX_DIRSLASH	 '\\'	// деление
+#define LEX_DIRSLASH	 '/'	// деление
+#define LEX_PROCENT		 '%'	// остаток от деления
 #define	LEX_EQUAL		 '='	// присваивание				
 #define LEX_IS			 '?'	// if:
 #define LEX_WHILE		 'c'	// while:
@@ -35,6 +36,7 @@
 #define LEX_NOTEQUALS	 '!'	// проверка на неравенство
 #define	LEXEMA_FIXSIZE   1	        //размер лексемы
 #define	LT_MAXSIZE		 4096	    //максимальное количество строк в ТЛ
+#define LEX_SUBST		'@'
 #define	NULLDX_TI	 0xffffffff	//нет элемента ТИ
 namespace LT		// таблица лексем
 {
