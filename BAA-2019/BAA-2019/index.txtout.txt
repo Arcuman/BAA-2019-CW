@@ -1,0 +1,16 @@
+.586
+.model flat, stdcall
+includelib libucrt.lib
+includelib kernel32.lib
+includelib "..\Debug\BAAlib.lib"
+ExitProcess PROTO:DWORD 
+.stack 4096
+
+ outnum PROTO : DWORD
+
+ outstr PROTO : DWORD
+
+ rand PROTO 
+
+ pow PROTO : DWORD, : DWORD
+.const

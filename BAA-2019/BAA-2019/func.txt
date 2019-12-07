@@ -1,0 +1,12 @@
+integer function min(integer x, integer y)
+{
+	
+	type integer c = -x;
+	type integer z = -0x7FFF;
+	type integer p = -99;
+	type       integer res;
+	if: x < y 
+	istrue [res = x;]
+	isfalse [res = y;]
+	return res;
+}

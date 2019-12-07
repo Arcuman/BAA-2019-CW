@@ -1,0 +1,35 @@
+integer function min(integer x, integer y,integer y1,integer y2)
+{
+	
+	type integer c = -x;
+	type integer z = -0x7FFF;
+	type integer p = -99;
+	type       integer res;
+	is: x < y 
+	istrue [res = x;]
+	isfalse [res = y;]
+	return res;
+}
+main
+{
+	type integer x = 9;
+	type integer y = (-9);
+	type integer c = (-9-9);
+	type string strx = "Just";
+	type symbol strm = ~1~;
+	type string stry = "string" ;
+ 	type integer t = min(1,2,3,4);
+    write t;
+	newline;
+	type integer t1 = 3 / t;
+	t1 = 2;
+	type integer ab = rand();
+	ab = pow(x,3);
+	while: 3 ! 52 
+	do [
+		write ab;
+		write " ";
+		ab = (ab + 2)*2 - 2 / 8;
+	]
+	write ab;
+}
