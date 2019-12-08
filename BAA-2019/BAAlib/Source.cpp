@@ -8,10 +8,12 @@ extern "C"
 	{
 		return pow(a, b);
 	}
-	int __stdcall random()
+	int __stdcall random(int a)
 	{
+		if (a > 32768)
+			a = 32768;
 		srand(time(NULL));
-		int k = rand();
+		int k = rand()%a - a/2;
 		return k;
 	}
 	int __stdcall outnum(int value)

@@ -12,16 +12,17 @@
 #define TI_INT_MINSIZE  -32768			 //минимальное значение для типа integer
 #define MAX_PARAMS_COUNT 5			   	 //максимальное количество параметров у функции
 #define POW_PARAMS_CNT 2				 //кол-во параметров у функции pow
-#define RAND_PARAMS_CNT 0				 //кол-во параметров у функции rand
-#define RAND_TYPE IT::IDDATATYPE::INT
+#define RANDOM_PARAMS_CNT 1				 //кол-во параметров у функции rand
+#define RANDOM_TYPE IT::IDDATATYPE::INT
 #define POW_TYPE IT::IDDATATYPE::INT
 
 namespace IT			// таблица идентификаторов
 {
 	enum IDDATATYPE { INT = 1, STR = 2, SYM =3, UNDEF };								//типы данных идентификаторов: числовой, строковый, неопределенный
 	enum IDTYPE { V = 1, F = 2, P = 3, L = 4, S = 5 };									//типы идентификаторов: V = переменная, F = функция, P =параметр, L =литерал, S = стандартная функция
-	enum STDFNC { F_POW, F_RAND, F_NOT_STD };											//стандартные функции
-	static const IDDATATYPE POW_PARAMS[] = { IT::IDDATATYPE::INT, IT::IDDATATYPE::INT };//параметры функции  											//параметры функции
+	enum STDFNC { F_POW,F_POWER, F_RANDOM, F_NOT_STD };											//стандартные функции
+	static const IDDATATYPE POW_PARAMS[] = { IT::IDDATATYPE::INT, IT::IDDATATYPE::INT };//параметры функции  											//параметры функции 											//параметры функции
+	static const IDDATATYPE RANDOM_PARAMS[] = { IT::IDDATATYPE::INT };//параметры функции  											//параметры функции 											//параметры функции
 
 	struct Entry	// строка таблицы идентификаторов
 	{

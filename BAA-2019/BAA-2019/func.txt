@@ -10,3 +10,72 @@ integer function min(integer x, integer y)
 	isfalse [res = y;]
 	return res;
 }
+
+
+integer function min(integer x, integer y)
+{
+	x = random();
+	write "x="; writeline x;
+	write "y="; writeline y;
+	is: x&y
+	false [y = 2;]
+	write "x="; writeline x;
+	write "y="; writeline y;
+	is: x!y
+	true [x = 3 ;]
+	write "x="; writeline x;
+	write "y="; writeline y;
+	type integer c = 5*2 + 10/2;
+	write "c = ";
+	writeline c;
+	return c;
+}
+integer function pow1(integer c)
+{
+c = pow(2,3);
+write "c pow = ";
+writeline c;
+return 0;
+}
+main
+{
+	type integer x = 9;
+	write "x = ";
+	writeline x;
+	x = pow1(3);
+	type integer y = (-9);
+	write "y = ";
+	writeline y;
+	type integer c = (-9-9);
+	write "c = ";
+	writeline c;
+	type string strx = "Just";
+	write "strx = ";
+	writeline strx;
+	type symbol strm = ~1~;
+	write "strm = ";
+	writeline strm;
+	type string stry = "string" ;
+	write "stry = ";
+	writeline stry;
+ 	type integer t = min(1,1) / 3;
+    write "t = ";
+	writeline t;
+	type integer t1 = 3 * t;
+	 write "t1 = ";
+	writeline t;
+	t1 = 2;
+	  write "t1 = ";
+	writeline t;
+	type integer ab = 0;
+	writeline "cycle start:";
+	while: ab ! 5 
+	do [
+		write ab;
+		write " ";
+		ab = ab + 1;
+	]
+	writeline "cycle end:";
+	writeline " ";
+	writeline ab;
+}

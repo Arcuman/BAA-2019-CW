@@ -192,6 +192,7 @@
     <ClCompile Include="Semantic.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="func.txt" />
     <Text Include="index.txt" />
     <Text Include="index.txt.log" />
   </ItemGroup>

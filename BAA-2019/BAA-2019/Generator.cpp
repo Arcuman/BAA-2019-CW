@@ -135,7 +135,7 @@ namespace Gener
 					}
 					case LEX_SUBST:
 					{
-						for (int j = 1; j <= (LEXEMA(i+1) - '0')+1; j++)
+						for (int j = 1; j <= (LEXEMA(i + 1) - '0') + 1; j++)
 						{
 							ofile << "\tpop edx\n";
 
@@ -145,7 +145,7 @@ namespace Gener
 							ofile << "\tpush " << stk.top() << endl;
 							stk.pop();
 						}
-						ofile << "\t\tcall " << ITENTRY(i - (lex.lextable.table[i + 1].lexema - '0')-1).id << "\n\tpush eax\n";
+						ofile << "\t\tcall " << ITENTRY(i - (lex.lextable.table[i + 1].lexema - '0') - 1).id << "\n\tpush eax\n";
 						break;
 					}
 					case LEX_STAR:
@@ -292,7 +292,7 @@ namespace Gener
 				{
 					if (LEXEMA(i+1) != LEX_ISTRUE && LEXEMA(i+1) != LEX_ISFALSE)
 					{
-						ofile << "next" << conditionnum << ":";
+						ofile << "\nnext" << conditionnum << ":";
 						flag_is = false;
 						flag_true = false;
 						flag_false = false;

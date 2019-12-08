@@ -4,9 +4,10 @@
 #define TYPE_INTEGER	"integer"
 #define TYPE_STRING		"string"
 #define TYPE_SYMBOL		"symbol"
-#define RAND			"rand"
+#define RANDOM			"random"
 #define MAIN			"main"
 #define POW				"pow"
+#define POWER			"power"
 
 #define ISTYPE(str) ( !strcmp(str, TYPE_INTEGER) || !strcmp(str, TYPE_STRING) )
 

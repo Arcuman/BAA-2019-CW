@@ -16,137 +16,117 @@ ExitProcess PROTO:DWORD
 
  system_pause PROTO 
 
- rand PROTO 
+ random PROTO  : DWORD
 
- pow PROTO : DWORD, : DWORD
+ power PROTO : DWORD, : DWORD
 .const
-	L1 BYTE 'x=', 0
-	L2 BYTE 'y=', 0
-	L3 SDWORD 2
-	L4 SDWORD 3
-	L5 SDWORD 5
-	L6 SDWORD 10
-	L7 BYTE 'c = ', 0
-	L8 SDWORD 9
-	L9 BYTE 'x = ', 0
+	L1 SDWORD 0
+	L2 SDWORD 101
+	L3 SDWORD 1
+	L4 SDWORD 100
+	L5 SDWORD 1000
+	L6 BYTE 'c rand = ', 0
+	L7 SDWORD 9
+	L8 BYTE 'x = ', 0
+	L9 SDWORD 3
 	L10 SDWORD -9
 	L11 BYTE 'y = ', 0
-	L12 BYTE 'Just', 0
-	L13 BYTE 'strx = ', 0
-	L14 BYTE '1', 0
-	L15 BYTE 'strm = ', 0
-	L16 BYTE 'string', 0
-	L17 BYTE 'stry = ', 0
-	L18 SDWORD 1
-	L19 BYTE 't = ', 0
+	L12 BYTE 'c = ', 0
+	L13 BYTE 'Just', 0
+	L14 BYTE 'strx = ', 0
+	L15 BYTE '1', 0
+	L16 BYTE 'strm = ', 0
+	L17 BYTE 'string', 0
+	L18 BYTE 'stry = ', 0
+	L19 SDWORD 2
 	L20 BYTE 't1 = ', 0
-	L21 SDWORD 0
-	L22 BYTE 'cycle start:', 0
+	L21 BYTE 'cycle start:', 0
+	L22 SDWORD 5
 	L23 BYTE ' ', 0
 	L24 BYTE 'cycle end:', 0
 .data
-	minc SDWORD 0
+	pow1count SDWORD 0
 	mainx SDWORD 0
 	mainy SDWORD 0
 	mainc SDWORD 0
 	mainstrx DWORD ?
 	mainstrm DWORD ?
 	mainstry DWORD ?
-	maint SDWORD 0
 	maint1 SDWORD 0
 	mainab SDWORD 0
 
 .code
 
-min PROC minx :  SDWORD , miny :  SDWORD 
+pow1 PROC pow1c :  SDWORD 
 
-push offset L1
-call outstr
-
-push minx
+push pow1c
 call outnumline
-
-push offset L2
-call outstr
-
-push miny
-call outnumline
-	mov edx, minx
-	cmp edx, miny
-	jnz wrong1
+	mov edx, pow1c
+	cmp edx, L1
+	jg right1
+	jl wrong1
 	jmp next1
-wrong1:	push L3
-	pop miny
+wrong1:	push L2
+	pop pow1count
 
-next1:
-push offset L1
-call outstr
+	jmp next1
 
-push minx
-call outnumline
+right1:	push L3
+	pop pow1count
 
-push offset L2
-call outstr
 
-push miny
-call outnumline
-	mov edx, minx
-	cmp edx, miny
-	jnz right2
-	jmp next2
-right2:	push L4
-	pop minx
-
-next2:
-push offset L1
-call outstr
-
-push minx
-call outnumline
-
-push offset L2
-call outstr
-
-push miny
-call outnumline
+next1:	mov edx, pow1count
+	cmp edx, L4
+	jl cycle1
+	jmp continue1
+ cycle1:	push random
 	push L5
-	push L3
-	pop eax
-	pop ebx
-	mul ebx
+	pop edx
+	pop edx
+	push L5
+		call random
 	push eax
-	push L6
+	pop pow1c
+
+
+push offset L6
+call outstr
+
+push pow1c
+call outnumline
+	push pow1count
 	push L3
-	pop ebx
-	pop eax
-	cdq
-	idiv ebx
-	push eax
 	pop eax
 	pop ebx
 	add eax, ebx
 	push eax
-	pop minc
+	pop pow1count
 
-
-push offset L7
-call outstr
-
-push minc
-call outnumline
-	mov eax, minc
+	mov edx, pow1count
+	cmp edx, L4
+	jl cycle1
+continue1:	mov eax, L1
 	ret
-min ENDP
+pow1 ENDP
 main PROC
-	push L8
+	push L7
 	pop mainx
 
 
-push offset L9
+push offset L8
 call outstr
 
 push mainx
 call outnumline
+	push pow1
+	push L9
+	pop edx
+	pop edx
+	push L9
+		call pow1
+	push eax
+	pop mainx
+
 	push L10
 	pop mainy
 
@@ -157,7 +137,7 @@ call outstr
 push mainy
 call outnumline
 	push L10
-	push L8
+	push L7
 	pop ebx
 	pop eax
 	sub eax, ebx
@@ -165,103 +145,65 @@ call outnumline
 	pop mainc
 
 
-push offset L7
+push offset L12
 call outstr
 
 push mainc
 call outnumline
-	push offset L12
+	push offset L13
 	pop mainstrx
 
 
-push offset L13
+push offset L14
 call outstr
 
 push mainstrx
 call outstrline
-	push offset L14
+	push offset L15
 	pop mainstrm
 
 
-push offset L15
+push offset L16
 call outstr
 
 push mainstrm
 call outstrline
-	push offset L16
+	push offset L17
 	pop mainstry
 
 
-push offset L17
+push offset L18
 call outstr
 
 push mainstry
 call outstrline
-	push min
-	push L18
-	push L18
-	pop edx
-	pop edx
-	pop edx
-	push L18
-	push L18
-		call min
-	push eax
-	push L4
-	pop ebx
-	pop eax
-	cdq
-	idiv ebx
-	push eax
-	pop maint
-
-
-push offset L19
-call outstr
-
-push maint
-call outnumline
-	push L4
-	push maint
-	pop eax
-	pop ebx
-	mul ebx
-	push eax
+	push L19
 	pop maint1
 
 
 push offset L20
 call outstr
 
-push maint
+push maint1
 call outnumline
-	push L3
-	pop maint1
-
-
-push offset L20
-call outstr
-
-push maint
-call outnumline
-	push L21
+	push L1
 	pop mainab
 
 
-push offset L22
+push offset L21
 call outstrline
 	mov edx, mainab
-	cmp edx, L5
-	jnz cycle1
-	jmp continue1
- cycle1:
+	cmp edx, L22
+	jnz cycle2
+	jmp continue2
+ cycle2:
 push mainab
 call outnum
 
 push offset L23
 call outstr
 	push mainab
-	push L18
+	push L3
 	pop eax
 	pop ebx
 	add eax, ebx
@@ -269,9 +211,9 @@ call outstr
 	pop mainab
 
 	mov edx, mainab
-	cmp edx, L5
-	jnz cycle1
-continue1:
+	cmp edx, L22
+	jnz cycle2
+continue2:
 push offset L24
 call outstrline
 

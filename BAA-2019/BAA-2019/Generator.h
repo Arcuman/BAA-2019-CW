@@ -19,8 +19,8 @@
 "\n outstrline PROTO : DWORD\n"\
 "\n outnumline PROTO : DWORD\n"\
 "\n system_pause PROTO \n"\
-"\n rand PROTO \n"\
-"\n pow PROTO : DWORD, : DWORD\n"
+"\n random PROTO  : DWORD\n"\
+"\n power PROTO : DWORD, : DWORD\n"
 
 
 #define ITENTRY(x)  lex.idtable.table[lex.lextable.table[x].idxTI]

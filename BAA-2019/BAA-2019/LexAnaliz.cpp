@@ -45,10 +45,12 @@ namespace Lex
 	}
 	IT::STDFNC getStandFunction(char* id)
 	{
-		if (!strcmp(RAND, id))
-			return IT::STDFNC::F_RAND;
-		if (!strcmp(POW, id))
+		if (!strcmp(RANDOM, id))
+			return IT::STDFNC::F_RANDOM;
+		if (!strcmp(POW, id) )
 			return IT::STDFNC::F_POW;
+		if (!strcmp(POWER, id))
+			return IT::STDFNC::F_POWER;
 		return IT::STDFNC::F_NOT_STD;
 	}
 	int getLiteralIndex(IT::IdTable ittable, char* value, IT::IDDATATYPE type) // получаем индекс повторного литерала(по значению)
@@ -177,15 +179,28 @@ namespace Lex
 			{
 				switch (getStandFunction(id))
 				{
-				case IT::STDFNC::F_RAND:
+				case IT::STDFNC::F_RANDOM:
 				{
 					itentry->idtype = IT::IDTYPE::S;
-					itentry->iddatatype = RAND_TYPE;
-					itentry->value.params.count = RAND_PARAMS_CNT;
-					itentry->value.params.types = new IT::IDDATATYPE[RAND_PARAMS_CNT];
+					itentry->iddatatype = RANDOM_TYPE;
+					itentry->value.params.count = RANDOM_PARAMS_CNT;
+					itentry->value.params.types = new IT::IDDATATYPE[RANDOM_PARAMS_CNT];
+					for (int k = 0; k < RANDOM_PARAMS_CNT; k++)
+						itentry->value.params.types[k] = IT::RANDOM_PARAMS[k];
 					break;
 				}
 				case IT::STDFNC::F_POW:
+				{	
+					strncat(id,"er", ID_MAXSIZE);
+					itentry->idtype = IT::IDTYPE::S;
+					itentry->iddatatype = POW_TYPE;
+					itentry->value.params.count = POW_PARAMS_CNT;
+					itentry->value.params.types = new IT::IDDATATYPE[POW_PARAMS_CNT];
+					for (int k = 0; k < POW_PARAMS_CNT; k++)
+						itentry->value.params.types[k] = IT::POW_PARAMS[k];
+					break;
+				}
+				case IT::STDFNC::F_POWER:
 				{
 					itentry->idtype = IT::IDTYPE::S;
 					itentry->iddatatype = POW_TYPE;
@@ -227,6 +242,12 @@ namespace Lex
 		{
 			// невозможно определелить тип
 			Log::WriteError(log.stream, Error::geterrorin(300, line, 0));
+			lex_ok = false;
+		}
+		if (i > 1 && tables.lextable.table[i - 1].lexema == LEX_FUNCTION && (!strcmp(RANDOM, id) || !strcmp(POW, id) || !strcmp(POWER, id)))
+		{
+			// переопределение ключевого слова
+			Log::WriteError(log.stream, Error::geterrorin(319, line, 0));
 			lex_ok = false;
 		}
 		// --------------------------------------------------------
@@ -316,7 +337,14 @@ namespace Lex
 						char id[STR_MAXSIZE] = "";
 						idxTI = NULLDX_TI;										// индекс идентификатора в ТИ
 						if (*nextword == LEX_LEFTHESIS)
-							isFunc = true;										// идентификатор функции
+							isFunc = true;	
+						if (((!strcmp(RANDOM, curword) || !strcmp(POW, curword)|| !strcmp(POWER, curword)) && *nextword != LEX_LEFTHESIS ))
+						{
+							Log::WriteError(log.stream, Error::geterrorin(319, curline, 0));
+							lex_ok = false;
+						}// идентификатор функции
+						/*if (!strcmp(RAND, curword) || !strcmp(POW, curword))
+							isFunc = true;*/
 						char* idtype = (isFunc && i > 1) ?						// тип идентификатора
 							in.words[i - 2].word : in.words[i - 1].word;		// пропускаем ключевое слово function
 						if (!isFunc && !scopes.empty())

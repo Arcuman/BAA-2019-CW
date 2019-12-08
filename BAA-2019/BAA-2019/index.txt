@@ -1,26 +1,33 @@
-integer function min(integer x, integer y)
+integer function pow1(integer c)
 {
-	write "x="; writeline x;
-	write "y="; writeline y;
-	is: x&y
-	false [y = 2;]
-	write "x="; writeline x;
-	write "y="; writeline y;
-	is: x!y
-	true [x = 3 ;]
-	write "x="; writeline x;
-	write "y="; writeline y;
-	type integer c = 5*2 + 10/2;
-	write "c = ";
-	writeline c;
-	return c;
-}
+type integer count ;
+writeline c;
+is: c > 0
+false
+[
+count = 101;
+]
+true
+[
+count = 1;
+]
 
+while: count < 100
+do
+[
+c = random(1000) ;
+write "c rand = ";
+writeline c;
+count = count + 1;
+]
+return 0;
+}
 main
 {
 	type integer x = 9;
 	write "x = ";
 	writeline x;
+	x = pow1(3);
 	type integer y = (-9);
 	write "y = ";
 	writeline y;
@@ -36,15 +43,10 @@ main
 	type string stry = "string" ;
 	write "stry = ";
 	writeline stry;
- 	type integer t = min(1,1) / 3;
-    write "t = ";
-	writeline t;
-	type integer t1 = 3 * t;
-	 write "t1 = ";
-	writeline t;
+	type integer t1 ;
 	t1 = 2;
 	  write "t1 = ";
-	writeline t;
+	writeline t1;
 	type integer ab = 0;
 	writeline "cycle start:";
 	while: ab ! 5 

@@ -100,7 +100,6 @@ namespace Semantic
 			case LEX_ID: // проверка типа возвращаемого значения  
 			{
 				IT::Entry e = tables.idtable.table[tables.lextable.table[i].idxTI];
-
 				if (i > 0 && tables.lextable.table[i - 1].lexema == LEX_FUNCTION)
 				{
 					if (e.idtype == IT::IDTYPE::F) //функция

@@ -118,5 +118,8 @@
     <Text Include="index.txt.log">
       <Filter>Файлы ресурсов</Filter>
     </Text>
+    <Text Include="func.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -50,8 +50,9 @@ namespace GRB
 			Rule::Chain(4, TS('w'), NS('Y'), TS('r'), NS('Y'))
 		),
 
-		Rule(NS('Y'), GRB_ERROR_SERIES + 7, 1,								// Ошибка в теле цикла/условного выражения			
-			Rule::Chain(3, TS('['), NS('X'), TS(']'))
+		Rule(NS('Y'), GRB_ERROR_SERIES + 7, 2,								// Ошибка в теле цикла/условного выражения			
+			Rule::Chain(3, TS('['), NS('X'), TS(']')),
+			Rule::Chain(2, TS('['),  TS(']'))
 		),
 		Rule(NS('Z'), GRB_ERROR_SERIES + 8, 4,								// Ошибка в условии цикла/условного выражения	
 			Rule::Chain(3, TS('i'), NS('L'), TS('i')),

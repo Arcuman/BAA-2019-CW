@@ -34,7 +34,7 @@ namespace Polish
 		LT::Entry temp;		temp.idxTI = -1;	temp.lexema = '#';	temp.sn = -1;	// запрещенна€ лексема, все лишние элементы будут замен€тьс€ на нее
 		LT::Entry func;		func.idxTI = -1;	func.lexema = '@';	func.sn = -1;	// лексема дл€ вызова функции
 		int countLex = 0;															// количество преобразованных лексем
-		int countParm = 0;															// количество параметров функции
+		int countParm = -1;															// количество параметров функции
 		int posLex = lextable_pos;																// запоминаем номер лексемы перед преобразованием
 		bool findFunc = false;														// флаг дл€ функции
 		bool findComma = false;														// флаг дл€ зап€той (кол-во параметров +2 сразу)
@@ -51,12 +51,20 @@ namespace Polish
 				{
 					findFunc = true;
 				}
+				if (findFunc)
+				{
+					countParm++;
+				}
 				queue.push(lex.lextable.table[i]);
 				continue;
 			}
 			case LEX_LITERAL:															// если литерал
 			{
-				queue.push(lex.lextable.table[i]);										// помещаем в очередь
+				queue.push(lex.lextable.table[i]);	
+				if (findFunc)
+				{
+					countParm++;
+				}
 				continue;
 			}
 			case LEX_LEFTHESIS:														// если (
@@ -70,10 +78,6 @@ namespace Polish
 				skob++;
 				if (findFunc)															// если это вызов функции, то лексемы () замен€ютс€ на @ и кол-во параметров
 				{
-					if (findComma)
-					{
-						countParm++;
-					}
 					func.sn = lex.lextable.table[i].sn;
 					lex.lextable.table[i] = func;
 					queue.push(lex.lextable.table[i]);									// добавл€ем в очередь лексему вызова функции
@@ -114,8 +118,6 @@ namespace Polish
 			case LEX_COMMA:																// если зап€та€
 			{
 				findComma = true;
-				comma++;
-				countParm++;
 				continue;
 			}
 			}
@@ -131,7 +133,7 @@ namespace Polish
 		{
 			if (!queue.empty()) {
 				lex.lextable.table[posLex++] = queue.front();
-				/*cout << lex.idtable.table[queue.front().idxTI].id << " ";			*/	// вывод в консоль
+			/*	cout << lex.idtable.table[queue.front().idxTI].id << " ";*/				// вывод в консоль
 				queue.pop();
 			}
 			else
