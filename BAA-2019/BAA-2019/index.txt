@@ -1,11 +1,15 @@
 integer function pow1(integer c)
 {
+type integer x = 3 ;
+type integer y = (-x)-(5+(-x)*3+x)*10;
+writeline y;
 type integer count ;
 writeline c;
-is: c > 0
+is: c < 0
 false
 [
-count = 101;
+count = random(100) + (-x);
+return count;
 ]
 true
 [
@@ -28,9 +32,6 @@ main
 	write "x = ";
 	writeline x;
 	x = pow1(3);
-	type integer y = (-9);
-	write "y = ";
-	writeline y;
 	type integer c = (-9-9);
 	write "c = ";
 	writeline c;
@@ -38,18 +39,26 @@ main
 	write "strx = ";
 	writeline strx;
 	type symbol strm = ~1~;
+	type symbol strf = ~F~;
 	write "strm = ";
 	writeline strm;
-	type string stry = "string" ;
+	type string stry = "Just" ;
 	write "stry = ";
 	writeline stry;
+	writeline strx;
+	is: strx ! stry
+	true[writeline "TRUE BLOCK";]
+	false[write "FALSE BLOCK";]
+	is: strm ! strf
+	true[writeline "TRUE BLOCK";]
+	false[write "FALSE BLOCK";]
 	type integer t1 ;
 	t1 = 2;
 	  write "t1 = ";
 	writeline t1;
 	type integer ab = 0;
 	writeline "cycle start:";
-	while: ab ! 5 
+	while: strx < stry 
 	do [
 		write ab;
 		write " ";

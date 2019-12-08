@@ -6,6 +6,10 @@ namespace Lex
 	{
 		{ LEX_SEPARATORS, FST::FST(GRAPH_SEPARATORS) },
 		{ LEX_ID_TYPE, FST::FST(GRAPH_INTEGER) },
+		{ LEX_STDFUNC, FST::FST(GRAPH_POW) },
+		{ LEX_STDFUNC, FST::FST(GRAPH_POWER) },
+		{ LEX_STDFUNC, FST::FST(GRAPH_RANDOM) },
+		{ LEX_STDFUNC, FST::FST(GRAPH_LENGTH) },
 		{ LEX_LITERAL, FST::FST(GRAPH_INT_LITERAL) },
 		{ LEX_LITERAL, FST::FST(GRAPH_STRING_LITERAL) },
 		{ LEX_LITERAL, FST::FST(GRAPH_SYMBOL_LITERAL) },
@@ -51,6 +55,8 @@ namespace Lex
 			return IT::STDFNC::F_POW;
 		if (!strcmp(POWER, id))
 			return IT::STDFNC::F_POWER;
+		if (!strcmp(LENGHT, id))
+			return IT::STDFNC::F_LENGTH;
 		return IT::STDFNC::F_NOT_STD;
 	}
 	int getLiteralIndex(IT::IdTable ittable, char* value, IT::IDDATATYPE type) // получаем индекс повторного литерала(по значению)
@@ -210,6 +216,16 @@ namespace Lex
 						itentry->value.params.types[k] = IT::POW_PARAMS[k];
 					break;
 				}
+				case IT::STDFNC::F_LENGTH:
+				{
+					itentry->idtype = IT::IDTYPE::S;
+					itentry->iddatatype = LENGHT_TYPE;
+					itentry->value.params.count = LENGHT_PARAMS_CNT;
+					itentry->value.params.types = new IT::IDDATATYPE[LENGHT_PARAMS_CNT];
+					for (int k = 0; k < LENGHT_PARAMS_CNT; k++)
+						itentry->value.params.types[k] = IT::LENGHT_PARAMS[k];
+					break;
+				}
 				case IT::STDFNC::F_NOT_STD:
 					itentry->idtype = IT::IDTYPE::F;
 					break;
@@ -244,7 +260,7 @@ namespace Lex
 			Log::WriteError(log.stream, Error::geterrorin(300, line, 0));
 			lex_ok = false;
 		}
-		if (i > 1 && tables.lextable.table[i - 1].lexema == LEX_FUNCTION && (!strcmp(RANDOM, id) || !strcmp(POW, id) || !strcmp(POWER, id)))
+		if (i > 1 && tables.lextable.table[i - 1].lexema == LEX_FUNCTION && (!strcmp(RANDOM, id) || !strcmp(POW, id) || !strcmp(POWER, id)|| !strcmp(LENGHT, id)))
 		{
 			// переопределение ключевого слова
 			Log::WriteError(log.stream, Error::geterrorin(319, line, 0));
@@ -332,19 +348,13 @@ namespace Lex
 						break;
 					}
 					case LEX_ID:
+					case LEX_STDFUNC:
 					case LEX_LITERAL:
 					{
 						char id[STR_MAXSIZE] = "";
 						idxTI = NULLDX_TI;										// индекс идентификатора в ТИ
 						if (*nextword == LEX_LEFTHESIS)
 							isFunc = true;	
-						if (((!strcmp(RANDOM, curword) || !strcmp(POW, curword)|| !strcmp(POWER, curword)) && *nextword != LEX_LEFTHESIS ))
-						{
-							Log::WriteError(log.stream, Error::geterrorin(319, curline, 0));
-							lex_ok = false;
-						}// идентификатор функции
-						/*if (!strcmp(RAND, curword) || !strcmp(POW, curword))
-							isFunc = true;*/
 						char* idtype = (isFunc && i > 1) ?						// тип идентификатора
 							in.words[i - 2].word : in.words[i - 1].word;		// пропускаем ключевое слово function
 						if (!isFunc && !scopes.empty())
@@ -357,8 +367,6 @@ namespace Lex
 						{
 							if (isFunc) // если функция - сохранить список параметров
 							{
-								if (getStandFunction(id) == IT::STDFNC::F_NOT_STD) // стандартная функция или нет
-								{
 									itentry->value.params.count = NULL;
 									itentry->value.params.types = new IT::IDDATATYPE[MAX_PARAMS_COUNT];
 									for (int k = i; in.words[k].word[0] != LEX_RIGHTTHESIS; k++)
@@ -376,7 +384,6 @@ namespace Lex
 											itentry->value.params.types[itentry->value.params.count++] = getType(NULL, in.words[k].word);
 										}
 									}
-								}
 							}
 							IT::Add(tables.idtable, *itentry);
 							idxTI = tables.idtable.size - 1;

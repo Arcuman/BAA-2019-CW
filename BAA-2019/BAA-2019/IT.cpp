@@ -48,7 +48,7 @@ namespace IT
 				temp = strtol(value, NULL, 8);
 			else 
 				temp = atoi(value);
-			if (temp > TI_INT_MAXSIZE || temp < TI_INT_MINSIZE)
+			if (temp >= TI_INT_MAXSIZE || temp <= TI_INT_MINSIZE)
 			{
 				if (temp > TI_INT_MAXSIZE)
 					temp = TI_INT_MAXSIZE;

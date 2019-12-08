@@ -1,6 +1,6 @@
 #pragma once
 #include "FST.h"
-#define N_GRAPHS 20
+#define N_GRAPHS 24
 
 // графы переходов 
 #define GRAPH_SEPARATORS 2,\
@@ -192,6 +192,34 @@
 	FST::NODE(1,FST::RELATION(':',3)),\
 	FST::NODE()
 
+#define GRAPH_POW 4,\
+	FST::NODE(1,FST::RELATION('p',1)),\
+	FST::NODE(1,FST::RELATION('o',2)),\
+	FST::NODE(1,FST::RELATION('w',3)),\
+	FST::NODE()
+#define GRAPH_POWER 6,\
+	FST::NODE(1,FST::RELATION('p',1)),\
+	FST::NODE(1,FST::RELATION('o',2)),\
+	FST::NODE(1,FST::RELATION('w',3)),\
+	FST::NODE(1,FST::RELATION('e',4)),\
+	FST::NODE(1,FST::RELATION('r',5)),\
+	FST::NODE()
+#define GRAPH_RANDOM 7,\
+	FST::NODE(1,FST::RELATION('r',1)),\
+	FST::NODE(1,FST::RELATION('a',2)),\
+	FST::NODE(1,FST::RELATION('n',3)),\
+	FST::NODE(1,FST::RELATION('d',4)),\
+	FST::NODE(1,FST::RELATION('o',5)),\
+	FST::NODE(1,FST::RELATION('m',6)),\
+	FST::NODE()
+#define GRAPH_LENGTH 7,\
+	FST::NODE(1,FST::RELATION('l',1)),\
+	FST::NODE(1,FST::RELATION('e',2)),\
+	FST::NODE(1,FST::RELATION('n',3)),\
+	FST::NODE(1,FST::RELATION('g',4)),\
+	FST::NODE(1,FST::RELATION('h',5)),\
+	FST::NODE(1,FST::RELATION('t',6)),\
+	FST::NODE()
 #define GRAPH_INTEGER 8,\
 	FST::NODE(1, FST::RELATION('i',1)),\
 	FST::NODE(1, FST::RELATION('n',2)),\

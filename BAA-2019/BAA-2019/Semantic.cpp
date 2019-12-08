@@ -18,6 +18,7 @@ namespace Semantic
 				}
 			}
 			case LEX_DIRSLASH:
+			case LEX_PROCENT:
 			{
 				int k = i;
 				if (tables.lextable.table[i + 1].lexema == LEX_ID)
@@ -169,7 +170,7 @@ namespace Semantic
 				}
 				break;
 			}
-			case LEX_MORE:	case LEX_LESS: case LEX_EQUALS:   case LEX_NOTEQUALS:
+			case LEX_MORE:	case LEX_LESS: 
 			{
 				// левый и правый операнд - числовой тип
 				bool flag = true;
@@ -182,6 +183,29 @@ namespace Semantic
 				{
 					if (tables.idtable.table[tables.lextable.table[i + 1].idxTI].iddatatype != IT::IDDATATYPE::INT)
 						flag = false;
+				}
+				if (!flag)
+				{
+					// строка или неизвестный ид в условии
+					Log::WriteError(log.stream, Error::geterrorin(317, tables.lextable.table[i].sn, 0));
+					sem_ok = false;
+				}
+				break;
+			}
+			case LEX_EQUALS:   case LEX_NOTEQUALS:
+			{
+				bool flag = false;
+				if (i > 1 && tables.lextable.table[i - 1].idxTI != TI_NULLIDX)
+				{
+					if (tables.idtable.table[tables.lextable.table[i - 1].idxTI].iddatatype == IT::IDDATATYPE::INT
+						&& tables.idtable.table[tables.lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::INT)
+						flag = true;
+					else if (tables.idtable.table[tables.lextable.table[i - 1].idxTI].iddatatype == IT::IDDATATYPE::SYM
+						&& tables.idtable.table[tables.lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::SYM)
+						flag = true;
+					else if (tables.idtable.table[tables.lextable.table[i - 1].idxTI].iddatatype == IT::IDDATATYPE::STR
+						&& tables.idtable.table[tables.lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::STR)
+						flag = true;
 				}
 				if (!flag)
 				{

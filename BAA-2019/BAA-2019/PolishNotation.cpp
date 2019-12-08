@@ -33,11 +33,13 @@ namespace Polish
 		queue<LT::Entry> queue;														// очередь дл€ операндов
 		LT::Entry temp;		temp.idxTI = -1;	temp.lexema = '#';	temp.sn = -1;	// запрещенна€ лексема, все лишние элементы будут замен€тьс€ на нее
 		LT::Entry func;		func.idxTI = -1;	func.lexema = '@';	func.sn = -1;	// лексема дл€ вызова функции
+		LT::Entry tilda;	tilda.idxTI = -1;	tilda.lexema = '~';	tilda.sn = -1;	// лексема дл€ вызова функции
 		int countLex = 0;															// количество преобразованных лексем
 		int countParm = -1;															// количество параметров функции
 		int posLex = lextable_pos;																// запоминаем номер лексемы перед преобразованием
 		bool findFunc = false;														// флаг дл€ функции
 		bool findComma = false;														// флаг дл€ зап€той (кол-во параметров +2 сразу)
+		bool flagthethis = false;
 		int skob = 0;
 		int comma = 0;
 		char* buf = new char[2];													// буфер дл€ countParm в строковом представлении
@@ -69,13 +71,16 @@ namespace Polish
 			}
 			case LEX_LEFTHESIS:														// если (
 			{
-				skob++;
+				if (lex.lextable.table[i + 1].lexema == LEX_MINUS && lex.lextable.table[i + 2].lexema == LEX_ID)
+				{
+					flagthethis = true;
+					continue;
+				}
 				stack.push(lex.lextable.table[i]);										// помещаем ее в стек
 				continue;
 			}
 			case LEX_RIGHTTHESIS:														// если )
 			{
-				skob++;
 				if (findFunc)															// если это вызов функции, то лексемы () замен€ютс€ на @ и кол-во параметров
 				{
 					func.sn = lex.lextable.table[i].sn;
@@ -97,7 +102,7 @@ namespace Polish
 							return 0;
 					}
 				}
-				stack.pop();															// уничтожаем ( или лексему, указывающую количество параметров функции
+				stack.pop();												// уничтожаем ( или лексему, указывающую количество параметров функции
 				continue;
 			}
 			case LEX_PLUS:															// если знак оператора
@@ -106,6 +111,17 @@ namespace Polish
 			case LEX_DIRSLASH:														// если знак оператора
 			case LEX_PROCENT:														// если знак оператора
 			{
+				if (flagthethis)
+				{
+					tilda.sn = lex.lextable.table[i].sn;
+					lex.lextable.table[i] = tilda;
+					queue.push(lex.lextable.table[i+1]);									// добавл€ем в очередь лексему вызова функции
+					queue.push(lex.lextable.table[i]);									// добавл€ем в очередь лексему вызова функции
+					flagthethis = false;
+					i += 2;
+					countLex += 2;
+					continue;
+				}
 				while (!stack.empty() && getPriority(lex.lextable.table[i].lexema) <= getPriority(stack.top().lexema))	// пока приоритет текущего оператора 
 																							//меньше или равен приоритету оператора в вершине стека
 				{
@@ -133,7 +149,7 @@ namespace Polish
 		{
 			if (!queue.empty()) {
 				lex.lextable.table[posLex++] = queue.front();
-			/*	cout << lex.idtable.table[queue.front().idxTI].id << " ";*/				// вывод в консоль
+				cout << lex.lextable.table[posLex-1].lexema<< " ";				// вывод в консоль
 				queue.pop();
 			}
 			else

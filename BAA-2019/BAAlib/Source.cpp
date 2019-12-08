@@ -10,11 +10,28 @@ extern "C"
 	}
 	int __stdcall random(int a)
 	{
-		if (a > 32768)
-			a = 32768;
+		if (a < 0)
+			a = -a;
+		if (a == 0)
+			return 0;
+		if (a > 2147483647)
+			a = 2147483647;
 		srand(time(NULL));
 		int k = rand()%a - a/2;
 		return k;
+	}
+	int __stdcall lenght(char* str)
+	{
+		if (str == nullptr)
+			return 0;
+		int len = 0;
+		for (int i = 0; i < 256; i++)
+			if (str[i] == '\0')
+			{
+				len = i; 
+				break;
+			}
+		return len;
 	}
 	int __stdcall outnum(int value)
 	{

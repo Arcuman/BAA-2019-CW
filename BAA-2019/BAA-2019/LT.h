@@ -3,6 +3,7 @@
 
 #define LEX_SEPARATORS	 'S'	// разделители
 #define	LEX_ID_TYPE    	 't'	// типы данных		
+#define	LEX_STDFUNC    	 'p'	// типы данных		
 #define	LEX_ID			 'i'	// идентификаторы		
 #define	LEX_LITERAL		 'l'	// литералы		
 #define	LEX_FUNCTION     'f'	// function		
@@ -22,6 +23,7 @@
 #define LEX_PROCENT		 '%'	// остаток от деления
 #define	LEX_EQUAL		 '='	// присваивание				
 #define LEX_IS			 '?'	// if:
+#define LEX_TILDA		 '~'	// if:
 #define LEX_WHILE		 'c'	// while:
 #define LEX_ISTRUE		 'r'	// ложный блок
 #define LEX_ISFALSE		 'w'	// истинный блок

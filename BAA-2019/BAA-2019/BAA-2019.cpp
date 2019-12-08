@@ -65,7 +65,6 @@ int _tmain(int argc, _TCHAR ** argv)
 			Log::WriteLineConsole(SEMERROR, STOP, "");
 			return 0;
 		}
-		else Log::WriteLineConsole(SEMGOOD, "");
 
 		tables.lextable.size = Polish::searchExpression(tables);		//выполнить преобразование выражений в ПОЛИЗ
 		if (tables.lextable.size == 0)
@@ -85,7 +84,14 @@ int _tmain(int argc, _TCHAR ** argv)
 		LT::writeLexTable(&std::cout, tables.lextable);							//а также соответствие токенов и лексем
 		LT::writeLexemsOnLines(&std::cout, tables.lextable);
 
-		Gener::CodeGeneration(tables, parm, log);								//выполнить генерацию кода
+		bool gen_ok = Gener::CodeGeneration(tables, parm, log);								//выполнить генерацию кода
+		if (!gen_ok)
+		{
+			Log::WriteLine(log, SEMERROR, "");
+			Log::WriteLineConsole(SEMERROR, STOP, "");
+			return 0;
+		}
+		else Log::WriteLineConsole(SEMGOOD, "");
 		Log::WriteLine(log, ALLGOOD, "");									//итог работы программы
 		Log::WriteLineConsole(ALLGOOD, "");
 		Log::Close(log);

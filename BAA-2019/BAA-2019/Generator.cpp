@@ -6,8 +6,9 @@ using namespace std;
 namespace Gener
 {
 	
-	void CodeGeneration(Lex::LEX& lex, Parm::PARM& parm, Log::LOG& log)
+	bool CodeGeneration(Lex::LEX& lex, Parm::PARM& parm, Log::LOG& log)
 	{
+		bool gen_ok;
 		ofstream ofile(parm.out);
 		ofile << BEGIN;
 		ofile << EXTERN;
@@ -56,6 +57,7 @@ namespace Gener
 		stack<string> stk;
 		string cyclecode = "", func_name = "";					// имя локальной функции
 		bool flag_cycle = false,					// внутри локальной функции?
+			flag_main = false,
 			flag_is = false,					// is
 			flag_true = false,					
 			flag_false = false;					
@@ -99,13 +101,26 @@ namespace Gener
 			}
 			case LEX_MAIN:
 			{
+				flag_main = true;
 				ofile << "main PROC\n";
 				break;
 			}
 			case LEX_RETURN:
 			{
+				if (flag_main)
+				{
+				Log::WriteError(log.stream, Error::geterrorin(320, lex.lextable.table[i].sn, 0));
+				ofile.close();
+				return false;
+				}
 				ofile << "\tmov eax, " << ITENTRY(i + 1).id << "\n";
 				ofile << "\tret\n";
+				break;
+			}
+			case LEX_BRACELET:
+			{
+				if (flag_main)
+				break;
 				ofile << func_name + " ENDP\n";
 				break;
 			}
@@ -146,6 +161,12 @@ namespace Gener
 							stk.pop();
 						}
 						ofile << "\t\tcall " << ITENTRY(i - (lex.lextable.table[i + 1].lexema - '0') - 1).id << "\n\tpush eax\n";
+						break;
+					}
+					case LEX_TILDA:
+					{
+						ofile << "\tmov eax, 0\n\tpop ebx\n";
+						ofile << "\tsub eax, ebx\n\tpush eax\n";
 						break;
 					}
 					case LEX_STAR:
@@ -229,12 +250,11 @@ namespace Gener
 			{
 				conditionnum++;
 				flag_is = true;
-				ofile << "\tmov edx, " << ITENTRY(i + 1).id << "\n\tcmp edx, " << ITENTRY(i + 3).id <<"\n";
-				int j = i;
 				char* right, *wrong;
+				int j = i;
 				while (LEXEMA(j) != LEX_SQ_RBRACELET)
 				{
-					if (LEXEMA(j)==LEX_ISTRUE)
+					if (LEXEMA(j) == LEX_ISTRUE)
 					{
 						flag_true = true;
 					}
@@ -256,22 +276,41 @@ namespace Gener
 					//Инструкция JZ выполняет короткий переход, если первый операнд РАВЕН второму операнду при выполнении операции сравнения с помощью команды CMP
 					//jnz если не равны
 				case LEX_MORE:
-					right = "jg";  wrong = "jl"; 
+					right = "jg";  wrong = "jl";
 					break;
-				case LEX_LESS: 
-					right = "jl";  wrong = "jg";  
+				case LEX_LESS:
+					right = "jl";  wrong = "jg";
 					break;
-				case LEX_EQUALS:   
-					right = "jz";  wrong = "jnz";  
+				case LEX_EQUALS:
+					right = "jz";  wrong = "jnz";
 					break;
-				case LEX_NOTEQUALS: 
-					right = "jnz";  wrong = "jz"; 
+				case LEX_NOTEQUALS:
+					right = "jnz";  wrong = "jz";
 					break;
 				}
-				if (flag_true) 
-					ofile  << "\t"<< right << " right" <<conditionnum << "\n";
-				if (flag_false) 
-					ofile << "\t" << wrong << " wrong" <<conditionnum << "\n";
+				if (ITENTRY(i + 1).iddatatype == IT::IDDATATYPE::INT)
+				{
+					ofile << "\tmov edx, " << ITENTRY(i + 1).id << "\n\tcmp edx, " << ITENTRY(i + 3).id << "\n";
+					
+					
+				}
+				if (ITENTRY(i + 1).iddatatype == IT::IDDATATYPE::SYM || ITENTRY(i + 1).iddatatype == IT::IDDATATYPE::STR)
+				{
+					ofile << "\tmov esi, " << ITENTRY(i + 1).id << "\n\tmov edi, " << ITENTRY(i + 3).id << "\n";
+					ofile << "\n\t push " << ITENTRY(i + 1).id;
+					ofile << "\n\t call lenght";
+					ofile << "\n\t mov ebx,eax";
+					ofile << "\n\t push " << ITENTRY(i + 3).id;
+					ofile << "\n\t call lenght";
+					ofile << "\n\t cmp ebx,eax";
+					ofile << "\n\t jne wrong"<<conditionnum;
+					ofile << "\n\t mov ecx,eax";
+					ofile << "\n\t repe cmpsb\n";
+				}
+				if (flag_true)
+					ofile << "\t" << right << " right" << conditionnum << "\n";
+				if (flag_false)
+					ofile << "\t" << wrong << " wrong" << conditionnum << "\n";
 				ofile << "\t" << "jmp next" << conditionnum << "\n";
 				i += 2;
 				break;
@@ -315,15 +354,14 @@ namespace Gener
 				flag_cycle = true;
 				cyclecode.clear();
 				cyclenum++;
-				cyclecode = "\tmov edx, " + (string)ITENTRY(i + 1).id + "\n\tcmp edx, " + (string)ITENTRY(i + 3).id + "\n";
 				char* right;
 				switch (LEXEMA(i + 2))
 				{
 				case LEX_MORE:
-					right = "jg"; 
+					right = "jg";
 					break;
 				case LEX_LESS:
-					right = "jl"; 
+					right = "jl";
 					break;
 				case LEX_EQUALS:
 					right = "jz";
@@ -332,6 +370,23 @@ namespace Gener
 					right = "jnz";
 					break;
 				}
+				if (ITENTRY(i + 1).iddatatype == IT::IDDATATYPE::INT)
+				{
+					cyclecode = "\tmov edx, " + (string)ITENTRY(i + 1).id + "\n\tcmp edx, " + (string)ITENTRY(i + 3).id + "\n";
+				}
+			/*	if (ITENTRY(i + 1).iddatatype == IT::IDDATATYPE::SYM || ITENTRY(i + 1).iddatatype == IT::IDDATATYPE::STR)
+				{
+					ofile << "\tmov esi, " << ITENTRY(i + 1).id << "\n\tmov edi, " << ITENTRY(i + 3).id << "\n";
+					ofile << "\n\t push " << ITENTRY(i + 1).id;
+					ofile << "\n\t call lenght";
+					ofile << "\n\t mov ebx,eax";
+					ofile << "\n\t push " << ITENTRY(i + 3).id;
+					ofile << "\n\t call lenght";
+					ofile << "\n\t cmp ebx,eax";
+					ofile << "\n\t jne wrong" << cyclenum;
+					ofile << "\n\t mov ecx,eax";
+					ofile << "\n\t repe cmpsb\n";
+				}*/
 				cyclecode +="\t" + (string)right + " cycle" + std::to_string(cyclenum) + "\n";
 				ofile << cyclecode;
 				ofile << "\t" << "jmp continue" << cyclenum << "\n";
@@ -347,5 +402,6 @@ namespace Gener
 		}
 		ofile << END;
 		ofile.close();
+		return true;
 	};
 }

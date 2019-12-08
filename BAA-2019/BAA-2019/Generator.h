@@ -20,6 +20,7 @@
 "\n outnumline PROTO : DWORD\n"\
 "\n system_pause PROTO \n"\
 "\n random PROTO  : DWORD\n"\
+"\n lenght PROTO  : DWORD\n"\
 "\n power PROTO : DWORD, : DWORD\n"
 
 
@@ -29,5 +30,5 @@
 
 namespace Gener
 {
-	void CodeGeneration(Lex::LEX& tables, Parm::PARM& parm, Log::LOG& log);
+	bool CodeGeneration(Lex::LEX& tables, Parm::PARM& parm, Log::LOG& log);
 };

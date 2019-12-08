@@ -1,60 +1,62 @@
-#pragma once
+п»ї#pragma once
 #include"pch.h"
-#define ID_MAXSIZE	8					 //макс число символов идентификатора
-#define SCOPED_ID_MAXSIZE   ID_MAXSIZE*2 //макс число символов идентификатор + область видимости
-#define MAXSIZE_TI		4096			 //макс число количество строк в таблице идентификаторов
-#define TI_INT_DEFAULT	0x00000000		 //значение по умолчанию для integer
-#define TI_STR_DEFAULT	0x00			 //значение по умолчанию для sting
-#define TI_SYM_DEFAULT	0x00			 //значение по умолчанию для symbol;
-#define TI_NULLIDX		0xffffffff		 //нет элемента таблицы идентификаторов
-#define STR_MAXSIZE	255					 //максимальная длина строкового литерала
-#define TI_INT_MAXSIZE   32768			 //максимальное значение для типа integer
-#define TI_INT_MINSIZE  -32768			 //минимальное значение для типа integer
-#define MAX_PARAMS_COUNT 5			   	 //максимальное количество параметров у функции
-#define POW_PARAMS_CNT 2				 //кол-во параметров у функции pow
-#define RANDOM_PARAMS_CNT 1				 //кол-во параметров у функции rand
+#define ID_MAXSIZE	8					 //РјР°РєСЃ С‡РёСЃР»Рѕ СЃРёРјРІРѕР»РѕРІ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°
+#define SCOPED_ID_MAXSIZE   ID_MAXSIZE*2 //РјР°РєСЃ С‡РёСЃР»Рѕ СЃРёРјРІРѕР»РѕРІ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ + РѕР±Р»Р°СЃС‚СЊ РІРёРґРёРјРѕСЃС‚Рё
+#define MAXSIZE_TI		4096			 //РјР°РєСЃ С‡РёСЃР»Рѕ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє РІ С‚Р°Р±Р»РёС†Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
+#define TI_INT_DEFAULT	0x00000000		 //Р·РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ integer
+#define TI_STR_DEFAULT	0x00			 //Р·РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ sting
+#define TI_SYM_DEFAULT	0x00			 //Р·РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ symbol;
+#define TI_NULLIDX		0xffffffff		 //РЅРµС‚ СЌР»РµРјРµРЅС‚Р° С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
+#define STR_MAXSIZE	255					 //РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° СЃС‚СЂРѕРєРѕРІРѕРіРѕ Р»РёС‚РµСЂР°Р»Р°
+#define TI_INT_MAXSIZE   2147483647			 //РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ С‚РёРїР° integer
+#define TI_INT_MINSIZE  -2147483647			 //РјРёРЅРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ С‚РёРїР° integer
+#define MAX_PARAMS_COUNT 5			   	 //РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїР°СЂР°РјРµС‚СЂРѕРІ Сѓ С„СѓРЅРєС†РёРё
+#define POW_PARAMS_CNT 2				 //РєРѕР»-РІРѕ РїР°СЂР°РјРµС‚СЂРѕРІ Сѓ С„СѓРЅРєС†РёРё pow
+#define RANDOM_PARAMS_CNT 1				 //РєРѕР»-РІРѕ РїР°СЂР°РјРµС‚СЂРѕРІ Сѓ С„СѓРЅРєС†РёРё rand
+#define LENGHT_PARAMS_CNT 1				//РєРѕР»-РІРѕ РїР°СЂР°РјРµС‚СЂРѕРІ Сѓ С„СѓРЅРєС†РёРё lenght
 #define RANDOM_TYPE IT::IDDATATYPE::INT
 #define POW_TYPE IT::IDDATATYPE::INT
+#define LENGHT_TYPE IT::IDDATATYPE::INT
 
-namespace IT			// таблица идентификаторов
+namespace IT			// С‚Р°Р±Р»РёС†Р° РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 {
-	enum IDDATATYPE { INT = 1, STR = 2, SYM =3, UNDEF };								//типы данных идентификаторов: числовой, строковый, неопределенный
-	enum IDTYPE { V = 1, F = 2, P = 3, L = 4, S = 5 };									//типы идентификаторов: V = переменная, F = функция, P =параметр, L =литерал, S = стандартная функция
-	enum STDFNC { F_POW,F_POWER, F_RANDOM, F_NOT_STD };											//стандартные функции
-	static const IDDATATYPE POW_PARAMS[] = { IT::IDDATATYPE::INT, IT::IDDATATYPE::INT };//параметры функции  											//параметры функции 											//параметры функции
-	static const IDDATATYPE RANDOM_PARAMS[] = { IT::IDDATATYPE::INT };//параметры функции  											//параметры функции 											//параметры функции
-
-	struct Entry	// строка таблицы идентификаторов
+	enum IDDATATYPE { INT = 1, STR = 2, SYM =3, UNDEF };								//С‚РёРїС‹ РґР°РЅРЅС‹С… РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ: С‡РёСЃР»РѕРІРѕР№, СЃС‚СЂРѕРєРѕРІС‹Р№, РЅРµРѕРїСЂРµРґРµР»РµРЅРЅС‹Р№
+	enum IDTYPE { V = 1, F = 2, P = 3, L = 4, S = 5 };									//С‚РёРїС‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ: V = РїРµСЂРµРјРµРЅРЅР°СЏ, F = С„СѓРЅРєС†РёСЏ, P =РїР°СЂР°РјРµС‚СЂ, L =Р»РёС‚РµСЂР°Р», S = СЃС‚Р°РЅРґР°СЂС‚РЅР°СЏ С„СѓРЅРєС†РёСЏ
+	enum STDFNC { F_POW,F_POWER, F_RANDOM, F_LENGTH, F_NOT_STD };											//СЃС‚Р°РЅРґР°СЂС‚РЅС‹Рµ С„СѓРЅРєС†РёРё
+	static const IDDATATYPE POW_PARAMS[] = { IT::IDDATATYPE::INT, IT::IDDATATYPE::INT };//РїР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё  											//РїР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё 											//РїР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё
+	static const IDDATATYPE RANDOM_PARAMS[] = { IT::IDDATATYPE::INT };//РїР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё  											//РїР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё 											//РїР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё
+	static const IDDATATYPE LENGHT_PARAMS[] = { IT::IDDATATYPE::STR };//РїР°СЂР°РјРµС‚СЂС‹ С„СѓРЅРєС†РёРё length
+	struct Entry	// СЃС‚СЂРѕРєР° С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 	{
-		int			idxfirstLE;			// индекс первой строки в таблице лексем
-		char	id[SCOPED_ID_MAXSIZE];		// индентификатор (автоматически усекается до ID_MAXSIZE)
-		IDDATATYPE	iddatatype;			// тип данных
-		IDTYPE		idtype;				// тип идентификатора
+		int			idxfirstLE;			// РёРЅРґРµРєСЃ РїРµСЂРІРѕР№ СЃС‚СЂРѕРєРё РІ С‚Р°Р±Р»РёС†Рµ Р»РµРєСЃРµРј
+		char	id[SCOPED_ID_MAXSIZE];		// РёРЅРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ (Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё СѓСЃРµРєР°РµС‚СЃСЏ РґРѕ ID_MAXSIZE)
+		IDDATATYPE	iddatatype;			// С‚РёРї РґР°РЅРЅС‹С…
+		IDTYPE		idtype;				// С‚РёРї РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°
 
 		union
 		{
-			int vint;					// значение integer
+			int vint;					// Р·РЅР°С‡РµРЅРёРµ integer
 			struct
 			{
-				int len;							// количество символов в string
-				 char str[STR_MAXSIZE - 1];	// символы string
-			} vstr;									// значение string
-			char symbol;							//значение symbol
+				int len;							// РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ РІ string
+				 char str[STR_MAXSIZE - 1];	// СЃРёРјРІРѕР»С‹ string
+			} vstr;									// Р·РЅР°С‡РµРЅРёРµ string
+			char symbol;							//Р·РЅР°С‡РµРЅРёРµ symbol
 			struct
 			{
-				int count;					// количество параметров функции
-				IDDATATYPE *types;			//типы параметров функции
+				int count;					// РєРѕР»РёС‡РµСЃС‚РІРѕ РїР°СЂР°РјРµС‚СЂРѕРІ С„СѓРЅРєС†РёРё
+				IDDATATYPE *types;			//С‚РёРїС‹ РїР°СЂР°РјРµС‚СЂРѕРІ С„СѓРЅРєС†РёРё
 			} params;
-		} value;		// значение идентификатора
+		} value;		// Р·РЅР°С‡РµРЅРёРµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°
 
-		Entry()							//конструктор без параметров
+		Entry()							//РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р±РµР· РїР°СЂР°РјРµС‚СЂРѕРІ
 		{
 			this->value.vint = TI_INT_DEFAULT;
 			this->value.vstr.len = NULL;
 			this->value.params.count = NULL;
 			this->value.symbol = NULL;
 		};
-		Entry(char* id, int idxLT, IDDATATYPE datatype, IDTYPE idtype) //конструктор с параметрами
+		Entry(char* id, int idxLT, IDDATATYPE datatype, IDTYPE idtype) //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё
 		{
 			strncpy_s(this->id, id, SCOPED_ID_MAXSIZE - 1);
 			this->idxfirstLE = idxLT;
@@ -63,26 +65,26 @@ namespace IT			// таблица идентификаторов
 		};
 	};
 
-	struct IdTable				// экземпляр таблицы идентификаторов
+	struct IdTable				// СЌРєР·РµРјРїР»СЏСЂ С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 	{
-		int maxsize;			// емкость таблицы идентификаторов < TI_MAXSIZE
-		int size;				// текущий размер таблицы идентификаторов < maxsize
-		Entry* table;			// массив строк таблицы идентификаторов
+		int maxsize;			// РµРјРєРѕСЃС‚СЊ С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ < TI_MAXSIZE
+		int size;				// С‚РµРєСѓС‰РёР№ СЂР°Р·РјРµСЂ С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ < maxsize
+		Entry* table;			// РјР°СЃСЃРёРІ СЃС‚СЂРѕРє С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 	};
 
-	IdTable Create(int size);		// емкость таблицы идентификаторов < TI_MAXSIZE// создать таблицу идентификаторов
+	IdTable Create(int size);		// РµРјРєРѕСЃС‚СЊ С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ < TI_MAXSIZE// СЃРѕР·РґР°С‚СЊ С‚Р°Р±Р»РёС†Сѓ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 
-	void Add(				// добавить строку в таблицу идентификаторов
-		IdTable& idtable,	// экземпляр таблицы идентификаторов
-		Entry entry			// строка таблицы идентификаторов
+	void Add(				// РґРѕР±Р°РІРёС‚СЊ СЃС‚СЂРѕРєСѓ РІ С‚Р°Р±Р»РёС†Сѓ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
+		IdTable& idtable,	// СЌРєР·РµРјРїР»СЏСЂ С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
+		Entry entry			// СЃС‚СЂРѕРєР° С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 	);
-	int isId(				// возврат: номер строки (если есть), TI_NULLIDX (если нет)
-		IdTable& idtable,	// экземпляр таблицы идентификаторов
-		char id[SCOPED_ID_MAXSIZE]	// идентификатор
+	int isId(				// РІРѕР·РІСЂР°С‚: РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё (РµСЃР»Рё РµСЃС‚СЊ), TI_NULLIDX (РµСЃР»Рё РЅРµС‚)
+		IdTable& idtable,	// СЌРєР·РµРјРїР»СЏСЂ С‚Р°Р±Р»РёС†С‹ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
+		char id[SCOPED_ID_MAXSIZE]	// РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ
 	);
-	bool SetValue(IT::Entry* entry, char* value);	//задать значение идентификатора
+	bool SetValue(IT::Entry* entry, char* value);	//Р·Р°РґР°С‚СЊ Р·РЅР°С‡РµРЅРёРµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°
 	bool SetValue(IT::IdTable& idtable, int index, char* value);
-	void Delete(IdTable& idtable);	// удалить таблицу лексем (освободить память)
+	void Delete(IdTable& idtable);	// СѓРґР°Р»РёС‚СЊ С‚Р°Р±Р»РёС†Сѓ Р»РµРєСЃРµРј (РѕСЃРІРѕР±РѕРґРёС‚СЊ РїР°РјСЏС‚СЊ)
 	void showTable(IdTable& idtable);
-	void writeIdTable(std::ostream *stream, IT::IdTable &idtable); //вывести таблицу идентификаторов
+	void writeIdTable(std::ostream *stream, IT::IdTable &idtable); //РІС‹РІРµСЃС‚Рё С‚Р°Р±Р»РёС†Сѓ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ
 };
