@@ -12,7 +12,16 @@
 "ExitProcess PROTO:DWORD \n"\
 ".stack 4096\n"
 
-#define END "call system_pause\npush 0\ncall ExitProcess\nmain ENDP\nend main"
+#define END "call system_pause"\
+				"\npush 0"\
+				"\ncall ExitProcess"\
+				"\nSOMETHINGWRONG:"\
+				"\npush offset null_division"\
+				"\ncall outstrline\n"\
+				"call system_pause"\
+				"\npush -1"\
+				"\ncall ExitProcess"\
+				"\nmain ENDP\nend main"
 
 #define EXTERN "\n outnum PROTO : DWORD\n"\
 "\n outstr PROTO : DWORD\n"\

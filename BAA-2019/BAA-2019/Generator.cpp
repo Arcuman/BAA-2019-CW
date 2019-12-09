@@ -12,7 +12,7 @@ namespace Gener
 		ofstream ofile(parm.out);
 		ofile << BEGIN;
 		ofile << EXTERN;
-		ofile << ".const\n";
+		ofile << ".const\n null_division BYTE 'ERROR: DIVISION BY ZERO', 0\n";
 		int conditionnum = 0,cyclenum=0;
 		for (int i = 0; i < lex.idtable.size; i++)
 		{
@@ -115,6 +115,12 @@ namespace Gener
 				}
 				ofile << "\tmov eax, " << ITENTRY(i + 1).id << "\n";
 				ofile << "\tret\n";
+				ofile << "\nSOMETHINGWRONG:"\
+					"\npush offset null_division"\
+					"\ncall outstrline\n"\
+					"call system_pause"\
+					"\npush -1"\
+					"\ncall ExitProcess\n";
 				break;
 			}
 			case LEX_BRACELET:
@@ -197,13 +203,18 @@ namespace Gener
 					case LEX_DIRSLASH:
 					{
 						ofile << "\tpop ebx\n\tpop eax\n";
+						ofile << "\tcmp ebx,0\n"\
+							"\tje SOMETHINGWRONG\n";
 						ofile << "\tcdq\n";
 						ofile << "\tidiv ebx\n\tpush eax\n";
 						break;
 					}
 					case LEX_PROCENT:
 					{
+
 						ofile << "\tpop ebx\n\tpop eax\n";
+						ofile << "\tcmp ebx,0\n"\
+							"\tje SOMETHINGWRONG\n";
 						ofile << "\tcdq\n";
 						ofile << "\tidiv ebx\n\tpush edx\n";
 						break;

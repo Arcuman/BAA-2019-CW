@@ -22,28 +22,32 @@ ExitProcess PROTO:DWORD
 
  power PROTO : DWORD, : DWORD
 .const
-	L1 BYTE '123', 0
-	L2 BYTE ' ', 0
-	L3 SDWORD 0
-	L4 SDWORD 9
-	L5 BYTE 'x = ', 0
-	L6 SDWORD 3
-	L7 SDWORD -9
-	L8 BYTE 'c = ', 0
-	L9 BYTE 'Just', 0
-	L10 BYTE 'strx = ', 0
-	L11 BYTE '1', 0
-	L12 BYTE 'F', 0
-	L13 BYTE 'strm = ', 0
-	L14 BYTE 'stry = ', 0
-	L15 BYTE 'TRUE BLOCK', 0
-	L16 BYTE 'FALSE BLOCK', 0
-	L17 SDWORD 2
-	L18 BYTE 't1 = ', 0
-	L19 BYTE 'cycle start:', 0
-	L20 SDWORD 1
-	L21 BYTE 'cycle end:', 0
+ null_division BYTE 'ERROR: DIVISION BY ZERO', 0
+	L1 SDWORD 2
+	L2 SDWORD 1
+	L3 SDWORD -241
+	L4 BYTE '123', 0
+	L5 BYTE ' ', 0
+	L6 SDWORD 0
+	L7 SDWORD 9
+	L8 BYTE 'x = ', 0
+	L9 SDWORD 3
+	L10 SDWORD -9
+	L11 BYTE 'c = ', 0
+	L12 BYTE 'Just', 0
+	L13 BYTE 'strx = ', 0
+	L14 BYTE '1', 0
+	L15 BYTE 'F', 0
+	L16 BYTE 'strm = ', 0
+	L17 BYTE 'stry = ', 0
+	L18 BYTE 'TRUE BLOCK', 0
+	L19 BYTE 'FALSE BLOCK', 0
+	L20 BYTE 't1 = ', 0
+	L21 BYTE 'cycle start:', 0
+	L22 BYTE 'cycle end:', 0
 .data
+	pow1x1 SDWORD 0
+	pow1y1 SDWORD 0
 	pow1x DWORD ?
 	pow1y DWORD ?
 	pow1count SDWORD 0
@@ -59,10 +63,29 @@ ExitProcess PROTO:DWORD
 .code
 
 pow1 PROC pow1c :  SDWORD 
-	push offset L1
+	push L1
+	pop pow1x1
+
+	push L2
+	push L3
+	push pow1x1
+	pop ebx
+	pop eax
+	sub eax, ebx
+	push eax
+	pop ebx
+	pop eax
+	cmp ebx,0
+	je SOMETHINGWRONG
+	cdq
+	idiv ebx
+	push eax
+	pop pow1y1
+
+	push offset L4
 	pop pow1x
 
-	push offset L1
+	push offset L4
 	pop pow1y
 
 	mov esi, pow1x
@@ -83,7 +106,7 @@ pow1 PROC pow1c :  SDWORD
 push pow1x
 call outstr
 
-push offset L2
+push offset L5
 call outstr
 	jnz cycle1
 continue1:
@@ -92,30 +115,37 @@ call outstrline
 
 push pow1c
 call outnumline
-	mov eax, L3
+	mov eax, L6
 	ret
+
+SOMETHINGWRONG:
+push offset null_division
+call outstrline
+call system_pause
+push -1
+call ExitProcess
 pow1 ENDP
 main PROC
-	push L4
+	push L7
 	pop mainx
 
 
-push offset L5
+push offset L8
 call outstr
 
 push mainx
 call outnumline
 	push pow1
-	push L6
+	push L9
 	pop edx
 	pop edx
-	push L6
+	push L9
 		call pow1
 	push eax
 	pop mainx
 
+	push L10
 	push L7
-	push L4
 	pop ebx
 	pop eax
 	sub eax, ebx
@@ -123,37 +153,37 @@ call outnumline
 	pop mainc
 
 
-push offset L8
+push offset L11
 call outstr
 
 push mainc
 call outnumline
-	push offset L9
-	pop mainstrx
-
-
-push offset L10
-call outstr
-
-push mainstrx
-call outstrline
-	push offset L11
-	pop mainstrm
-
 	push offset L12
-	pop mainstrf
+	pop mainstrx
 
 
 push offset L13
 call outstr
 
+push mainstrx
+call outstrline
+	push offset L14
+	pop mainstrm
+
+	push offset L15
+	pop mainstrf
+
+
+push offset L16
+call outstr
+
 push mainstrm
 call outstrline
-	push offset L9
+	push offset L12
 	pop mainstry
 
 
-push offset L14
+push offset L17
 call outstr
 
 push mainstry
@@ -177,12 +207,12 @@ call outstrline
 	jz wrong1
 	jmp next1
 right1:
-push offset L15
+push offset L18
 call outstrline
 	jmp next1
 
 wrong1:
-push offset L16
+push offset L19
 call outstr
 
 next1:	mov esi, mainstrm
@@ -201,28 +231,28 @@ next1:	mov esi, mainstrm
 	jz wrong2
 	jmp next2
 right2:
-push offset L15
+push offset L18
 call outstrline
 	jmp next2
 
 wrong2:
-push offset L16
+push offset L19
 call outstr
 
-next2:	push L17
+next2:	push L1
 	pop maint1
 
 
-push offset L18
+push offset L20
 call outstr
 
 push maint1
 call outnumline
-	push L3
+	push L6
 	pop mainab
 
 
-push offset L19
+push offset L21
 call outstrline
 	mov esi, mainstrx
 	mov edi, mainstry
@@ -242,10 +272,10 @@ call outstrline
 push mainab
 call outnum
 
-push offset L2
+push offset L5
 call outstr
 	push mainab
-	push L20
+	push L2
 	pop eax
 	pop ebx
 	add eax, ebx
@@ -254,16 +284,22 @@ call outstr
 
 	jz cycle2
 continue2:
-push offset L21
+push offset L22
 call outstrline
 
-push offset L2
+push offset L5
 call outstrline
 
 push mainab
 call outnumline
 call system_pause
 push 0
+call ExitProcess
+SOMETHINGWRONG:
+push offset null_division
+call outstrline
+call system_pause
+push -1
 call ExitProcess
 main ENDP
 end main

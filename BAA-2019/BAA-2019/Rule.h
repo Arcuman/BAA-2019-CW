@@ -44,7 +44,7 @@ namespace GRB
 			Rule::Chain(3, TS('l'), TS(','), NS('N'))
 		),
 
-		Rule(NS('R'), GRB_ERROR_SERIES + 6, 11,								// Ошибка при констуировании цикла/условного выражения	
+		Rule(NS('R'), GRB_ERROR_SERIES + 6, 11,								// Ошибка при констуировании условного выражения	
 			Rule::Chain(5, TS('r'), TS('['), NS('X'), NS('Q'), TS(']')),
 			Rule::Chain(4, TS('r'), TS('['), NS('X'),  TS(']')),
 			Rule::Chain(5, TS('w'), TS('['), NS('X'), NS('Q'), TS(']')),
