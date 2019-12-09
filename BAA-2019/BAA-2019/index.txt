@@ -1,29 +1,16 @@
 integer function pow1(integer c)
 {
-type integer x = 3 ;
-type integer y = (-x)-(5+(-x)*3+x)*10;
+
+type string x = "123";
+type string y = "123";
+while: x ! y 
+	do [
+		write x;
+		write " ";
+	]
 writeline y;
 type integer count ;
 writeline c;
-is: c < 0
-false
-[
-count = random(100) + (-x);
-return count;
-]
-true
-[
-count = 1;
-]
-
-while: count < 100
-do
-[
-c = random(1000) ;
-write "c rand = ";
-writeline c;
-count = count + 1;
-]
 return 0;
 }
 main
@@ -58,7 +45,7 @@ main
 	writeline t1;
 	type integer ab = 0;
 	writeline "cycle start:";
-	while: strx < stry 
+	while: strx & stry 
 	do [
 		write ab;
 		write " ";

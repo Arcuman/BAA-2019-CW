@@ -47,6 +47,7 @@ namespace Polish
 		{
 			switch (lex.lextable.table[i].lexema)
 			{
+			case LEX_STDFUNC:
 			case LEX_ID:															// если идентификатор
 			{
 				if (lex.idtable.table[lex.lextable.table[i].idxTI].idtype == IT::F || lex.idtable.table[lex.lextable.table[i].idxTI].idtype == IT::S)

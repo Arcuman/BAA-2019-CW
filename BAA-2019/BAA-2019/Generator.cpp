@@ -132,6 +132,7 @@ namespace Gener
 					
 					switch (LEXEMA(i))
 					{
+					case LEX_STDFUNC:
 					case LEX_ID:
 					case LEX_LITERAL:
 					{
@@ -374,7 +375,7 @@ namespace Gener
 				{
 					cyclecode = "\tmov edx, " + (string)ITENTRY(i + 1).id + "\n\tcmp edx, " + (string)ITENTRY(i + 3).id + "\n";
 				}
-			/*	if (ITENTRY(i + 1).iddatatype == IT::IDDATATYPE::SYM || ITENTRY(i + 1).iddatatype == IT::IDDATATYPE::STR)
+				if (ITENTRY(i + 1).iddatatype == IT::IDDATATYPE::SYM || ITENTRY(i + 1).iddatatype == IT::IDDATATYPE::STR)
 				{
 					ofile << "\tmov esi, " << ITENTRY(i + 1).id << "\n\tmov edi, " << ITENTRY(i + 3).id << "\n";
 					ofile << "\n\t push " << ITENTRY(i + 1).id;
@@ -383,10 +384,10 @@ namespace Gener
 					ofile << "\n\t push " << ITENTRY(i + 3).id;
 					ofile << "\n\t call lenght";
 					ofile << "\n\t cmp ebx,eax";
-					ofile << "\n\t jne wrong" << cyclenum;
+					ofile << "\n\t jne continue" << cyclenum;
 					ofile << "\n\t mov ecx,eax";
 					ofile << "\n\t repe cmpsb\n";
-				}*/
+				}
 				cyclecode +="\t" + (string)right + " cycle" + std::to_string(cyclenum) + "\n";
 				ofile << cyclecode;
 				ofile << "\t" << "jmp continue" << cyclenum << "\n";

@@ -79,3 +79,85 @@ main
 	writeline " ";
 	writeline ab;
 }
+
+
+
+
+
+
+
+
+
+
+integer function pow1(integer c)
+{
+type integer x = 3 ;
+type integer y = (-x)-(5+(-x)*3+x)*10;
+writeline y;
+type integer count ;
+writeline c;
+is: c < 0
+false
+[
+count = random(100) + (-x);
+return count;
+]
+true
+[
+count = 1;
+]
+
+while: count < 100
+do
+[
+c = random(1000) ;
+write "c rand = ";
+writeline c;
+count = count + 1;
+]
+return 0;
+}
+main
+{
+	type integer x = 9;
+	write "x = ";
+	writeline x;
+	x = pow1(3);
+	type integer c = (-9-9);
+	write "c = ";
+	writeline c;
+	type string strx = "Just";
+	write "strx = ";
+	writeline strx;
+	type symbol strm = ~1~;
+	type symbol strf = ~F~;
+	write "strm = ";
+	writeline strm;
+	type string stry = "Just" ;
+	write "stry = ";
+	writeline stry;
+	writeline strx;
+	is: strx ! stry
+	true[writeline "TRUE BLOCK";]
+	false[write "FALSE BLOCK";]
+	is: strm ! strf
+	true[writeline "TRUE BLOCK";]
+	false[write "FALSE BLOCK";]
+	type integer t1 ;
+	t1 = 2;
+	  write "t1 = ";
+	writeline t1;
+	type integer ab = 0;
+	writeline "cycle start:";
+	while: strx & stry 
+	do [
+	is: x ! c
+	true[strx = stry;]
+		write ab;
+		write " ";
+		ab = ab + 1;
+	]
+	writeline "cycle end:";
+	writeline " ";
+	writeline ab;
+}
