@@ -23,17 +23,22 @@ ExitProcess PROTO:DWORD
  power PROTO : DWORD, : DWORD
 .const
  null_division BYTE 'ERROR: DIVISION BY ZERO', 0
-	L1 SDWORD 0
-	L2 SDWORD 1
-	L3 SDWORD 10
-	L4 BYTE 'number of digit = ', 0
-	L5 BYTE 'number on position ', 0
-	L6 BYTE ':', 0
-	L7 SDWORD -1
-	L8 SDWORD 32
-	L9 BYTE 'Program completed successfully', 0
-	L10 BYTE 'Program completed unsuccessfully', 0
+	L1 BYTE 'sdlklsd', 0
+	L2 SDWORD 3
+	L3 BYTE 'strhsd1 ', 0
+	L4 SDWORD -1
+	L5 SDWORD 1
+	L6 SDWORD 0
+	L7 SDWORD 10
+	L8 BYTE 'number of digit = ', 0
+	L9 BYTE 'number on position ', 0
+	L10 BYTE ':', 0
+	L11 SDWORD 32
+	L12 BYTE 'Program completed successfully', 0
+	L13 BYTE 'Program completed unsuccessfully', 0
 .data
+	_Inlengthstr1 DWORD ?
+	_Inlengthstrhsd1 SDWORD 0
 	_Inlengthlen SDWORD 0
 	_InlengthtempNum SDWORD 0
 	_Inlengthdegree SDWORD 0
@@ -46,28 +51,51 @@ ExitProcess PROTO:DWORD
 .code
 
 _Inlength PROC _Inlengthnum :  SDWORD 
-	push L1
+	push offset L1
+	pop _Inlengthstr1
+
+	push random
+	push L2
+	pop edx
+	pop edx
+	push L2
+		call random
+	push eax
+	pop _Inlengthstrhsd1
+
+	mov edx, L2
+	cmp edx, L2
+	jz right1
+	jmp next1
+right1:
+push offset L3
+call outstr
+
+push _Inlengthstrhsd1
+call outnum
+
+next1:	push L4
 	pop _Inlengthlen
 
 	push _Inlengthnum
 	pop _InlengthtempNum
 
-	push L2
+	push L5
 	pop _Inlengthdegree
 
 	mov edx, _InlengthtempNum
-	cmp edx, L1
+	cmp edx, L6
 	jnz cycle1
 	jmp continue1
  cycle1:	push _Inlengthnum
 	push power
-	push L3
+	push L7
 	push _Inlengthdegree
 	pop edx
 	pop edx
 	pop edx
 	push _Inlengthdegree
-	push L3
+	push L7
 		call power
 	push eax
 	pop ebx
@@ -80,7 +108,7 @@ _Inlength PROC _Inlengthnum :  SDWORD
 	pop _InlengthtempNum
 
 	push _Inlengthdegree
-	push L2
+	push L5
 	pop eax
 	pop ebx
 	add eax, ebx
@@ -88,10 +116,10 @@ _Inlength PROC _Inlengthnum :  SDWORD
 	pop _Inlengthdegree
 
 	mov edx, _InlengthtempNum
-	cmp edx, L1
+	cmp edx, L6
 	jnz cycle1
 continue1:	push _Inlengthdegree
-	push L2
+	push L5
 	pop ebx
 	pop eax
 	sub eax, ebx
@@ -122,25 +150,25 @@ _getDigitb PROC _getDigita :  SDWORD , _getDigitposit :  SDWORD
 	pop _getDigittempNum
 
 
-push offset L4
+push offset L8
 call outstr
 
 push _getDigitlen
 call outnumline
 	mov edx, _getDigitlen
 	cmp edx, _getDigitposit
-	jg right1
-	jl wrong1
-	jmp next1
-right1:	push _getDigita
+	jg right2
+	jl wrong2
+	jmp next2
+right2:	push _getDigita
 	push power
-	push L3
+	push L7
 	push _getDigitposit
 	pop edx
 	pop edx
 	pop edx
 	push _getDigitposit
-	push L3
+	push L7
 		call power
 	push eax
 	pop ebx
@@ -153,7 +181,7 @@ right1:	push _getDigita
 	pop _getDigittempNum
 
 	push _getDigittempNum
-	push L3
+	push L7
 	pop ebx
 	pop eax
 	cmp ebx,0
@@ -164,18 +192,18 @@ right1:	push _getDigita
 	pop _getDigitanswer
 
 
-push offset L5
+push offset L9
 call outstr
 
 push _getDigitposit
 call outnum
 
-push offset L6
+push offset L10
 call outstrline
 
 push _getDigitanswer
 call outnumline
-	mov eax, L1
+	mov eax, L6
 	ret
 
 SOMETHINGWRONG:
@@ -184,45 +212,45 @@ call outstrline
 call system_pause
 push -1
 call ExitProcess
-	jmp next1
+	jmp next2
 
-wrong1:	mov eax, L7
+wrong2:	mov eax, L4
 	ret
 
-next1:	mov eax, L7
+next2:	mov eax, L4
 	ret
 _getDigitb ENDP
 main PROC
-	push L8
+	push L11
 	pop maina
 
 	push _getDigitb
 	push maina
-	push L1
+	push L6
 	pop edx
 	pop edx
 	pop edx
-	push L1
+	push L6
 	push maina
 		call _getDigitb
 	push eax
 	pop mainfunc
 
 	mov edx, mainfunc
-	cmp edx, L1
-	jz right2
-	jnz wrong2
-	jmp next2
-right2:
-push offset L9
+	cmp edx, L6
+	jz right3
+	jnz wrong3
+	jmp next3
+right3:
+push offset L12
 call outstrline
-	jmp next2
+	jmp next3
 
-wrong2:
-push offset L10
+wrong3:
+push offset L13
 call outstrline
 
-next2:call system_pause
+next3:call system_pause
 push 0
 call ExitProcess
 SOMETHINGWRONG:

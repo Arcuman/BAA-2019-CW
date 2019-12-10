@@ -1,9 +1,17 @@
 integer function Inlength(integer num)
 {
-type integer len = 0;
+type string str1 = "sdlklsd";
+type integer strhsd1 = random(3);
+is 3 & 3
+true
+[ write "strhsd1 ";
+ write strhsd1;
+ ]
+
+type integer len = -1;
 type integer tempNum = num;
 type integer degree = 1;
-while: tempNum ! 0
+while tempNum ! 0
 do
 [
  tempNum = num / power(10,degree);
@@ -19,7 +27,7 @@ type integer answer ;
 type integer tempNum = a;
 write "number of digit = ";
  writeline len;
- is: len > posit
+ is len > posit
  true[
  tempNum = a / power(10,posit);
  answer = tempNum % 10;
@@ -39,7 +47,7 @@ main
 {
  type integer a = 32;
  type integer func = getDigitb(a,0);
- is: func & 0
+ is func & 0
  true[ writeline "Program completed successfully";]
  false [writeline "Program completed unsuccessfully";]
 }

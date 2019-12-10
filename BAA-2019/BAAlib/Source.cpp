@@ -18,7 +18,7 @@ extern "C"
 		if (a > 2147483647)
 			a = 2147483647;
 		srand(time(NULL) + b);
-		int k = rand()%a - a/2;
+		int k = rand()%a - a/2 + 1;
 		return k;
 	}
 	int __stdcall lenght(char* str)

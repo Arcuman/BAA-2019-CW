@@ -7,11 +7,11 @@ write " to ";
 write b;
 writeline ":";
 b = b +1;
-while: a < b
+while a < b
 do
 [
 temp = a % 2;
-is: temp & 0
+is temp & 0
 true[write a;write " ";]
 a = a + 1;
 ]

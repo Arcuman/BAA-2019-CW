@@ -61,7 +61,8 @@ namespace Error
 		ERROR_ENTRY(611, "Синтаксическая ошибка: Ошибка в арифметическом выражении"),
 		ERROR_ENTRY(612, "Синтаксическая ошибка: Недопустимая синтаксическая конструкция"),
 		ERROR_ENTRY(613, "Синтаксическая ошибка: Недопустимая синтаксическая конструкция в теле цикла/условного выражения"),
-		ERROR_ENTRY_NODEF(614),ERROR_ENTRY_NODEF(615), ERROR_ENTRY_NODEF(616),ERROR_ENTRY_NODEF(617), ERROR_ENTRY_NODEF(618),
+		ERROR_ENTRY(614, "Синтаксическая ошибка: Недопустимая синтаксическая конструкция в теле цикла"),
+		ERROR_ENTRY_NODEF(615), ERROR_ENTRY_NODEF(616),ERROR_ENTRY_NODEF(617), ERROR_ENTRY_NODEF(618),
 		ERROR_ENTRY_NODEF10(620), ERROR_ENTRY_NODEF10(630), ERROR_ENTRY_NODEF10(640), ERROR_ENTRY_NODEF10(650),
 		ERROR_ENTRY_NODEF10(660), ERROR_ENTRY_NODEF10(670), ERROR_ENTRY_NODEF10(680), ERROR_ENTRY_NODEF10(690),
 		ERROR_ENTRY_NODEF100(700), ERROR_ENTRY_NODEF100(800), ERROR_ENTRY_NODEF100(900)

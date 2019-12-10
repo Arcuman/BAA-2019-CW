@@ -206,10 +206,9 @@
     FST::NODE(1, FST::RELATION('n', 8)),\
     FST::NODE()
 
-#define GRAPH_IS 4,\
+#define GRAPH_IS 3,\
 	FST::NODE(1,FST::RELATION('i',1)),\
 	FST::NODE(1,FST::RELATION('s',2)),\
-	FST::NODE(1,FST::RELATION(':',3)),\
 	FST::NODE()
 
 #define GRAPH_POW 4,\
@@ -279,13 +278,12 @@
 	FST::NODE(1,FST::RELATION('o',2)),\
 	FST::NODE()
 
-#define GRAPH_WHILE 7, \
+#define GRAPH_WHILE 6, \
 	FST::NODE(1,FST::RELATION('w',1)),\
 	FST::NODE(1,FST::RELATION('h',2)),\
 	FST::NODE(1,FST::RELATION('i',3)),\
 	FST::NODE(1,FST::RELATION('l',4)),\
 	FST::NODE(1,FST::RELATION('e',5)),\
-	FST::NODE(1,FST::RELATION(':',6)),\
 	FST::NODE()
 
 #define GRAPH_WRITE 6, \

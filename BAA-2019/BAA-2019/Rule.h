@@ -154,7 +154,7 @@ namespace GRB
 				Rule::Chain(5, TS('e'), TS('('), TS('i'), TS(')'), TS(';')),
 				Rule::Chain(5, TS('e'), TS('('), TS('l'), TS(')'), TS(';'))
 			),
-				Rule(NS('B'), GRB_ERROR_SERIES + 7, 4,						// Ошибка при конструировании return
+				Rule(NS('B'), GRB_ERROR_SERIES + 14, 4,						// Ошибка при конструировании return
 					Rule::Chain(3, TS('?'), NS('Z'), NS('R')),
 					Rule::Chain(4, TS('?'), NS('Z'), NS('R'),NS('X')),
 					Rule::Chain(5, TS('?'), NS('Z'), NS('R'),NS('X'),NS('B')),

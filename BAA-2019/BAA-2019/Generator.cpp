@@ -148,10 +148,9 @@ namespace Gener
 					switch (LEXEMA(i))
 					{
 					case LEX_STDFUNC:
-					case LEX_ID:
 					case LEX_LITERAL:
 					{
-						if (ITENTRY(i).iddatatype == IT::IDDATATYPE::INT)
+						if (ITENTRY(i).iddatatype == IT::IDDATATYPE::INT )
 						{
 							ofile << "\tpush " << ITENTRY(i).id << endl;
 							stk.push(lex.idtable.table[lex.lextable.table[i].idxTI].id);
@@ -163,6 +162,12 @@ namespace Gener
 							stk.push("offset" + (string)lex.idtable.table[lex.lextable.table[i].idxTI].id);
 							break;
 						}
+					}
+					case LEX_ID:
+					{
+						ofile << "\tpush " << ITENTRY(i).id << endl;
+						stk.push(lex.idtable.table[lex.lextable.table[i].idxTI].id);
+						break;
 					}
 					case LEX_SUBST:
 					{
