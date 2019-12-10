@@ -10,13 +10,14 @@ extern "C"
 	}
 	int __stdcall random(int a)
 	{
+		int b = rand() % a - a / 5 + 4;
 		if (a < 0)
 			a = -a;
 		if (a == 0)
 			return 0;
 		if (a > 2147483647)
 			a = 2147483647;
-		srand(time(NULL));
+		srand(time(NULL) + b);
 		int k = rand()%a - a/2;
 		return k;
 	}

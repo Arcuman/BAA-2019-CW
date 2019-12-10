@@ -1,58 +1,45 @@
-integer function pow1(integer c)
+integer function Inlength(integer num)
 {
-type integer x1 = 2;
-type integer y1 = 1/(-0xF1-x1);
-type string x = "123";
-type string y = "123";
-while: x ! y 
-	do [
-		write x;
-		write " ";
-	]
-writeline y;
-type integer count ;
-writeline c;
-return 0;
+type integer len = 0;
+type integer tempNum = num;
+type integer degree = 1;
+while: tempNum ! 0
+do
+[
+ tempNum = num / power(10,degree);
+ degree = degree + 1;
+]
+len = degree - 1;
+return len;
 }
-main
+integer function getDigitb(integer a, integer posit)
 {
-	type integer x = 9;
-	write "x = ";
-	writeline x;
-	x = pow1(3);
-	type integer c = (-9-9);
-	write "c = ";
-	writeline c;
-	type string strx = "Just";
-	write "strx = ";
-	writeline strx;
-	type symbol strm = ~1~;
-	type symbol strf = ~F~;
-	write "strm = ";
-	writeline strm;
-	type string stry = "Just" ;
-	write "stry = ";
-	writeline stry;
-	writeline strx;
-	is: strx ! stry
-	true[writeline "TRUE BLOCK";]
-	false[write "FALSE BLOCK";]
-	is: strm ! strf
-	true[writeline "TRUE BLOCK";]
-	false[write "FALSE BLOCK";]
-	type integer t1 ;
-	t1 = 2;
-	  write "t1 = ";
-	writeline t1;
-	type integer ab = 0;
-	writeline "cycle start:";
-	while: strx & stry 
-	do [
-		write ab;
-		write " ";
-		ab = ab + 1;
-	]
-	writeline "cycle end:";
-	writeline " ";
-	writeline ab;
+type integer len = Inlength(a);
+type integer answer ;
+type integer tempNum = a;
+write "number of digit = ";
+ writeline len;
+ is: len > posit
+ true[
+ tempNum = a / power(10,posit);
+ answer = tempNum % 10;
+  write "number on position ";
+ write posit;
+ writeline ":";
+ writeline answer;
+return 0;
+ ]
+ false
+ [
+return (-1);
+]
+return (-1);
+}
+main 
+{
+ type integer a = 32;
+ type integer func = getDigitb(a,0);
+ is: func & 0
+ true[ writeline "Program completed successfully";]
+ false [writeline "Program completed unsuccessfully";]
 }

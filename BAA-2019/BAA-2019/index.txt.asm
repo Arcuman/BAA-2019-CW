@@ -23,55 +23,52 @@ ExitProcess PROTO:DWORD
  power PROTO : DWORD, : DWORD
 .const
  null_division BYTE 'ERROR: DIVISION BY ZERO', 0
-	L1 SDWORD 2
+	L1 SDWORD 0
 	L2 SDWORD 1
-	L3 SDWORD -241
-	L4 BYTE '123', 0
-	L5 BYTE ' ', 0
-	L6 SDWORD 0
-	L7 SDWORD 9
-	L8 BYTE 'x = ', 0
-	L9 SDWORD 3
-	L10 SDWORD -9
-	L11 BYTE 'c = ', 0
-	L12 BYTE 'Just', 0
-	L13 BYTE 'strx = ', 0
-	L14 BYTE '1', 0
-	L15 BYTE 'F', 0
-	L16 BYTE 'strm = ', 0
-	L17 BYTE 'stry = ', 0
-	L18 BYTE 'TRUE BLOCK', 0
-	L19 BYTE 'FALSE BLOCK', 0
-	L20 BYTE 't1 = ', 0
-	L21 BYTE 'cycle start:', 0
-	L22 BYTE 'cycle end:', 0
+	L3 SDWORD 10
+	L4 BYTE 'number of digit = ', 0
+	L5 BYTE 'number on position ', 0
+	L6 BYTE ':', 0
+	L7 SDWORD -1
+	L8 SDWORD 32
+	L9 BYTE 'Program completed successfully', 0
+	L10 BYTE 'Program completed unsuccessfully', 0
 .data
-	pow1x1 SDWORD 0
-	pow1y1 SDWORD 0
-	pow1x DWORD ?
-	pow1y DWORD ?
-	pow1count SDWORD 0
-	mainx SDWORD 0
-	mainc SDWORD 0
-	mainstrx DWORD ?
-	mainstrm DWORD ?
-	mainstrf DWORD ?
-	mainstry DWORD ?
-	maint1 SDWORD 0
-	mainab SDWORD 0
+	_Inlengthlen SDWORD 0
+	_InlengthtempNum SDWORD 0
+	_Inlengthdegree SDWORD 0
+	_getDigitlen SDWORD 0
+	_getDigitanswer SDWORD 0
+	_getDigittempNum SDWORD 0
+	maina SDWORD 0
+	mainfunc SDWORD 0
 
 .code
 
-pow1 PROC pow1c :  SDWORD 
+_Inlength PROC _Inlengthnum :  SDWORD 
 	push L1
-	pop pow1x1
+	pop _Inlengthlen
+
+	push _Inlengthnum
+	pop _InlengthtempNum
 
 	push L2
+	pop _Inlengthdegree
+
+	mov edx, _InlengthtempNum
+	cmp edx, L1
+	jnz cycle1
+	jmp continue1
+ cycle1:	push _Inlengthnum
+	push power
 	push L3
-	push pow1x1
-	pop ebx
-	pop eax
-	sub eax, ebx
+	push _Inlengthdegree
+	pop edx
+	pop edx
+	pop edx
+	push _Inlengthdegree
+	push L3
+		call power
 	push eax
 	pop ebx
 	pop eax
@@ -80,42 +77,28 @@ pow1 PROC pow1c :  SDWORD
 	cdq
 	idiv ebx
 	push eax
-	pop pow1y1
+	pop _InlengthtempNum
 
-	push offset L4
-	pop pow1x
+	push _Inlengthdegree
+	push L2
+	pop eax
+	pop ebx
+	add eax, ebx
+	push eax
+	pop _Inlengthdegree
 
-	push offset L4
-	pop pow1y
-
-	mov esi, pow1x
-	mov edi, pow1y
-
-	 push pow1x
-	 call lenght
-	 mov ebx,eax
-	 push pow1y
-	 call lenght
-	 cmp ebx,eax
-	 jne continue1
-	 mov ecx,eax
-	 repe cmpsb
+	mov edx, _InlengthtempNum
+	cmp edx, L1
 	jnz cycle1
-	jmp continue1
- cycle1:
-push pow1x
-call outstr
+continue1:	push _Inlengthdegree
+	push L2
+	pop ebx
+	pop eax
+	sub eax, ebx
+	push eax
+	pop _Inlengthlen
 
-push offset L5
-call outstr
-	jnz cycle1
-continue1:
-push pow1y
-call outstrline
-
-push pow1c
-call outnumline
-	mov eax, L6
+	mov eax, _Inlengthlen
 	ret
 
 SOMETHINGWRONG:
@@ -124,175 +107,122 @@ call outstrline
 call system_pause
 push -1
 call ExitProcess
-pow1 ENDP
-main PROC
-	push L7
-	pop mainx
+_Inlength ENDP
+_getDigitb PROC _getDigita :  SDWORD , _getDigitposit :  SDWORD 
+	push _Inlength
+	push _getDigita
+	pop edx
+	pop edx
+	push _getDigita
+		call _Inlength
+	push eax
+	pop _getDigitlen
+
+	push _getDigita
+	pop _getDigittempNum
 
 
-push offset L8
+push offset L4
 call outstr
 
-push mainx
+push _getDigitlen
 call outnumline
-	push pow1
-	push L9
+	mov edx, _getDigitlen
+	cmp edx, _getDigitposit
+	jg right1
+	jl wrong1
+	jmp next1
+right1:	push _getDigita
+	push power
+	push L3
+	push _getDigitposit
 	pop edx
 	pop edx
-	push L9
-		call pow1
+	pop edx
+	push _getDigitposit
+	push L3
+		call power
 	push eax
-	pop mainx
-
-	push L10
-	push L7
 	pop ebx
 	pop eax
-	sub eax, ebx
+	cmp ebx,0
+	je SOMETHINGWRONG
+	cdq
+	idiv ebx
 	push eax
-	pop mainc
+	pop _getDigittempNum
+
+	push _getDigittempNum
+	push L3
+	pop ebx
+	pop eax
+	cmp ebx,0
+	je SOMETHINGWRONG
+	cdq
+	idiv ebx
+	push edx
+	pop _getDigitanswer
 
 
-push offset L11
+push offset L5
 call outstr
 
-push mainc
+push _getDigitposit
+call outnum
+
+push offset L6
+call outstrline
+
+push _getDigitanswer
 call outnumline
-	push offset L12
-	pop mainstrx
+	mov eax, L1
+	ret
 
-
-push offset L13
-call outstr
-
-push mainstrx
+SOMETHINGWRONG:
+push offset null_division
 call outstrline
-	push offset L14
-	pop mainstrm
-
-	push offset L15
-	pop mainstrf
-
-
-push offset L16
-call outstr
-
-push mainstrm
-call outstrline
-	push offset L12
-	pop mainstry
-
-
-push offset L17
-call outstr
-
-push mainstry
-call outstrline
-
-push mainstrx
-call outstrline
-	mov esi, mainstrx
-	mov edi, mainstry
-
-	 push mainstrx
-	 call lenght
-	 mov ebx,eax
-	 push mainstry
-	 call lenght
-	 cmp ebx,eax
-	 jne wrong1
-	 mov ecx,eax
-	 repe cmpsb
-	jnz right1
-	jz wrong1
-	jmp next1
-right1:
-push offset L18
-call outstrline
+call system_pause
+push -1
+call ExitProcess
 	jmp next1
 
-wrong1:
-push offset L19
-call outstr
+wrong1:	mov eax, L7
+	ret
 
-next1:	mov esi, mainstrm
-	mov edi, mainstrf
+next1:	mov eax, L7
+	ret
+_getDigitb ENDP
+main PROC
+	push L8
+	pop maina
 
-	 push mainstrm
-	 call lenght
-	 mov ebx,eax
-	 push mainstrf
-	 call lenght
-	 cmp ebx,eax
-	 jne wrong2
-	 mov ecx,eax
-	 repe cmpsb
-	jnz right2
-	jz wrong2
+	push _getDigitb
+	push maina
+	push L1
+	pop edx
+	pop edx
+	pop edx
+	push L1
+	push maina
+		call _getDigitb
+	push eax
+	pop mainfunc
+
+	mov edx, mainfunc
+	cmp edx, L1
+	jz right2
+	jnz wrong2
 	jmp next2
 right2:
-push offset L18
+push offset L9
 call outstrline
 	jmp next2
 
 wrong2:
-push offset L19
-call outstr
-
-next2:	push L1
-	pop maint1
-
-
-push offset L20
-call outstr
-
-push maint1
-call outnumline
-	push L6
-	pop mainab
-
-
-push offset L21
-call outstrline
-	mov esi, mainstrx
-	mov edi, mainstry
-
-	 push mainstrx
-	 call lenght
-	 mov ebx,eax
-	 push mainstry
-	 call lenght
-	 cmp ebx,eax
-	 jne continue2
-	 mov ecx,eax
-	 repe cmpsb
-	jz cycle2
-	jmp continue2
- cycle2:
-push mainab
-call outnum
-
-push offset L5
-call outstr
-	push mainab
-	push L2
-	pop eax
-	pop ebx
-	add eax, ebx
-	push eax
-	pop mainab
-
-	jz cycle2
-continue2:
-push offset L22
+push offset L10
 call outstrline
 
-push offset L5
-call outstrline
-
-push mainab
-call outnumline
-call system_pause
+next2:call system_pause
 push 0
 call ExitProcess
 SOMETHINGWRONG:

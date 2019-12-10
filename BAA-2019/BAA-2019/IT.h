@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include"pch.h"
-#define ID_MAXSIZE	8					 //макс число символов идентификатора
-#define SCOPED_ID_MAXSIZE   ID_MAXSIZE*2 //макс число символов идентификатор + область видимости
+#define ID_MAXSIZE	9					 //макс число символов идентификатора
+#define SCOPED_ID_MAXSIZE   (ID_MAXSIZE*2-1) //макс число символов идентификатор + область видимости
 #define MAXSIZE_TI		4096			 //макс число количество строк в таблице идентификаторов
 #define TI_INT_DEFAULT	0x00000000		 //значение по умолчанию для integer
 #define TI_STR_DEFAULT	0x00			 //значение по умолчанию для sting
@@ -84,7 +84,5 @@ namespace IT			// таблица идентификаторов
 	);
 	bool SetValue(IT::Entry* entry, char* value);	//задать значение идентификатора
 	bool SetValue(IT::IdTable& idtable, int index, char* value);
-	void Delete(IdTable& idtable);	// удалить таблицу лексем (освободить память)
-	void showTable(IdTable& idtable);
 	void writeIdTable(std::ostream *stream, IT::IdTable &idtable); //вывести таблицу идентификаторов
 };

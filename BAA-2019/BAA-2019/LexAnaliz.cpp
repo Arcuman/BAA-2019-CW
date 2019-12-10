@@ -151,6 +151,14 @@ namespace Lex
 		if (lex == LEX_LITERAL) // литерал
 		{
 			bool int_ok = IT::SetValue(itentry, id);
+			if (int_ok && itentry->iddatatype == IT::IDDATATYPE::INT)
+			{
+				char p[10];
+				itoa(itentry->value.vint, p, 10);
+				index = getLiteralIndex(tables.idtable, p, type);
+				if (index != TI_NULLIDX)
+					return nullptr;
+			}
 			if (!int_ok)
 			{
 				// превышен максимальный размер числового литерала
@@ -235,8 +243,18 @@ namespace Lex
 				itentry->idtype = IT::IDTYPE::P;
 			else
 				itentry->idtype = IT::IDTYPE::V;
-
-			strncpy_s(itentry->id, id, SCOPED_ID_MAXSIZE);
+			if (!isFunc)
+			{
+				memset(itentry->id, '\0', SCOPED_ID_MAXSIZE);
+				strncat(itentry->id, id, SCOPED_ID_MAXSIZE);
+			}
+			else
+			{
+				char temp[SCOPED_ID_MAXSIZE ] = "";
+				strncat(temp, id, ID_MAXSIZE);
+				memset(itentry->id, '\0', SCOPED_ID_MAXSIZE);
+				strncat(itentry->id, id, SCOPED_ID_MAXSIZE);
+			}
 		}
 
 		// -------------------------------------------------------
@@ -260,12 +278,12 @@ namespace Lex
 			Log::WriteError(log.stream, Error::geterrorin(300, line, 0));
 			lex_ok = false;
 		}
-		if (i > 1 && tables.lextable.table[i - 1].lexema == LEX_FUNCTION && (!strcmp(RANDOM, id) || !strcmp(POW, id) || !strcmp(POWER, id)|| !strcmp(LENGHT, id)))
-		{
-			// переопределение ключевого слова
-			Log::WriteError(log.stream, Error::geterrorin(319, line, 0));
-			lex_ok = false;
-		}
+		//if (i > 1 && tables.lextable.table[i - 1].lexema == LEX_FUNCTION && (!strcmp(RANDOM, id) || !strcmp(POW, id) || !strcmp(POWER, id)|| !strcmp(LENGHT, id)))
+		//{
+		//	// переопределение ключевого слова
+		//	Log::WriteError(log.stream, Error::geterrorin(319, line, 0));
+		//	lex_ok = false;
+		//}
 		// --------------------------------------------------------
 		return itentry;
 	}
@@ -311,7 +329,8 @@ namespace Lex
 								char* scopename = getScopeName(tables.idtable, in.words[i - 1].word);
 								if (scopename == nullptr)
 									break;
-								strcpy_s(functionname, ID_MAXSIZE, scopename);
+								memset(functionname, '\0', ID_MAXSIZE);
+								strncat(functionname, scopename, ID_MAXSIZE);
 								scopes.push(functionname);
 							}
 							break;
@@ -328,8 +347,10 @@ namespace Lex
 						{
 							char* functionname = new char[ID_MAXSIZE];
 							char* scopename = getScopeName(tables.idtable, in.words[i - 1].word);
-							if (scopename == nullptr)  break;
-							strcpy_s(functionname, ID_MAXSIZE, scopename);
+							if (scopename == nullptr)  
+								break;
+							memset(functionname, '\0', ID_MAXSIZE);
+							strncat(functionname, scopename, ID_MAXSIZE);
 							scopes.push(functionname);
 							break;
 						}
@@ -353,8 +374,12 @@ namespace Lex
 					{
 						char id[STR_MAXSIZE] = "";
 						idxTI = NULLDX_TI;										// индекс идентификатора в ТИ
-						if (*nextword == LEX_LEFTHESIS)
-							isFunc = true;	
+						if (*nextword == LEX_LEFTHESIS || IT::isId(tables.idtable, curword) != TI_NULLIDX)
+						{
+							isFunc = true;
+							if(getStandFunction(curword) == IT::STDFNC::F_NOT_STD)
+							strncat(id, "_", ID_MAXSIZE);
+						}
 						char* idtype = (isFunc && i > 1) ?						// тип идентификатора
 							in.words[i - 2].word : in.words[i - 1].word;		// пропускаем ключевое слово function
 						if (!isFunc && !scopes.empty())
@@ -400,7 +425,23 @@ namespace Lex
 							}
 							idxTI = IT::isId(tables.idtable, id);	// индекс существующего идентификатора
 							if (lexema == LEX_LITERAL)
+							{
 								idxTI = getLiteralIndex(tables.idtable, curword, getType(id, in.words[i - 1].word)); // или литерала
+								if (idxTI == -1)
+								{
+									int temp;
+									if ((getType(id, in.words[i - 1].word)) == IT::IDDATATYPE::INT)
+									{
+										if ((curword[0] == '-' && (curword[1] == '0' && curword[2] == 'x')) || (curword[0] == '0' && curword[1] == 'x'))
+											temp = strtol(curword, NULL, 16);
+										else if ((curword[0] == '-' &&curword[1] == '0') || curword[0] == '0')
+											temp = strtol(curword, NULL, 8);
+									}
+									char p[10];
+									itoa(itentry->value.vint, p, 10);
+									idxTI = getLiteralIndex(tables.idtable, p, getType(id, in.words[i - 1].word));
+								}
+							}
 						}
 					}
 					break;

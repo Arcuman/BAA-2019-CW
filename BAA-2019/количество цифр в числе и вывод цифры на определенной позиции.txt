@@ -1,0 +1,45 @@
+integer function Inlength(integer num)
+{
+type integer len = 0;
+type integer tempNum = num;
+type integer degree = 1;
+while: tempNum ! 0
+do
+[
+ tempNum = num / power(10,degree);
+ degree = degree + 1;
+]
+len = degree - 1;
+return len;
+}
+integer function getDigit(integer a, integer posit)
+{
+type integer len = Inlength(a);
+type integer answer ;
+type integer tempNum = a;
+write "number of digit = ";
+ writeline len;
+ is: len > posit
+ true[
+ tempNum = a / power(10,posit);
+ answer = tempNum % 10;
+  write "number on position ";
+ write posit;
+ writeline ":";
+ writeline answer;
+return 0;
+ ]
+ false
+ [
+return (-1);
+]
+return (-1);
+}
+main 
+{
+ type integer a = 32;
+ type integer func = getDigit(a,0);
+ is: func & 0
+ true[ writeline "Program completed successfully";]
+ false [writeline "Program completed unsuccessfully";]
+}

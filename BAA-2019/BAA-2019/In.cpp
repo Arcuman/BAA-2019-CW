@@ -97,10 +97,6 @@ namespace In
 						bufpos = 0;
 						break;
 					}
-					if (isalpha(text[i + 1]))
-					{
-						std::cout << "1234";
-					}
 					buffer[bufpos++] = text[i];
 						buffer[bufpos] = IN_CODE_NULL;
 						break;

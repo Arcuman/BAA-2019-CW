@@ -1,9 +1,7 @@
-integer function min(integer x, integer y)
+integer function min(integer x, integer y,integer c,integer d)
 {
-	
-	type integer c = -x;
 	type integer z = -0x7FFF;
-	type integer p = -99;
+	type integer p = x+y+c+d;
 	type       integer res;
 	if: x < y 
 	istrue [res = x;]
@@ -28,7 +26,7 @@ integer function min(integer x, integer y)
 	type integer c = 5*2 + 10/2;
 	write "c = ";
 	writeline c;
-	return c;
+	return p;
 }
 integer function pow1(integer c)
 {
@@ -42,7 +40,9 @@ main
 	type integer x = 9;
 	write "x = ";
 	writeline x;
-	x = pow1(3);
+	x = pow1(3,4,5,6);
+	write "x= ";
+	writeline x;
 	type integer y = (-9);
 	write "y = ";
 	writeline y;
@@ -153,6 +153,154 @@ main
 	do [
 	is: x ! c
 	true[strx = stry;]
+		write ab;
+		write " ";
+		ab = ab + 1;
+	]
+	writeline "cycle end:";
+	writeline " ";
+	writeline ab;
+}integer function pow1(integer c)
+{
+type integer x1 = 2;
+type integer y1 = 1/(-0xF1-x1);
+type string x = "123";
+type string y = "123";
+while: x & y 
+	do [
+	is: x&y
+	true[x = "1234";]
+		write x;
+		write " ";
+	]
+writeline y;
+type integer count ;
+writeline c;
+return 0;
+}
+main
+{
+	type integer x = 9;
+	write "x = ";
+	writeline x;
+	x = pow1(3);
+	type integer c = (-9-9);
+	write "c = ";
+	writeline c;
+	type string strx = "Just";
+	write "strx = ";
+	writeline strx;
+	type symbol strm = ~1~;
+	type symbol strf = ~F~;
+	write "strm = ";
+	writeline strm;
+	type string stry = "Just" ;
+	write "stry = ";
+	writeline stry;
+	writeline strx;
+	is: strx ! stry
+	true[writeline "TRUE BLOCK";]
+	false[write "FALSE BLOCK";]
+	is: strm ! strf
+	true[writeline "TRUE BLOCK";]
+	false[write "FALSE BLOCK";]
+	type integer t1 ;
+	t1 = 2;
+	  write "t1 = ";
+	writeline t1;
+	type integer ab = 0;
+	writeline "cycle start:";
+	while: strx & stry 
+	do [
+	is: strx ! stry
+	false[strx="jka";]
+		write ab;
+		write " ";
+		ab = ab + 1;
+	]
+	writeline "cycle end:";
+	writeline " ";
+	writeline ab;
+}
+integer function pow1(integer a,integer b)
+{
+	 a = 0x72;
+	 b = 0x72;
+type string s = "qq";
+is: "qqq"&"qqq"
+	true[writeline "SNDJKSDKLJSHGDFSUHDGJKSHDGFH"; 		]
+type integer x1= 1;
+a = a+b-2/x1+b*(-2*(3+b));
+write "uweyu=";
+writeline a;
+type integer y1 = 1;
+type string x = "123";
+type string y = "123";
+while: a < 10
+	do [
+	is: a &5
+	true[	x = "1234";	]
+	false[	x = "1234";	]
+	is: a&6
+	true[	x = "1234";	]
+	false[	x = "1234";	]
+	is: a&7
+	true[	x = "1234";	]
+	false[	x = "1234";	]
+	is: a&8
+	true[	writeline x;  
+	x = "1234";	
+	]
+	false[	writeline x;  
+	x = "1234";	]
+	write "SDMJDSVDJS";
+		a = a + 1;
+	is: x&y
+	false[x = "1234";]
+	]
+writeline y;
+type integer count ;
+return a;
+}
+main
+{
+	type integer x = 9;
+	write "x = ";
+	writeline x;
+	write "x = ";
+	writeline x;
+	x = pow1(3,4);
+
+	type integer c = (-9-9);
+	write "c = ";
+	writeline c;
+	type string strx = "Just";
+	write "strx = ";
+	writeline strx;
+	type symbol strm = ~1~;
+	type symbol strf = ~F~;
+	write "strm = ";
+	writeline strm;
+	type string stry = "Just" ;
+	write "stry = ";
+	writeline stry;
+	writeline strx;
+	is: strx ! stry
+	true[writeline "TRUE BLOCK";]
+	false[write "FALSE BLOCK";]
+	is: strm ! strf
+	true[writeline "TRUE BLOCK";]
+	false[write "FALSE BLOCK";]
+	type integer t1 ;
+	t1 = 2;
+	  write "t1 = ";
+	writeline t1;
+	type integer ab = 0;
+	writeline "cycle start:";
+	while: strx & stry 
+	do [
+	is: strx ! stry
+	false[strx="jka";]
 		write ab;
 		write " ";
 		ab = ab + 1;
