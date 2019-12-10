@@ -6,14 +6,6 @@
 #define IN_CODE_NULL  '\0'
 #define IN_CODE_QUOTE '\"'
 #define IN_CODE_TILDA '~'
-
-
-// 28 29  ( )
-// 3c 3e  < >
-// 5b 5d  [ ]
-// 7b 7d  { }
-// 22 "
-// одинарные кавычки запрещены 97- это что
 #define IN_CODE_TABLE {\
 	IN::F, IN::F, IN::F, IN::F,  IN::F, IN::F, IN::F, IN::F,   IN::F, IN::P, IN::N, IN::F,  IN::F, IN::F, IN::F, IN::F,\
 	IN::F, IN::F, IN::F, IN::F,  IN::F, IN::F, IN::F, IN::F,   IN::F, IN::F, IN::F, IN::F,  IN::F, IN::F, IN::F, IN::F,\

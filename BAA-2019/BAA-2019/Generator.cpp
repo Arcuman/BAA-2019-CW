@@ -117,8 +117,14 @@ namespace Gener
 				}
 				if(LEXEMA(i + 1) != LEX_LEFTHESIS)
 				ofile << "\tmov eax, " << ITENTRY(i + 1).id << "\n";
-				else 
+				else if(LEXEMA(i + 2) != LEX_MINUS)
 					ofile << "\tmov eax, " << ITENTRY(i + 2).id << "\n";
+				else
+				{
+					ofile << "\tmov eax, 0\n";
+					ofile << "\tmov ebx," << ITENTRY(i + 3).id;
+					ofile << "\n\tsub eax, ebx\n";
+				}
 				ofile << "\tret\n";
 				if (!flag_return)
 				{

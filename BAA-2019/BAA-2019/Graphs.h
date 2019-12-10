@@ -294,7 +294,7 @@
 	FST::NODE(1, FST::RELATION('e',5)),\
 	FST::NODE()
 
-#define GRAPH_NEWLINE 10, \
+#define GRAPH_WRITELINE 10, \
 	FST::NODE(1, FST::RELATION('w',1)),\
 	FST::NODE(1, FST::RELATION('r',2)),\
 	FST::NODE(1, FST::RELATION('i',3)),\

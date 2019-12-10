@@ -37,6 +37,8 @@ ExitProcess PROTO:DWORD
 	L12 BYTE 'Program completed successfully', 0
 	L13 BYTE 'Program completed unsuccessfully', 0
 .data
+	_Inlengthstra1 DWORD ?
+	_Inlengthstrhssd1 SDWORD 0
 	_Inlengthstr1 DWORD ?
 	_Inlengthstrhsd1 SDWORD 0
 	_Inlengthlen SDWORD 0
@@ -51,6 +53,18 @@ ExitProcess PROTO:DWORD
 .code
 
 _Inlength PROC _Inlengthnum :  SDWORD 
+	push offset L1
+	pop _Inlengthstra1
+
+	push random
+	push L2
+	pop edx
+	pop edx
+	push L2
+		call random
+	push eax
+	pop _Inlengthstrhssd1
+
 	push offset L1
 	pop _Inlengthstr1
 
@@ -126,7 +140,9 @@ continue1:	push _Inlengthdegree
 	push eax
 	pop _Inlengthlen
 
-	mov eax, _Inlengthlen
+	mov eax, 0
+	mov ebx,_Inlengthlen
+	sub eax, ebx
 	ret
 
 SOMETHINGWRONG:

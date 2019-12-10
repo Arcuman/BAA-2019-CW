@@ -1,53 +1,6 @@
-integer function Inlength(integer num)
-{
-type string str1 = "sdlklsd";
-type integer strhsd1 = random(3);
-is 3 & 3
-true
-[ write "strhsd1 ";
- write strhsd1;
- ]
-
-type integer len = -1;
-type integer tempNum = num;
-type integer degree = 1;
-while tempNum ! 0
-do
-[
- tempNum = num / power(10,degree);
- degree = degree + 1;
-]
-len = degree - 1;
-return len;
+main{
+	type integer x = 9;
 }
-integer function getDigitb(integer a, integer posit)
-{
-type integer len = Inlength(a);
-type integer answer ;
-type integer tempNum = a;
-write "number of digit = ";
- writeline len;
- is len > posit
- true[
- tempNum = a / power(10,posit);
- answer = tempNum % 10;
-  write "number on position ";
- write posit;
- writeline ":";
- writeline answer;
-return 0;
- ]
- false
- [
-return (-1);
-]
-return (-1);
-}
-main 
-{
- type integer a = 32;
- type integer func = getDigitb(a,0);
- is func & 0
- true[ writeline "Program completed successfully";]
- false [writeline "Program completed unsuccessfully";]
+main{
+	type string y = "qwerty";
 }
