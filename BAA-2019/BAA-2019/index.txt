@@ -1,6 +1,13 @@
-main{
-	type integer x = 9;
+integer function power(integer a)
+{
+a = a +1 ;
+is a & 5
+true[return a;]
+false[a = power(a);]
+return a;
 }
 main{
+	type integer forfunc = power(2);
+	writeline forfunc;
 	type string y = "qwerty";
 }

@@ -7,7 +7,6 @@
 #define RANDOM			"random"
 #define MAIN			"main"
 #define POW				"pow"
-#define POWER			"power"
 #define LENGHT			"lenght"
 
 #define ISTYPE(str) ( !strcmp(str, TYPE_INTEGER) || !strcmp(str, TYPE_STRING) )

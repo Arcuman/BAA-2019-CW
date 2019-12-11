@@ -1,6 +1,6 @@
 #pragma once
 #include "FST.h"
-#define N_GRAPHS 24
+#define N_GRAPHS 23
 
 // графы переходов 
 #define GRAPH_SEPARATORS 2,\
@@ -215,13 +215,6 @@
 	FST::NODE(1,FST::RELATION('p',1)),\
 	FST::NODE(1,FST::RELATION('o',2)),\
 	FST::NODE(1,FST::RELATION('w',3)),\
-	FST::NODE()
-#define GRAPH_POWER 6,\
-	FST::NODE(1,FST::RELATION('p',1)),\
-	FST::NODE(1,FST::RELATION('o',2)),\
-	FST::NODE(1,FST::RELATION('w',3)),\
-	FST::NODE(1,FST::RELATION('e',4)),\
-	FST::NODE(1,FST::RELATION('r',5)),\
 	FST::NODE()
 #define GRAPH_RANDOM 7,\
 	FST::NODE(1,FST::RELATION('r',1)),\

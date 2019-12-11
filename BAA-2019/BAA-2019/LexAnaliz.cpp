@@ -7,7 +7,6 @@ namespace Lex
 		{ LEX_SEPARATORS, FST::FST(GRAPH_SEPARATORS) },
 		{ LEX_ID_TYPE, FST::FST(GRAPH_INTEGER) },
 		{ LEX_STDFUNC, FST::FST(GRAPH_POW) },
-		{ LEX_STDFUNC, FST::FST(GRAPH_POWER) },
 		{ LEX_STDFUNC, FST::FST(GRAPH_RANDOM) },
 		{ LEX_STDFUNC, FST::FST(GRAPH_LENGTH) },
 		{ LEX_LITERAL, FST::FST(GRAPH_INT_LITERAL) },
@@ -53,8 +52,6 @@ namespace Lex
 			return IT::STDFNC::F_RANDOM;
 		if (!strcmp(POW, id) )
 			return IT::STDFNC::F_POW;
-		if (!strcmp(POWER, id))
-			return IT::STDFNC::F_POWER;
 		if (!strcmp(LENGHT, id))
 			return IT::STDFNC::F_LENGTH;
 		return IT::STDFNC::F_NOT_STD;
@@ -214,16 +211,6 @@ namespace Lex
 						itentry->value.params.types[k] = IT::POW_PARAMS[k];
 					break;
 				}
-				case IT::STDFNC::F_POWER:
-				{
-					itentry->idtype = IT::IDTYPE::S;
-					itentry->iddatatype = POW_TYPE;
-					itentry->value.params.count = POW_PARAMS_CNT;
-					itentry->value.params.types = new IT::IDDATATYPE[POW_PARAMS_CNT];
-					for (int k = 0; k < POW_PARAMS_CNT; k++)
-						itentry->value.params.types[k] = IT::POW_PARAMS[k];
-					break;
-				}
 				case IT::STDFNC::F_LENGTH:
 				{
 					itentry->idtype = IT::IDTYPE::S;
@@ -278,13 +265,6 @@ namespace Lex
 			Log::WriteError(log.stream, Error::geterrorin(300, line, 0));
 			lex_ok = false;
 		}
-		//if (i > 1 && tables.lextable.table[i - 1].lexema == LEX_FUNCTION && (!strcmp(RANDOM, id) || !strcmp(POW, id) || !strcmp(POWER, id)|| !strcmp(LENGHT, id)))
-		//{
-		//	// переопределение ключевого слова
-		//	Log::WriteError(log.stream, Error::geterrorin(319, line, 0));
-		//	lex_ok = false;
-		//}
-		// --------------------------------------------------------
 		return itentry;
 	}
 	bool analyze(LEX& tables, In::IN &in, Log::LOG &log, Parm::PARM &parm)

@@ -35,7 +35,7 @@ extern "C"
 		return len;
 	}
 	int __stdcall outnum(int value)
-	{
+	{	
 		std::cout << value;
 		return 0;
 	}
