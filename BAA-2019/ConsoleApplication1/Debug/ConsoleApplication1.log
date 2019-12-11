@@ -1,10 +1,10 @@
-﻿Сборка начата 11.12.2019 12:39:49.
+﻿Сборка начата 12.12.2019 1:42:19.
      1>Проект "D:\БГТУ 2 курс\ЯП\BAA-2019v1\BAA-2019\ConsoleApplication1\ConsoleApplication1.vcxproj" в узле 2 (целевые объекты Build).
      1>InitializeBuildStatus:
          Создание "Debug\ConsoleA.C92B541F.tlog\unsuccessfulbuild", так как было задано "AlwaysCreate".
        _MASM:
          Assembling ..\BAA-2019\index.txt.asm...
-         cmd.exe /C "C:\Users\Anton Borisov\AppData\Local\Temp\tmpae5ba9d74df1476098d9187ce688aff0.cmd"
+         cmd.exe /C "C:\Users\Anton Borisov\AppData\Local\Temp\tmpeed33939eb57428e8b4e9522f7baba46.cmd"
          ml.exe /c /nologo /Zi /Fo"Debug\index.txt.obj" /W3 /errorReport:prompt  /Ta"..\BAA-2019\index.txt.asm"
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\bin\HostX86\x86\link.exe /ERRORREPORT:PROMPT /OUT:"D:\БГТУ 2 курс\ЯП\BAA-2019v1\BAA-2019\Debug\ConsoleApplication1.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG:FASTLINK /PDB:"D:\БГТУ 2 курс\ЯП\BAA-2019v1\BAA-2019\Debug\ConsoleApplication1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\БГТУ 2 курс\ЯП\BAA-2019v1\BAA-2019\Debug\ConsoleApplication1.lib" /MACHINE:X86 Debug\index.txt.obj
@@ -18,4 +18,4 @@
     Предупреждений: 0
     Ошибок: 0
 
-Прошло времени 00:00:01.46
+Прошло времени 00:00:01.52

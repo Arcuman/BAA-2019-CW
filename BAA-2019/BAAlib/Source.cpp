@@ -10,15 +10,15 @@ extern "C"
 	}
 	int __stdcall random(int a)
 	{
-		int b = rand() % a - a / 5 + 4;
 		if (a < 0)
 			a = -a;
+		a++;
 		if (a == 0)
 			return 0;
 		if (a > 2147483647)
 			a = 2147483647;
-		srand(time(NULL) + b);
-		int k = rand()%a - a/2 + 1;
+		srand(time(NULL));
+		int k = -a + (rand() % (a * 2));
 		return k;
 	}
 	int __stdcall lenght(char* str)

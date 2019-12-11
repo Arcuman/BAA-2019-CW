@@ -121,10 +121,10 @@ namespace Semantic
 										break;
 									}
 								}
-								break; // нашли exit
 							}
 
-							if (k == tables.lextable.size) break;
+							if (k == tables.lextable.size)
+								break;
 						}
 					}
 				}

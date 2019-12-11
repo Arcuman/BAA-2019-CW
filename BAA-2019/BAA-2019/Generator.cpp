@@ -12,7 +12,7 @@ namespace Gener
 		ofstream ofile(parm.out);
 		ofile << BEGIN;
 		ofile << EXTERN;
-		ofile << ".const\n null_division BYTE 'ERROR: DIVISION BY ZERO', 0\n";
+		ofile << ".const\n null_division BYTE 'ERROR: DIVISION BY ZERO', 0\n overflow BYTE 'ERROR: VARIABLE OVERFLOW', 0 \n";
 		int conditionnum = 0,cyclenum=0;
 		for (int i = 0; i < lex.idtable.size; i++)
 		{
@@ -111,13 +111,15 @@ namespace Gener
 			{
 				if (flag_main)
 				{
-				Log::WriteError(log.stream, Error::geterrorin(320, lex.lextable.table[i].sn, 0));
-				ofile.close();
-				return false;
+					Log::WriteError(log.stream, Error::geterrorin(320, lex.lextable.table[i].sn, 0));
+					ofile.close();
+					return false;
 				}
-				if(LEXEMA(i + 1) != LEX_LEFTHESIS)
-				ofile << "\tmov eax, " << ITENTRY(i + 1).id << "\n";
-				else if(LEXEMA(i + 2) != LEX_MINUS)
+				if (LEXEMA(i + 1) != LEX_LEFTHESIS && (ITENTRY(i+1).iddatatype == IT::IDDATATYPE::INT || ITENTRY(i + 1).idtype == IT::IDTYPE::P || ITENTRY(i + 1).idtype == IT::IDTYPE::V))
+					ofile << "\tmov eax, " << ITENTRY(i + 1).id << "\n";
+				else if (LEXEMA(i + 1) != LEX_LEFTHESIS)
+					ofile << "\tmov eax,offset " << ITENTRY(i + 1).id << "\n";
+				else if (LEXEMA(i + 2) != LEX_MINUS )
 					ofile << "\tmov eax, " << ITENTRY(i + 2).id << "\n";
 				else
 				{
@@ -133,7 +135,13 @@ namespace Gener
 						"\ncall outstrline\n"\
 						"call system_pause"\
 						"\npush -1"\
-						"\ncall ExitProcess\n";
+						"\ncall ExitProcess\n"\
+						"\nEXIT_OVERFLOW:"\
+						"\npush offset overflow"\
+						"\ncall outstrline\n"\
+						"call system_pause"\
+						"\npush -2"\
+					"\ncall ExitProcess\n";
 					flag_return = true;
 				}
 				break;
@@ -199,13 +207,14 @@ namespace Gener
 					case LEX_STAR:
 					{
 						ofile << "\tpop eax\n\tpop ebx\n";
-						ofile << "\tmul ebx\n\tpush eax\n";
+						ofile << "\timul ebx\n\tjo EXIT_OVERFLOW\n\tpush eax\n";
+
 						break;
 					}
 					case LEX_PLUS:
 					{
 						ofile << "\tpop eax\n\tpop ebx\n";
-						ofile << "\tadd eax, ebx\n\tpush eax\n";
+						ofile << "\tadd eax, ebx\n\tjo EXIT_OVERFLOW\n\tpush eax\n";
 						break;
 					}
 					case LEX_MINUS:

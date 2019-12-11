@@ -21,7 +21,15 @@
 				"call system_pause"\
 				"\npush -1"\
 				"\ncall ExitProcess"\
+				"\nmain ENDP\nend main"\
+				"\nEXIT_OVERFLOW:"\
+				"\npush offset overflow"\
+				"\ncall outstrline\n"\
+				"call system_pause"\
+				"\npush -2"\
+				"\ncall ExitProcess"\
 				"\nmain ENDP\nend main"
+
 
 #define EXTERN "\n outnum PROTO : DWORD\n"\
 "\n outstr PROTO : DWORD\n"\
