@@ -16,6 +16,18 @@ namespace Semantic
 					sem_ok = false;
 					Log::WriteError(log.stream, Error::geterrorin(303, tables.lextable.table[i].sn, 0));
 				}
+				break;
+			}
+			case LEX_INCR:
+			{
+
+				IT::Entry e = tables.idtable.table[tables.lextable.table[i-1].idxTI];
+				if (e.iddatatype != IT::IDDATATYPE::INT || tables.idtable.table[tables.lextable.table[i + 1].idxTI].iddatatype != IT::IDDATATYPE::INT)
+				{
+					sem_ok = false;
+						Log::WriteError(log.stream, Error::geterrorin(314, tables.lextable.table[i].sn, 0));
+				}
+
 			}
 			case LEX_DIRSLASH:
 			case LEX_PROCENT:

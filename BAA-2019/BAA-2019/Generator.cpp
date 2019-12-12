@@ -211,6 +211,7 @@ namespace Gener
 
 						break;
 					}
+
 					case LEX_PLUS:
 					{
 						ofile << "\tpop eax\n\tpop ebx\n";
@@ -253,6 +254,14 @@ namespace Gener
 				}
 				ofile << "\tpop " << ITENTRY(result_position).id << "\n";
 				ofile << endl;
+				break;
+			}
+			case LEX_INCR:
+			{
+				ofile << "\tmov eax," << ITENTRY(i - 1).id << "\n";
+				ofile << "\tmov ebx," << ITENTRY(i +1).id << "\n";
+				ofile << "\tadd eax, ebx\n\tjo EXIT_OVERFLOW\n";
+				ofile << "\tmov " << ITENTRY(i-1).id << " , eax\n";
 				break;
 			}
 			case LEX_NEWLINE: // перевод строки 

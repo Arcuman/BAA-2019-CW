@@ -19,6 +19,7 @@
 #define	LEX_PLUS		 '+'	// сложение	
 #define	LEX_MINUS		 '-'	// вычитание
 #define	LEX_STAR		 '*'	// умножение
+#define	LEX_INCR		 ':'	// инкримент
 #define LEX_DIRSLASH	 '/'	// деление
 #define LEX_PROCENT		 '%'	// остаток от деления
 #define	LEX_EQUAL		 '='	// присваивание				

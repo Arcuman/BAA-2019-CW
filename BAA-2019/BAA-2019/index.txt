@@ -1,73 +1,7 @@
-
-integer function fact(integer N)
+main
 {
-type integer newN = N - 1;
-	is N<0
-		true [return 1;]
-		false
-		[
-			N = N * fact(newN);
-			return N;
-		]
-return 1;
-}
-
-integer function Inlength(integer num)
-{
-type integer len = 0;
-type integer tempNum = num;
-type integer degree = 1;
-	while tempNum ! 0
-		do
-		[
-			tempNum = num / pow(10,degree);
-			degree = degree + 1;
-		]
-len = degree - 1;
-return len;
-}
-
-integer function getDigit(integer num,integer posit)
-{
-type integer answer ;
-type integer tempNum = num;
-	tempNum = num / pow(10,posit);
-	answer = tempNum % 10;
-return answer;
-}
-
-main{
-type string str = "Hello world";
-type integer len = lenght(str);
-
-	write "Length of string: ";	write str;	write " = ";	writeline len;
-
-type integer factvar = fact(len);
-
-	write "factorial: ";	writeline factvar;
-
-type integer LenFact = Inlength(factvar);
-
-	write "Number of digit in facrotial: ";	writeline LenFact;
-
-type integer position = random(LenFact);
-
-	while position & 0
-		do
-		[
-			position = random(LenFact);
-		]
-	write "position generated before cheking: ";	writeline position;
-
-	is position > 0
-		false[position = (-position);]
-
-	write "position generated after cheking: ";
-	writeline position;
-
-type integer tempPos = LenFact - position;
-type integer digit = getDigit(factvar,tempPos);
-
-	write "The digit on position: ";	write position; writeline " is:";
-	writeline digit;
+type integer i = -30000000;
+type symbol s= ~s~;
+i++1; 
+writeline i;
 }

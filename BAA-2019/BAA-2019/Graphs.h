@@ -4,7 +4,7 @@
 
 // графы переходов 
 #define GRAPH_SEPARATORS 2,\
-	FST::NODE(18,\
+	FST::NODE(19,\
 			FST::RELATION(';',1), FST::RELATION('=',1),\
 			FST::RELATION(',',1), FST::RELATION('{',1),\
 			FST::RELATION('}',1), FST::RELATION('(',1),\
@@ -12,7 +12,8 @@
 			FST::RELATION(')',1), FST::RELATION('*',1),\
 			FST::RELATION('+',1), FST::RELATION('-',1),\
 		    FST::RELATION('/',1),FST::RELATION('<',1),\
-			FST::RELATION('>',1), FST::RELATION('&',1),\
+			FST::RELATION('>',1),FST::RELATION(':',1),\
+			FST::RELATION('&',1),\
 			FST::RELATION('!',1), FST::RELATION('%',1)),\
 	FST::NODE()
 

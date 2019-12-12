@@ -21,7 +21,6 @@
 				"call system_pause"\
 				"\npush -1"\
 				"\ncall ExitProcess"\
-				"\nmain ENDP\nend main"\
 				"\nEXIT_OVERFLOW:"\
 				"\npush offset overflow"\
 				"\ncall outstrline\n"\

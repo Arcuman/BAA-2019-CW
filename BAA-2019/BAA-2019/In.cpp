@@ -69,6 +69,7 @@ namespace In
 		int bufpos = 0;								// позиция в буфере
 		int line = 1;								// номер строки исходного кода
 		bool flagminus = false;
+		bool flagplus;
 		char buffer[MAX_LEN_BUFFER] = "";			// буфер
 		for (int i = 0; i < textSize; i++)			// заполнение
 		{
@@ -100,6 +101,21 @@ namespace In
 					buffer[bufpos++] = text[i];
 						buffer[bufpos] = IN_CODE_NULL;
 						break;
+				}
+				if (text[i] == LEX_PLUS && text[i + 1] == LEX_PLUS)
+				{
+					if (*buffer != IN_CODE_NULL)
+					{
+						addWord(words, buffer, line);
+						*buffer = IN_CODE_NULL;  bufpos = 0;
+					}
+					buffer[bufpos++] = ':';
+					buffer[bufpos] = IN_CODE_NULL;
+					addWord(words, buffer, line);	// буфер перед односимвольной лексемой
+					*buffer = IN_CODE_NULL;
+					bufpos = 0;
+					i++;
+					break;
 				}
 				char letter[] = { (char)text[i], IN_CODE_NULL };
 				addWord(words, buffer, line);	// буфер перед односимвольной лексемой
