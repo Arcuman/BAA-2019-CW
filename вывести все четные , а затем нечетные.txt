@@ -1,0 +1,27 @@
+integer function outeven(integer a , integer b)
+{
+type integer temp;
+write "Even num from: ";
+write a;
+write " to ";
+write b;
+writeline ":";
+b = b +1;
+while a < b
+do
+[
+temp = a % 2;
+is temp & 0
+true[write a;write " ";]
+a = a + 1;
+]
+writeline " ";
+return 0;
+}
+main
+{
+type integer a = 1;
+type integer b = 30;
+type integer temp = outeven(a,b);
+writeline "Program completed successfully";
+}

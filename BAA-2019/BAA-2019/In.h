@@ -12,7 +12,7 @@
 	IN::P, IN::S, IN::Q, IN::T,  IN::T, IN::S, IN::S, IN::F,   IN::S, IN::S, IN::S, IN::S,  IN::S, IN::S, IN::T, IN::S,\
 	IN::T, IN::T, IN::T, IN::T,  IN::T, IN::T, IN::T, IN::T,   IN::T, IN::T, IN::T, IN::S,  IN::S, IN::S, IN::S, IN::T,\
 	IN::T, IN::T, IN::T, IN::T,  IN::T, IN::T, IN::T, IN::T,   IN::T, IN::T, IN::T, IN::T,  IN::T, IN::T, IN::T, IN::T,\
-	IN::T, IN::T, IN::T, IN::T,  IN::T, IN::T, IN::T, IN::T,   IN::T, IN::T, IN::T, IN::S,  IN::T, IN::S, IN::T, IN::T,\
+	IN::T, IN::T, IN::T, IN::T,  IN::T, IN::T, IN::T, IN::T,   IN::T, IN::T, IN::T, IN::S,  IN::K, IN::S, IN::T, IN::T,\
 	IN::F, IN::T, IN::T, IN::T,  IN::T, IN::T, IN::T, IN::T,   IN::T, IN::T, IN::T, IN::T,  IN::T, IN::T, IN::T, IN::T,\
 	IN::T, IN::T, IN::T, IN::T,  IN::T, IN::T, IN::T, IN::T,   IN::T, IN::T, IN::T, IN::S,  IN::T, IN::S, IN::QQ, IN::T,\
 	\
@@ -36,7 +36,7 @@ namespace In
 	struct IN //исходные данные
 	{
 		/*
-		S - ( ) { } [ ] < > ! & * + - = \ , ;
+		S - ( ) { } [ ] < > ! & * + - = / , ;
 		P - пробел, табуляция
 		N (NEW)- новая строка
 		F (FALSE)- запрещённый
@@ -45,8 +45,8 @@ namespace In
 		Q - "
 		QQ - ~
 		*/
-		enum { T = 1024, F = 2048, I = 4096, S, Q, P, N ,QQ}; 
-		int size = 0; //размер исходного кода
+		enum { T = 1024, F = 2048, I = 4096, S, Q, P, N ,QQ,K}; 
+		int size = 0; //размер исходного кода 
 		int lines = 1; //количество строк
 		int ignor = 0;// количество проигнорированных строк
 		unsigned char* text; //исходный текст

@@ -12,11 +12,8 @@ extern "C"
 	{
 		if (a < 0)
 			a = -a;
-		a++;
 		if (a == 0)
 			return 0;
-		if (a > 2147483647)
-			a = 2147483647;
 		srand(time(NULL));
 		int k = -a + (rand() % (a * 2));
 		return k;

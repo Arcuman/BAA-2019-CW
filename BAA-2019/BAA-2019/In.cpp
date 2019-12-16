@@ -32,6 +32,7 @@ namespace In
 			case IN::T: // разрешЄнный символ 
 			case IN::P: // пробел либо табул€ци€
 			case IN::S: // символы 
+			case IN::K: // символы 
 			case IN::Q: // кавычки
 			case IN::QQ: //кавычки одинарные 
 				text[in.size++] = uch;
@@ -78,12 +79,24 @@ namespace In
 			case IN::S:
 			{
 				if (text[i] == LEX_MINUS && isdigit(text[i + 1])
-					|| text[i] == LEX_MINUS && words[words->size - 1].word[0] == '=')
+					|| text[i] == LEX_MINUS && words[words->size - 1].word[0] == '='
+					|| (text[i] == LEX_MINUS && text[i + 1] == LEX_MINUS && line > words[words->size - 1].line))
 				{
 					if (*buffer != IN_CODE_NULL)
 					{
 						addWord(words, buffer, line);
 						*buffer = IN_CODE_NULL;  bufpos = 0;
+					}
+					if (text[i + 1] == LEX_MINUS && words[words->size - 1].line > words[words->size - 2].line)
+					{
+						buffer[bufpos++] = ':';
+						buffer[bufpos++] = text[i];
+						buffer[bufpos] = IN_CODE_NULL;
+						addWord(words, buffer, line);	// буфер перед односимвольной лексемой
+						*buffer = IN_CODE_NULL;
+						bufpos = 0;
+						i++;
+						break;
 					}
 					if (isdigit(words[words->size - 1].word[strlen(words[words->size - 1].word) - 1])
 						|| words[words->size - 1].word[0] == ')'
@@ -99,10 +112,12 @@ namespace In
 						break;
 					}
 					buffer[bufpos++] = text[i];
-						buffer[bufpos] = IN_CODE_NULL;
-						break;
+					buffer[bufpos] = IN_CODE_NULL;
+					break;
 				}
-				if (text[i] == LEX_PLUS && text[i + 1] == LEX_PLUS)
+				if ((text[i] == LEX_PLUS && text[i + 1] == LEX_PLUS)
+					|| (text[i] == LEX_STAR && text[i + 1] == LEX_STAR)
+					|| (text[i] == LEX_DIRSLASH && text[i + 1] == LEX_DIRSLASH))
 				{
 					if (*buffer != IN_CODE_NULL)
 					{
@@ -110,6 +125,7 @@ namespace In
 						*buffer = IN_CODE_NULL;  bufpos = 0;
 					}
 					buffer[bufpos++] = ':';
+					buffer[bufpos++] = text[i];
 					buffer[bufpos] = IN_CODE_NULL;
 					addWord(words, buffer, line);	// буфер перед односимвольной лексемой
 					*buffer = IN_CODE_NULL;
@@ -122,6 +138,21 @@ namespace In
 				addWord(words, letter, line);	// сама односимвольна€ лексема
 				*buffer = IN_CODE_NULL;
 				bufpos = 0;
+				break;
+			}
+			case IN::K:
+			{
+				while (text[i] != '\n')
+				{
+					i++;
+				}
+				if (*buffer != IN_CODE_NULL)
+				{
+					addWord(words, buffer, line);
+					*buffer = IN_CODE_NULL;
+					bufpos = 0;
+				}
+				line++;
 				break;
 			}
 			case IN::N:											//нова€ строка

@@ -65,7 +65,6 @@ namespace Error
 		ERROR_ENTRY(615, "Ñèíòàêñè÷åñêàÿ îøèáêà: Îæèäàëñÿ ëèòåğàë èëè èäåíòèôèêàòîğ"),
 		ERROR_ENTRY(616, "Ñèíòàêñè÷åñêàÿ îøèáêà: Îøèáêà â òåëå óñëîâíîãî âûğàæåíèÿ"),
 		ERROR_ENTRY(617, "Ñèíòàêñè÷åñêàÿ îøèáêà: Îøèáêà â òåëå öèêëà"),
-		ERROR_ENTRY_NODEF(618),
 		ERROR_ENTRY_NODEF10(620), ERROR_ENTRY_NODEF10(630), ERROR_ENTRY_NODEF10(640), ERROR_ENTRY_NODEF10(650),
 		ERROR_ENTRY_NODEF10(660), ERROR_ENTRY_NODEF10(670), ERROR_ENTRY_NODEF10(680), ERROR_ENTRY_NODEF10(690),
 		ERROR_ENTRY_NODEF100(700), ERROR_ENTRY_NODEF100(800), ERROR_ENTRY_NODEF100(900)
@@ -75,8 +74,8 @@ namespace Error
 		ERROR error_info;												// ñîçäàíèå ñòğóêòóğû êîòîğóş íàäî áóäåò âåğíóòü
 		if (id > 0 && id < ERROR_MAX_ENTRY)						// ñğàâíèâàíèå äèàïàçîíà
 		{
-			error_info.id = errors[id].id;
-			strcpy_s(error_info.message, errors[id].message);
+			error_info.id = errors[id+1].id;
+			strcpy_s(error_info.message, errors[id+1].message);
 			error_info.position.col = -1;
 			error_info.position.line = -1;
 		}

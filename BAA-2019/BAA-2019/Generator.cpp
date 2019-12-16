@@ -55,6 +55,7 @@ namespace Gener
 		}
 
 		stack<string> stk;
+		stack<IT::Entry> temp;
 		string cyclecode = "", func_name = "";					// имя локальной функции
 		bool flag_cycle = false,					// внутри локальной функции?
 			flag_main = false,
@@ -73,7 +74,7 @@ namespace Gener
 				i++;
 				flag_return = false;
 				ofile << (func_name = ITENTRY(i).id) << " PROC ";
-				int j = i + 3;
+				int j = i + 2;
 				while (LEXEMA(j) != LEX_RIGHTTHESIS) // пока параметры не кончатся
 				{
 					if (lex.lextable.table[j].lexema == LEX_ID) // параметр
@@ -115,17 +116,20 @@ namespace Gener
 					ofile.close();
 					return false;
 				}
-				if (LEXEMA(i + 1) != LEX_LEFTHESIS && (ITENTRY(i+1).iddatatype == IT::IDDATATYPE::INT || ITENTRY(i + 1).idtype == IT::IDTYPE::P || ITENTRY(i + 1).idtype == IT::IDTYPE::V))
-					ofile << "\tmov eax, " << ITENTRY(i + 1).id << "\n";
-				else if (LEXEMA(i + 1) != LEX_LEFTHESIS)
-					ofile << "\tmov eax,offset " << ITENTRY(i + 1).id << "\n";
-				else if (LEXEMA(i + 2) != LEX_MINUS )
-					ofile << "\tmov eax, " << ITENTRY(i + 2).id << "\n";
-				else
+				if (LEXEMA(i + 1) != LEX_SEPARATOR)
 				{
-					ofile << "\tmov eax, 0\n";
-					ofile << "\tmov ebx," << ITENTRY(i + 3).id;
-					ofile << "\n\tsub eax, ebx\n";
+					if (LEXEMA(i + 1) != LEX_LEFTHESIS && (ITENTRY(i + 1).iddatatype == IT::IDDATATYPE::INT || ITENTRY(i + 1).idtype == IT::IDTYPE::P || ITENTRY(i + 1).idtype == IT::IDTYPE::V))
+						ofile << "\tmov eax, " << ITENTRY(i + 1).id << "\n";
+					else if (LEXEMA(i + 1) != LEX_LEFTHESIS)
+						ofile << "\tmov eax,offset " << ITENTRY(i + 1).id << "\n";
+					else if (LEXEMA(i + 2) != LEX_MINUS)
+						ofile << "\tmov eax, " << ITENTRY(i + 2).id << "\n";
+					else
+					{
+						ofile << "\tmov eax, 0\n";
+						ofile << "\tmov ebx," << ITENTRY(i + 3).id;
+						ofile << "\n\tsub eax, ebx\n";
+					}
 				}
 				ofile << "\tret\n";
 				if (!flag_return)
@@ -179,6 +183,7 @@ namespace Gener
 					}
 					case LEX_ID:
 					{
+						
 						ofile << "\tpush " << ITENTRY(i).id << endl;
 						stk.push(lex.idtable.table[lex.lextable.table[i].idxTI].id);
 						break;
@@ -256,11 +261,57 @@ namespace Gener
 				ofile << endl;
 				break;
 			}
+			case LEX_ID:
+			{
+				if (LEXEMA(i + 1) == LEX_LEFTHESIS && LEXEMA(i - 1) != LEX_FUNCTION
+					&& lex.lextable.table[i].sn > lex.lextable.table[i - 1].sn)
+				{
+					for (int j = i + 1; LEXEMA(j) != LEX_RIGHTTHESIS; j++)
+					{
+						if (LEXEMA(j) == LEX_ID || LEXEMA(j) == LEX_LITERAL)
+							temp.push(ITENTRY(j)); // // заполняем стек в прямом порядке	
+					}
+					while (!temp.empty())
+					{
+						if (temp.top().idtype == IT::IDTYPE::L && (temp.top().iddatatype == IT::IDDATATYPE::STR|| temp.top().iddatatype == IT::IDDATATYPE::SYM))
+							ofile<< "\npush offset " << temp.top().id << "\n";
+						else  ofile <<"\npush " << temp.top().id << "\n";
+						temp.pop();
+					}
+					ofile << "\ncall " << ITENTRY(i).id << "\n";
+				}
+				break;
+			}
 			case LEX_INCR:
 			{
 				ofile << "\tmov eax," << ITENTRY(i - 1).id << "\n";
 				ofile << "\tmov ebx," << ITENTRY(i +1).id << "\n";
-				ofile << "\tadd eax, ebx\n\tjo EXIT_OVERFLOW\n";
+				switch (ITENTRY(i).id[1])
+				{
+				case LEX_PLUS:
+					{
+					ofile << "\tadd eax, ebx\n\tjo EXIT_OVERFLOW\n";
+					break;
+					}
+				case LEX_MINUS:
+				{
+					ofile << "\tsub eax, ebx\n\tjo EXIT_OVERFLOW\n";
+					break;
+				}
+				case LEX_STAR:
+				{
+					ofile << "\timul ebx\n\tjo EXIT_OVERFLOW\n";
+					break;
+				}
+				case LEX_DIRSLASH:
+				{
+					ofile << "\tcmp ebx,0\n"\
+						"\tje SOMETHINGWRONG\n";
+					ofile << "\tcdq\n";
+					ofile << "\tidiv ebx\n";
+					break;
+				}
+				}
 				ofile << "\tmov " << ITENTRY(i-1).id << " , eax\n";
 				break;
 			}

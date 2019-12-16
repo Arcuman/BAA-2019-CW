@@ -5,7 +5,9 @@ namespace Lex
 	Graph graphs[N_GRAPHS] =
 	{
 		{ LEX_SEPARATORS, FST::FST(GRAPH_SEPARATORS) },
+		{ LEX_SEPARATORS, FST::FST(GRAPH_INKR) },
 		{ LEX_ID_TYPE, FST::FST(GRAPH_INTEGER) },
+		{ LEX_VOID, FST::FST(GRAPH_VOID) },
 		{ LEX_STDFUNC, FST::FST(GRAPH_POW) },
 		{ LEX_STDFUNC, FST::FST(GRAPH_RANDOM) },
 		{ LEX_STDFUNC, FST::FST(GRAPH_LENGTH) },
@@ -89,6 +91,8 @@ namespace Lex
 	{
 		if (!strcmp(TYPE_SYMBOL, idtype))
 			return IT::IDDATATYPE::SYM; // символьный ид
+		if (!strcmp(TYPE_VOID, idtype))
+			return IT::IDDATATYPE::PROC; // процедуры
 		if (!strcmp(TYPE_STRING, idtype))
 			return IT::IDDATATYPE::STR;  // строковый ид
 		if (!strcmp(TYPE_INTEGER, idtype))
@@ -150,7 +154,7 @@ namespace Lex
 			bool int_ok = IT::SetValue(itentry, id);
 			if (int_ok && itentry->iddatatype == IT::IDDATATYPE::INT)
 			{
-				char p[10];
+				char p[11];
 				itoa(itentry->value.vint, p, 10);
 				index = getLiteralIndex(tables.idtable, p, type);
 				if (index != TI_NULLIDX)
@@ -344,10 +348,32 @@ namespace Lex
 							}
 							break;
 						}
+						case LEX_INCR:
+						{
+							int index = IT::isId(tables.idtable, curword);
+							IT::Entry *itentry = new IT::Entry;
+							if (index != TI_NULLIDX)
+							{
+								idxTI = index;
+							}
+							else
+							{
+								memset(itentry->id, '\0', SCOPED_ID_MAXSIZE);
+								strncat(itentry->id, curword, SCOPED_ID_MAXSIZE);
+								itentry->idtype = IT::IDTYPE::Z;
+								itentry->iddatatype = IT::IDDATATYPE::INT;
+								itentry->idxfirstLE = getIndexInLT(tables.lextable, index);
+								IT::Add(tables.idtable, *itentry);
+								idxTI = tables.idtable.size - 1;
+							}
+							lexema = *curword;
+							break;
+						}
 						}
 						lexema = *curword;
 						break;
 					}
+					
 					case LEX_ID:
 					case LEX_STDFUNC:
 					case LEX_LITERAL:
@@ -395,10 +421,11 @@ namespace Lex
 						}
 						else // повторный идентификатор (уже есть)
 						{
-							int i = tables.lextable.size - 1; // попытка переопределить идентификатор
+ 							int i = tables.lextable.size - 1; // попытка переопределить идентификатор
 							if (i > 0 && tables.lextable.table[i - 1].lexema == LEX_TYPE || tables.lextable.table[i].lexema == LEX_TYPE
 								|| tables.lextable.table[i - 1].lexema == LEX_FUNCTION || tables.lextable.table[i].lexema == LEX_FUNCTION
-								|| tables.lextable.table[i - 1].lexema == LEX_ID_TYPE || tables.lextable.table[i].lexema == LEX_ID_TYPE)
+								|| tables.lextable.table[i - 1].lexema == LEX_ID_TYPE || tables.lextable.table[i].lexema == LEX_ID_TYPE
+								|| tables.lextable.table[i - 1].lexema == LEX_VOID || tables.lextable.table[i].lexema == LEX_VOID)
 							{
 								Log::WriteError(log.stream, Error::geterrorin(305, curline, 0));
 								lex_ok = false;

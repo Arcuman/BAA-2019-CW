@@ -27,6 +27,8 @@ namespace Semantic
 					sem_ok = false;
 						Log::WriteError(log.stream, Error::geterrorin(314, tables.lextable.table[i].sn, 0));
 				}
+				if (tables.idtable.table[tables.lextable.table[i].idxTI].id[1] != LEX_DIRSLASH)
+					break;
 
 			}
 			case LEX_DIRSLASH:
@@ -115,23 +117,28 @@ namespace Semantic
 				IT::Entry e = tables.idtable.table[tables.lextable.table[i].idxTI];
 				if (i > 0 && tables.lextable.table[i - 1].lexema == LEX_FUNCTION)
 				{
-					if (e.idtype == IT::IDTYPE::F) //функция
+					if (e.idtype == IT::IDTYPE::F ) //функция
 					{
-						for (int k = i + 1; ; k++)
+						for (int k = i + 1; tables.lextable.table[k].lexema != LEX_BRACELET; k++)
 						{
 							char l = tables.lextable.table[k].lexema;
 							if (l == LEX_RETURN)
 							{
 								int next = tables.lextable.table[k + 1].idxTI; // след. за return
-								if (next != TI_NULLIDX)
+								if (next != TI_NULLIDX )
 								{
-									// тип функции и возвращаемого значения не совпадают
-									if (tables.idtable.table[next].iddatatype != e.iddatatype)
+									if (tables.idtable.table[next].iddatatype != e.iddatatype)			// тип функции и возвращаемого значения не совпадают
 									{
 										Log::WriteError(log.stream, Error::geterrorin(315, tables.lextable.table[k].sn, 0));
 										sem_ok = false;
 										break;
 									}
+								}
+								if (next != TI_NULLIDX && e.iddatatype == IT::IDDATATYPE::PROC|| next == TI_NULLIDX && e.iddatatype != IT::IDDATATYPE::PROC)
+								{
+									Log::WriteError(log.stream, Error::geterrorin(315, tables.lextable.table[k].sn, 0));
+									sem_ok = false;
+									break;
 								}
 							}
 

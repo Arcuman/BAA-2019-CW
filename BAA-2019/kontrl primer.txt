@@ -21,7 +21,7 @@ type integer degree = 1;
 		do
 		[
 			tempNum = num / pow(10,degree);
-			degree = degree + 1;
+			degree++1;
 		]
 len = degree - 1;
 return len;
@@ -37,37 +37,30 @@ return answer;
 }
 
 main{
-type string str = "Hello world";
-type integer len = lenght(str);
-
+type string str = "Hello world"; \\ Declaring and initializing string
+type integer len = lenght(str); \\ Finding the length of a string
 	write "Length of string: ";	write str;	write " = ";	writeline len;
-
-type integer factvar = fact(len);
-
+type integer factvar = fact(len); \\factorial of string length
 	write "factorial: ";	writeline factvar;
-
-type integer LenFact = Inlength(factvar);
-
+type integer LenFact = Inlength(factvar);\\number of digits in factorial
 	write "Number of digit in facrotial: ";	writeline LenFact;
+				\\random number in the range from - number of digits in the factorial
+				\\to number of digits in the factorial
+type integer position = random(LenFact); 
 
-type integer position = random(LenFact);
-
-	while position & 0
+	while position & 0	\\ while the number is not different from zero we generate a number
 		do
 		[
 			position = random(LenFact);
 		]
 	write "position generated before cheking: ";	writeline position;
-
-	is position > 0
+	is position > 0						 \\if the position is negative change the sign 
 		false[position = (-position);]
-
 	write "position generated after cheking: ";
 	writeline position;
-
-type integer tempPos = LenFact - position;
-type integer digit = getDigit(factvar,tempPos);
-
+type integer tempPos = LenFact - position; 
+type integer digit = getDigit(factvar,tempPos); \\the output of the digit standing on the position
+												\\obtained by randomization function
 	write "The digit on position: ";	write position; writeline " is:";
 	writeline digit;
 }

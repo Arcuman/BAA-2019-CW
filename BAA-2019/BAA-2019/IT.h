@@ -20,8 +20,8 @@
 
 namespace IT			// таблица идентификаторов
 {
-	enum IDDATATYPE { INT = 1, STR = 2, SYM =3, UNDEF };								//типы данных идентификаторов: числовой, строковый, неопределенный
-	enum IDTYPE { V = 1, F = 2, P = 3, L = 4, S = 5 };									//типы идентификаторов: V = переменная, F = функция, P =параметр, L =литерал, S = стандартная функция
+	enum IDDATATYPE { INT = 1, STR = 2, SYM =3,PROC =4, UNDEF };								//типы данных идентификаторов: числовой, строковый,символьный неопределенный
+	enum IDTYPE { V = 1, F = 2, P = 3, L = 4, S = 5, Z = 6 };									//типы идентификаторов: V = переменная, F = функция, P =параметр, L =литерал, S = стандартная функция Z - знак
 	enum STDFNC { F_POW,F_POWER, F_RANDOM, F_LENGTH, F_NOT_STD };											//стандартные функции
 	static const IDDATATYPE POW_PARAMS[] = { IT::IDDATATYPE::INT, IT::IDDATATYPE::INT };//параметры функции  											//параметры функции 											//параметры функции
 	static const IDDATATYPE RANDOM_PARAMS[] = { IT::IDDATATYPE::INT };//параметры функции  											//параметры функции 											//параметры функции

@@ -3,7 +3,7 @@
 
 #define LEX_SEPARATORS	 'S'	// разделители
 #define	LEX_ID_TYPE    	 't'	// типы данных		
-#define	LEX_STDFUNC    	 'p'	// типы данных		
+#define	LEX_STDFUNC    	 'p'	// стандартные библиотеки		
 #define	LEX_ID			 'i'	// идентификаторы		
 #define	LEX_LITERAL		 'l'	// литералы		
 #define	LEX_FUNCTION     'f'	// function		
@@ -19,27 +19,29 @@
 #define	LEX_PLUS		 '+'	// сложение	
 #define	LEX_MINUS		 '-'	// вычитание
 #define	LEX_STAR		 '*'	// умножение
-#define	LEX_INCR		 ':'	// инкримент
+#define	LEX_INCR		 ':'	// сокращенная форма записи
 #define LEX_DIRSLASH	 '/'	// деление
 #define LEX_PROCENT		 '%'	// остаток от деления
 #define	LEX_EQUAL		 '='	// присваивание				
-#define LEX_IS			 '?'	// if:
-#define LEX_TILDA		 '~'	// if:
-#define LEX_WHILE		 'c'	// while:
+#define LEX_IS			 '?'	// is
+#define LEX_TILDA		 '~'	// отрицательный идентификатор
+#define LEX_WHILE		 'c'	// while
 #define LEX_ISTRUE		 'r'	// ложный блок
 #define LEX_ISFALSE		 'w'	// истинный блок
 #define LEX_DO			 'd'	// do
 #define LEX_WRITE		 'o'	// вывод
-#define LEX_NEWLINE		 '^'	// перевод строки
+#define LEX_NEWLINE		 '^'	// вывод с переводом строки
 #define LEX_RETURN		 'e'	// выход из функции
+#define LEX_VOID		 'g'	// void
 #define LEX_TYPE		 'n'	// объявления переменных
 #define LEX_MORE		 '>'	// проверка на больше
 #define LEX_LESS		 '<'	// проверка на меньше
 #define LEX_EQUALS		 '&'	// проверка на равенство
+#define LEX_SUBST		 '@'	// вызов функции в польской записи 
 #define LEX_NOTEQUALS	 '!'	// проверка на неравенство
 #define	LEXEMA_FIXSIZE   1	        //размер лексемы
 #define	LT_MAXSIZE		 4096	    //максимальное количество строк в ТЛ
-#define LEX_SUBST		'@'
+
 #define	NULLDX_TI	 0xffffffff	//нет элемента ТИ
 namespace LT		// таблица лексем
 {

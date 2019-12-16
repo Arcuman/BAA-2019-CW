@@ -1,10 +1,10 @@
 #pragma once
 #include "FST.h"
-#define N_GRAPHS 23
+#define N_GRAPHS 25
 
 // графы переходов 
 #define GRAPH_SEPARATORS 2,\
-	FST::NODE(19,\
+	FST::NODE(18,\
 			FST::RELATION(';',1), FST::RELATION('=',1),\
 			FST::RELATION(',',1), FST::RELATION('{',1),\
 			FST::RELATION('}',1), FST::RELATION('(',1),\
@@ -12,11 +12,14 @@
 			FST::RELATION(')',1), FST::RELATION('*',1),\
 			FST::RELATION('+',1), FST::RELATION('-',1),\
 		    FST::RELATION('/',1),FST::RELATION('<',1),\
-			FST::RELATION('>',1),FST::RELATION(':',1),\
+			FST::RELATION('>',1),\
 			FST::RELATION('&',1),\
 			FST::RELATION('!',1), FST::RELATION('%',1)),\
 	FST::NODE()
-
+#define GRAPH_INKR 3,\
+	FST::NODE(1,FST::RELATION(':',1)),\
+	FST::NODE(4,FST::RELATION('+',2),FST::RELATION('-',2),FST::RELATION('/',2),FST::RELATION('*',2)),\
+	FST::NODE()
 
 #define GRAPH_ID 3, \
 	FST::NODE(104,	\
@@ -314,4 +317,11 @@
 	FST::NODE(1,FST::RELATION('y',2)),\
 	FST::NODE(1,FST::RELATION('p',3)),\
 	FST::NODE(1,FST::RELATION('e',4)),\
+	FST::NODE()
+
+#define GRAPH_VOID 5, \
+	FST::NODE(1, FST::RELATION('v',1)),\
+	FST::NODE(1, FST::RELATION('o',2)),\
+	FST::NODE(1, FST::RELATION('i',3)),\
+	FST::NODE(1, FST::RELATION('d',4)),\
 	FST::NODE()

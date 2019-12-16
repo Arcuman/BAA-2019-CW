@@ -5,6 +5,7 @@
 #define TYPE_STRING		"string"
 #define TYPE_SYMBOL		"symbol"
 #define RANDOM			"random"
+#define TYPE_VOID		"void"
 #define MAIN			"main"
 #define POW				"pow"
 #define LENGHT			"lenght"
