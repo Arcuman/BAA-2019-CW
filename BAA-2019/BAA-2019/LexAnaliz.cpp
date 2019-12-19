@@ -89,6 +89,8 @@ namespace Lex
 	}
 	IT::IDDATATYPE getType(char* curword, char* idtype)
 	{
+		if(idtype == nullptr)
+			return IT::IDDATATYPE::UNDEF;
 		if (!strcmp(TYPE_SYMBOL, idtype))
 			return IT::IDDATATYPE::SYM; // символьный ид
 		if (!strcmp(TYPE_VOID, idtype))
@@ -388,6 +390,8 @@ namespace Lex
 						}
 						char* idtype = (isFunc && i > 1) ?						// тип идентификатора
 							in.words[i - 2].word : in.words[i - 1].word;		// пропускаем ключевое слово function
+						if (i == 0)
+							idtype = nullptr;
 						if (!isFunc && !scopes.empty())
 							strncpy_s(id, scopes.top(), ID_MAXSIZE);
 						strncat(id, curword, ID_MAXSIZE);

@@ -228,7 +228,7 @@ namespace Semantic
 				}
 				if (!flag)
 				{
-					// строка или неизвестный ид в условии
+					// неизвестный ид в условии
 					Log::WriteError(log.stream, Error::geterrorin(317, tables.lextable.table[i].sn, 0));
 					sem_ok = false;
 				}

@@ -5,24 +5,30 @@ namespace Error
 	{
 		ERROR_ENTRY(0, "Ñèñòåìíàÿ îøèáêà: Íåäîïóñòèìûé êîä îøèáêè"),
 		ERROR_ENTRY(1, "Ñèñòåìíàÿ îøèáêà: Ñèñòåìíûé ñáîé"),
+		#pragma region A
 		ERROR_ENTRY_NODEF(2), ERROR_ENTRY_NODEF(3), ERROR_ENTRY_NODEF(4), ERROR_ENTRY_NODEF(5),
 		ERROR_ENTRY_NODEF(6), ERROR_ENTRY_NODEF(7), ERROR_ENTRY_NODEF(8), ERROR_ENTRY_NODEF(9),
 		ERROR_ENTRY_NODEF10(10), ERROR_ENTRY_NODEF10(20), ERROR_ENTRY_NODEF10(30), ERROR_ENTRY_NODEF10(40),
 		ERROR_ENTRY_NODEF10(50), ERROR_ENTRY_NODEF10(60), ERROR_ENTRY_NODEF10(70), ERROR_ENTRY_NODEF10(80), ERROR_ENTRY_NODEF10(90),
+		#pragma endregion A
 		ERROR_ENTRY(100, "Ñèñòåìíàÿ îøèáêà: Ïàğàìåòğ -in äîëæåí áûòü çàäàí"),
 		ERROR_ENTRY(101, "Ñèñòåìíàÿ îøèáêà: Ïğåâûøåíà äëèíà âõîäíîãî ïàğàìåòğà"),
 		ERROR_ENTRY(102, "Ñèñòåìíàÿ îøèáêà: Îøèáêà ïğè îòêğûòèè ôàéëà ñ èñõîäíûì êîäîì(-in)"),
 		ERROR_ENTRY(103, "Ñèñòåìíàÿ îøèáêà: Îøèáêà ïğè ñîçäàíèè ôàéëà ïğîòîêîëà(-log)"),
+		#pragma region B
 		ERROR_ENTRY_NODEF(104), ERROR_ENTRY_NODEF(105), ERROR_ENTRY_NODEF(106), ERROR_ENTRY_NODEF(107), ERROR_ENTRY_NODEF(108), ERROR_ENTRY_NODEF(109),
 		ERROR_ENTRY_NODEF10(110), ERROR_ENTRY_NODEF10(120), ERROR_ENTRY_NODEF10(130), ERROR_ENTRY_NODEF10(140),
 		ERROR_ENTRY_NODEF10(150), ERROR_ENTRY_NODEF10(160), ERROR_ENTRY_NODEF10(170), ERROR_ENTRY_NODEF10(180), ERROR_ENTRY_NODEF10(190),
+		#pragma endregion B
 		ERROR_ENTRY(200, "Ëåêñè÷åñêàÿ îøèáêà: Íåäîïóñòèìûé ñèìâîë â èñõîäíîì ôàéëå(-in)"),
 		ERROR_ENTRY(201, "Ëåêñè÷åñêàÿ îøèáêà: Íåèçâåñòíàÿ ïîñëåäîâàòåëüíîñòü ñèìâîëîâ"),
 		ERROR_ENTRY(202, "Ëåêñè÷åñêàÿ îøèáêà: Ïğåâûøåí ğàçìåğ òàáëèöû ëåêñåì"),
 		ERROR_ENTRY(203, "Ëåêñè÷åñêàÿ îøèáêà: Ïğåâûøåí ğàçìåğ òàáëèöû èäåíòèôèêàòîğîâ"),
+		#pragma region C
 		ERROR_ENTRY_NODEF(204), ERROR_ENTRY_NODEF(205), ERROR_ENTRY_NODEF(206), ERROR_ENTRY_NODEF(207), ERROR_ENTRY_NODEF(208), ERROR_ENTRY_NODEF(209),
 		ERROR_ENTRY_NODEF10(210), ERROR_ENTRY_NODEF10(220), ERROR_ENTRY_NODEF10(230), ERROR_ENTRY_NODEF10(240),
 		ERROR_ENTRY_NODEF10(250), ERROR_ENTRY_NODEF10(260), ERROR_ENTRY_NODEF10(270), ERROR_ENTRY_NODEF10(280), ERROR_ENTRY_NODEF10(290),
+		#pragma endregion C
 		ERROR_ENTRY(300, "Ñåìàíòè÷åñêàÿ îøèáêà: Íåîáúÿâëåííûé èäåíòèôèêàòîğ"),
 		ERROR_ENTRY(301, "Ñåìàíòè÷åñêàÿ îøèáêà: Îòñóòñòâóåò òî÷êà âõîäà main"),
 		ERROR_ENTRY(302, "Ñåìàíòè÷åñêàÿ îøèáêà: Îáíàğóæåíî íåñêîëüêî òî÷åê âõîäà main"),
@@ -44,9 +50,13 @@ namespace Error
 		ERROR_ENTRY(318, "Ñåìàíòè÷åñêàÿ îøèáêà: Äåëåíèå íà íîëü"),
 		ERROR_ENTRY(319, "Ñåìàíòè÷åñêàÿ îøèáêà: Íåäîïóñòèìîå èìÿ ïåğåìåííîé,èñïîëüçîâàíèå êëş÷åâîãî ñëîâà"),
 		ERROR_ENTRY(320, "Ñåìàíòè÷åñêàÿ îøèáêà: Íåäîïóñòèì return â main"),
-		ERROR_ENTRY_NODEF10(321),ERROR_ENTRY_NODEF10(330),ERROR_ENTRY_NODEF10(340),ERROR_ENTRY_NODEF10(350),
+		#pragma region D
+		ERROR_ENTRY_NODEF(321), ERROR_ENTRY_NODEF(322), ERROR_ENTRY_NODEF(323), ERROR_ENTRY_NODEF(324), ERROR_ENTRY_NODEF(325),
+		ERROR_ENTRY_NODEF(326),	ERROR_ENTRY_NODEF(327), ERROR_ENTRY_NODEF(328), ERROR_ENTRY_NODEF(329),
+		ERROR_ENTRY_NODEF10(330),ERROR_ENTRY_NODEF10(340),ERROR_ENTRY_NODEF10(350),
 		ERROR_ENTRY_NODEF10(360),ERROR_ENTRY_NODEF10(370),ERROR_ENTRY_NODEF10(380),ERROR_ENTRY_NODEF10(390),
 		ERROR_ENTRY_NODEF100(400), ERROR_ENTRY_NODEF100(500),
+		#pragma endregion D
 		ERROR_ENTRY(600, "Ñèíòàêñè÷åñêàÿ îøèáêà: Íåâåğíàÿ ñòğóêòóğà ïğîãğàììû"),
 		ERROR_ENTRY(601, "Ñèíòàêñè÷åñêàÿ îøèáêà: Íå íàéäåí ñïèñîê ïàğàìåòğîâ ôóíêöèè"),
 		ERROR_ENTRY(602, "Ñèíòàêñè÷åñêàÿ îøèáêà: Îøèáêà â òåëå ôóíêöèè"),
@@ -74,8 +84,8 @@ namespace Error
 		ERROR error_info;												// ñîçäàíèå ñòğóêòóğû êîòîğóş íàäî áóäåò âåğíóòü
 		if (id > 0 && id < ERROR_MAX_ENTRY)						// ñğàâíèâàíèå äèàïàçîíà
 		{
-			error_info.id = errors[id+1].id;
-			strcpy_s(error_info.message, errors[id+1].message);
+			error_info.id = errors[id].id;
+			strcpy_s(error_info.message, errors[id].message);
 			error_info.position.col = -1;
 			error_info.position.line = -1;
 		}

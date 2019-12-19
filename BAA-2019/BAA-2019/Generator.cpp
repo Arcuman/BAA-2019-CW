@@ -372,15 +372,11 @@ namespace Gener
 				}
 				switch (LEXEMA(i + 2))
 				{
-					//Инструкция JG выполняет короткий переход, если первый операнд БОЛЬШЕ второго операнда при выполнении операции сравнения с помощью команды CMP
-					//jl если первый операнд меньше второго
-					//Инструкция JZ выполняет короткий переход, если первый операнд РАВЕН второму операнду при выполнении операции сравнения с помощью команды CMP
-					//jnz если не равны
 				case LEX_MORE:
-					right = "jg";  wrong = "jl";
+					right = "jg";  wrong = "jle";
 					break;
 				case LEX_LESS:
-					right = "jl";  wrong = "jg";
+					right = "jl";  wrong = "jge";
 					break;
 				case LEX_EQUALS:
 					right = "jz";  wrong = "jnz";
@@ -480,10 +476,10 @@ namespace Gener
 				switch (LEXEMA(i + 2))
 				{
 				case LEX_MORE:
-					right = "jg";  wrong = "jl";
+					right = "jg";  wrong = "jle";
 					break;
 				case LEX_LESS:
-					right = "jl";  wrong = "jg";
+					right = "jl";  wrong = "jge";
 					break;
 				case LEX_EQUALS:
 					right = "jz";  wrong = "jnz";

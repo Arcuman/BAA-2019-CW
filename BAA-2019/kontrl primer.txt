@@ -1,8 +1,7 @@
-
 integer function fact(integer N)
 {
 type integer newN = N - 1;
-	is N<0
+	is N&0
 		true [return 1;]
 		false
 		[
@@ -39,7 +38,10 @@ return answer;
 main{
 type string str = "Hello world"; \\ Declaring and initializing string
 type integer len = lenght(str); \\ Finding the length of a string
-	write "Length of string: ";	write str;	write " = ";	writeline len;
+	write "Length of string: ";
+	write str;
+	write " = ";
+	writeline len;
 type integer factvar = fact(len); \\factorial of string length
 	write "factorial: ";	writeline factvar;
 type integer LenFact = Inlength(factvar);\\number of digits in factorial
