@@ -57,7 +57,7 @@ namespace Gener
 		stack<string> stk;
 		stack<IT::Entry> temp;
 		string cyclecode = "", func_name = "";					// имя локальной функции
-		bool flag_cycle = false,					// внутри локальной функции?
+		bool flag_cycle = false,					// внутри цикла?
 			flag_main = false,
 			flag_is = false,					// is
 			flag_true = false,					

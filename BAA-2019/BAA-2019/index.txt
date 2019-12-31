@@ -1,68 +1,10 @@
-integer function fact(integer N)
+main
 {
-type integer newN = N - 1;
-	is N&0
-		true [return 1;]
-		false
-		[
-			N = N * fact(newN);
-			return N;
-		]
-return 1;
-}
-
-integer function Inlength(integer num)
-{
-type integer len = 0;
-type integer tempNum = num;
-type integer degree = 1;
-	while tempNum ! 0
-		do
-		[
-			tempNum = num / pow(10,degree);
-			degree++1;
-		]
-len = degree - 1;
-return len;
-}
-
-integer function getDigit(integer num,integer posit)
-{
-type integer answer ;
-type integer tempNum = num;
-	tempNum = num / pow(10,posit);
-	answer = tempNum % 10;
-return answer;
-}
-
-main{
-type string str = "Hello world"; \\ Declaring and initializing string
-type integer len = lenght(str); \\ Finding the length of a string
-	write "Length of string: ";
-	write str;
-	write " = ";
-	writeline len;
-type integer factvar = fact(len); \\factorial of string length
-	write "factorial: ";	writeline factvar;
-type integer LenFact = Inlength(factvar);\\number of digits in factorial
-	write "Number of digit in facrotial: ";	writeline LenFact;
-				\\random number in the range from - number of digits in the factorial
-				\\to number of digits in the factorial
-type integer position = random(LenFact); 
-
-	while position & 0	\\ while the number is not different from zero we generate a number
-		do
-		[
-			position = random(LenFact);
-		]
-	write "position generated before cheking: ";	writeline position;
-	is position > 0						 \\if the position is negative change the sign 
-		false[position = (-position);]
-	write "position generated after cheking: ";
-	writeline position;
-type integer tempPos = LenFact - position; 
-type integer digit = getDigit(factvar,tempPos); \\the output of the digit standing on the position
-												\\obtained by randomization function
-	write "The digit on position: ";	write position; writeline " is:";
-	writeline digit;
+type integer i = 1;
+while i < 10
+do
+[
+writeline "Jora JOra";
+i++1;
+]
 }

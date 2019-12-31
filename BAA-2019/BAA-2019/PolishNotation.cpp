@@ -33,7 +33,7 @@ namespace Polish
 		queue<LT::Entry> queue;														// очередь для операндов
 		LT::Entry temp;		temp.idxTI = -1;	temp.lexema = '#';	temp.sn = -1;	// запрещенная лексема, все лишние элементы будут заменяться на нее
 		LT::Entry func;		func.idxTI = -1;	func.lexema = '@';	func.sn = -1;	// лексема для вызова функции
-		LT::Entry tilda;	tilda.idxTI = -1;	tilda.lexema = '~';	tilda.sn = -1;	// лексема для вызова функции
+		LT::Entry tilda;	tilda.idxTI = -1;	tilda.lexema = '~';	tilda.sn = -1;	// лексема для отрицательных
 		int countLex = 0;															// количество преобразованных лексем
 		int countParm = -1;															// количество параметров функции
 		int posLex = lextable_pos;																// запоминаем номер лексемы перед преобразованием
@@ -166,7 +166,5 @@ namespace Polish
 		}
 		return lex.lextable.size;
 	}
-
-
 }
 

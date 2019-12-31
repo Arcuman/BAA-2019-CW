@@ -1,0 +1,2 @@
+main{type string i = "sdj;
+}

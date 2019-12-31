@@ -1,0 +1,2 @@
+cd /d D:\БГТУ 2 курс\ЯП\BAA-2019v1\BAA-2019\Debug
+ml /с "D:\БГТУ 2 курс\ЯП\BAA-2019v1\BAA-2019\Debug\asm.asm"

@@ -9,6 +9,7 @@ namespace Semantic
 		{
 			switch (tables.lextable.table[i].lexema)
 			{
+				//В объявлении не указан тип идентификатора
 			case LEX_TYPE:
 			{
 				if (tables.lextable.table[i + 1].lexema != LEX_ID_TYPE)
@@ -18,9 +19,9 @@ namespace Semantic
 				}
 				break;
 			}
+			//ипы данных в выражении не совпадают
 			case LEX_INCR:
 			{
-
 				IT::Entry e = tables.idtable.table[tables.lextable.table[i-1].idxTI];
 				if (e.iddatatype != IT::IDDATATYPE::INT || tables.idtable.table[tables.lextable.table[i + 1].idxTI].iddatatype != IT::IDDATATYPE::INT)
 				{
@@ -31,6 +32,7 @@ namespace Semantic
 					break;
 
 			}
+			//Деление на ноль
 			case LEX_DIRSLASH:
 			case LEX_PROCENT:
 			{

@@ -1,0 +1,5 @@
+main{
+type integer i = 123456789;
+i**-1000;
+writeline i;
+}

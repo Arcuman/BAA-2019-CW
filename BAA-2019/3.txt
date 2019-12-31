@@ -1,0 +1,4 @@
+integer function func(integer a)
+{return 1;}
+main{
+type integer i = func(1,2);}

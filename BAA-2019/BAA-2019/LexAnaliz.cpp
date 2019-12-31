@@ -30,7 +30,7 @@ namespace Lex
 		{ LEX_ISTRUE, FST::FST(GRAPH_ISTRUE) },
 		{ LEX_ID, FST::FST(GRAPH_ID) }
 	};
-	char* getScopeName(IT::IdTable idtable, char* prevword) // им€ текущей области видимости (если находимс€ внутри блока)
+	char* getScopeName(IT::IdTable idtable, char* prevword) 
 	{
 		char *a = new char[5];
 		a = (char*)"main\0";
@@ -104,7 +104,7 @@ namespace Lex
 		else if (*curword == IN_CODE_QUOTE)
 			return IT::IDDATATYPE::STR;	// строковый литерал
 		else if (*curword == IN_CODE_TILDA)
-			return IT::IDDATATYPE::SYM;	// строковый литерал
+			return IT::IDDATATYPE::SYM;	// символьный литерал
 
 		return IT::IDDATATYPE::UNDEF;		// неопределенный тип, индикатор ошибки
 	}
@@ -255,7 +255,7 @@ namespace Lex
 
 		if (i > 1 && itentry->idtype == IT::IDTYPE::V && tables.lextable.table[i - 2].lexema != LEX_TYPE)
 		{
-			// в объ€влении отсутствует ключевое слово new
+			// в объ€влении отсутствует ключевое слово type
 			Log::WriteError(log.stream, Error::geterrorin(304, line, 0));
 			lex_ok = false;
 		}

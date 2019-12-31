@@ -1,0 +1,3 @@
+main{
+type integer i = 10 / (3-3);
+}

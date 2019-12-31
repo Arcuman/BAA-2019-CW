@@ -22,17 +22,17 @@ int _tmain(int argc, _TCHAR ** argv)
 	{
 		Parm::PARM parm = Parm::getparm(argc, argv);
 		log = Log::getlog(parm.log);
-		Log::WriteLog(log);													//написать заголовок журнала
-		Log::WriteParm(log, parm);											//записать в журнал параметры
+		Log::WriteLog(log);												
+		Log::WriteParm(log, parm);										
 		In::IN in = In::getin(parm.in,log.stream);
 		Log::WriteIn(log, in);
-		in.words = In::getWordsTable(log.stream, in.text, in.code, in.size);	//разобрать на токены
+		in.words = In::getWordsTable(log.stream, in.text, in.code, in.size);	
 		In::printTable(in.words);
 		Lex::LEX tables;
-		bool lex_ok = Lex::analyze(tables, in, log, parm);					//выполнить лексический анализ
+		bool lex_ok = Lex::analyze(tables, in, log, parm);					
 		
-		LT::writeLexTable(log.stream, tables.lextable);							//записать в журнал таблицы лексем и идентификаторов 
-		IT::writeIdTable(log.stream, tables.idtable);							//а также соответствие токенов и лексем
+		LT::writeLexTable(log.stream, tables.lextable);							
+		IT::writeIdTable(log.stream, tables.idtable);							
 		LT::writeLexemsOnLines(log.stream, tables.lextable);
 		if (!lex_ok)
 		{
@@ -46,10 +46,10 @@ int _tmain(int argc, _TCHAR ** argv)
 		}
 
 		MFST_TRACE_START(log.stream);
-		MFST::Mfst mfst(tables, GRB::getGreibach());							//выполнить синтаксический анализ
+		MFST::Mfst mfst(tables, GRB::getGreibach());							
 		bool synt_ok = mfst.start(log);
 		mfst.savededucation();
-		mfst.printrules(log);													//вывести дерево разбора
+		mfst.printrules(log);													
 		if (!synt_ok)
 		{
 			Log::WriteLine(log, SYNTERROR, "");
@@ -58,7 +58,7 @@ int _tmain(int argc, _TCHAR ** argv)
 		}
 		else Log::WriteLineConsole(SYNTGOOD, "");
 
-		bool sem_ok = Semantic::semanticsCheck(tables, log);					//выполнить семантический анализ
+		bool sem_ok = Semantic::semanticsCheck(tables, log);					
 		if (!sem_ok)
 		{
 			Log::WriteLine(log, SEMERROR, "");
@@ -66,7 +66,7 @@ int _tmain(int argc, _TCHAR ** argv)
 			return 0;
 		}
 
-		tables.lextable.size = Polish::searchExpression(tables);		//выполнить преобразование выражений в ПОЛИЗ
+		tables.lextable.size = Polish::searchExpression(tables);		
 		if (tables.lextable.size == 0)
 		{
 			Log::WriteLine(log, POLISHERROR, "");
@@ -76,15 +76,15 @@ int _tmain(int argc, _TCHAR ** argv)
 		else Log::WriteLineConsole(POLISHGOOD,""); 
 
 		Log::WriteLine(log, MESSAGE, "");
-		LT::writeLexTable(log.stream, tables.lextable);							//записать в журнал новые таблицы лексем и идентификаторов
+		LT::writeLexTable(log.stream, tables.lextable);							
 		IT::writeIdTable(log.stream, tables.idtable);
-		LT::writeLexemsOnLines(log.stream, tables.lextable);					//а также соответствие токенов и лексем
+		LT::writeLexemsOnLines(log.stream, tables.lextable);					
 		Log::WriteLineConsole(MESSAGE, "");
-		IT::writeIdTable(&std::cout, tables.idtable);							//записать в командную строку новые таблицы лексем и идентификаторов 
-		LT::writeLexTable(&std::cout, tables.lextable);							//а также соответствие токенов и лексем
+		IT::writeIdTable(&std::cout, tables.idtable);							
+		LT::writeLexTable(&std::cout, tables.lextable);							
 		LT::writeLexemsOnLines(&std::cout, tables.lextable);
 
-		bool gen_ok = Gener::CodeGeneration(tables, parm, log);								//выполнить генерацию кода
+		bool gen_ok = Gener::CodeGeneration(tables, parm, log);							
 		if (!gen_ok)
 		{
 			Log::WriteLine(log, SEMERROR, "");
@@ -92,7 +92,7 @@ int _tmain(int argc, _TCHAR ** argv)
 			return 0;
 		}
 		else Log::WriteLineConsole(SEMGOOD, "");
-		Log::WriteLine(log, ALLGOOD, "");									//итог работы программы
+		Log::WriteLine(log, ALLGOOD, "");								
 		Log::WriteLineConsole(ALLGOOD, "");
 		Log::Close(log);
 		system("pause");

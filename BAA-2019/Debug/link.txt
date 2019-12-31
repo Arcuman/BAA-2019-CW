@@ -1,0 +1,1 @@
+link "D:\БГТУ 2 курс\ЯП\BAA-2019v1\BAA-2019\Debug\asm.obj" /DYNAMICBASE "D:\БГТУ 2 курс\ЯП\BAA-2019v1\BAA-2019\Debug\BAAlib.lib" /SUBSYSTEM:console /out:go.exe

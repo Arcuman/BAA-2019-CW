@@ -1,7 +1,4 @@
 #include "pch.h"
-
-
-
 namespace In
 {
 
@@ -34,7 +31,7 @@ namespace In
 			case IN::S: // символы 
 			case IN::K: // символы 
 			case IN::Q: // кавычки
-			case IN::QQ: //кавычки одинарные 
+			case IN::QQ: //тильда
 				text[in.size++] = uch;
 				break;
 			case IN::F: // недопустимый символ в исходном файле

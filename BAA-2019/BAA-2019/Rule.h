@@ -94,7 +94,7 @@ Rule(NS('K'), GRB_ERROR_SERIES + 12, 22,							// Недопустимая синтаксическая ко
 
 	Rule::Chain(4, TS('o'), NS('V'), TS(';'), NS('K')),				// вывод
 	Rule::Chain(4, TS('^'), NS('V'), TS(';'), NS('K')),						// перевод строки
-	Rule::Chain(4, TS('?'), NS('Z'), NS('R'), NS('K')),				// if
+	Rule::Chain(4, TS('?'), NS('Z'), NS('R'), NS('K')),				// is
 	Rule::Chain(5, TS('c'), NS('Z'), TS('d'), NS('H'), NS('K')),						// while
 	Rule::Chain(6, TS('i'), TS('='), TS('U'), NS('F'), TS(';'), NS('K')),	// присваивание c помощью вызова функции 
 
@@ -107,8 +107,8 @@ Rule(NS('K'), GRB_ERROR_SERIES + 12, 22,							// Недопустимая синтаксическая ко
 	Rule::Chain(4, TS('n'), TS('t'), TS('i'), TS(';')),				// декларация
 	Rule::Chain(3, TS('o'), NS('V'), TS(';')),						// вывод
 	Rule::Chain(3, TS('^'), NS('V'), TS(';')),								// перевод строки
-	Rule::Chain(3, TS('?'), NS('Z'), NS('R')),						// if
-	Rule::Chain(4, TS('c'), NS('Z'), TS('d'), NS('H')),				// while				// while
+	Rule::Chain(3, TS('?'), NS('Z'), NS('R')),						// is
+	Rule::Chain(4, TS('c'), NS('Z'), TS('d'), NS('H')),				// while			
 	Rule::Chain(5, TS('i'), TS('='), TS('U'), NS('F'), TS(';'))	,	// присваивание c помощью вызова функции
 	Rule::Chain(3, TS('i'), NS('F'), TS(';'))			// вызов функции
 ),
@@ -142,7 +142,7 @@ Rule(NS('B'), GRB_ERROR_SERIES + 14, 4,						// Ошибка при конструировании услов
 	Rule::Chain(5, TS('?'), NS('Z'), NS('R'), NS('X'), NS('B')),
 	Rule::Chain(4, TS('?'), NS('Z'), NS('R'), NS('B'))
 ),
-Rule(NS('V'), GRB_ERROR_SERIES + 15, 2,						// Правила для простых выражений	
+Rule(NS('V'), GRB_ERROR_SERIES + 15, 2,						// Правила для идентификаторов или литералов	
 	Rule::Chain(1, TS('i')),
 	Rule::Chain(1, TS('l'))
 ),
@@ -155,15 +155,16 @@ Rule(NS('U'), GRB_ERROR_SERIES + 3, 2,						// Правила для идентификатора функци
 	Rule::Chain(1, TS('i')),
 	Rule::Chain(1, TS('p'))
 ),
+Rule(NS('G'), GRB_ERROR_SERIES + 2, 2,						// ошибка в теле процедуры
+	Rule::Chain(4, TS('{'), TS('e'), TS(';'), TS('}')),
+	Rule::Chain(5, TS('{'), NS('K'), TS('e'), TS(';'), TS('}'))
+),
 Rule(NS('H'), GRB_ERROR_SERIES + 17, 3,						// ошибка в теле цикла	
 	Rule::Chain(4, TS('['), NS('X'), NS('B'), TS(']')),
 		Rule::Chain(3, TS('['), NS('B'), TS(']')),
 		Rule::Chain(3, TS('['), NS('X'), TS(']'))
-	),
-		Rule(NS('G'), GRB_ERROR_SERIES + 2, 2,						// ошибка в теле процедуры
-			Rule::Chain(4, TS('{'), TS('e'), TS(';'), TS('}')),
-			Rule::Chain(5, TS('{'), NS('K'), TS('e'), TS(';'), TS('}'))
-		)
+	)
+		
 
 );
 }
